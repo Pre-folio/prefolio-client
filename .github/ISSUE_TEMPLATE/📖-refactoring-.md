@@ -1,5 +1,5 @@
 ---
-name: "\U0001F4D6[issue]"
+name: "\U0001F4D6[refactoring]"
 about: 프로젝트에서 발생한 이슈를 작성하는 템플릿입니다.
 title: ''
 labels: ''
