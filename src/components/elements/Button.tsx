@@ -17,7 +17,7 @@ interface IButton {
 export function Button({ type, color, content, onClick }: ButtonProps) {
   return type === 'big' ? (
     // 버튼_대는 mint color 밖에 없음
-    <BigButton color="mint" onClick={onClick}>
+    <BigButton color={color} onClick={onClick}>
       {content || '시작하기'}
     </BigButton>
   ) : type === 'medium' ? (
@@ -26,7 +26,7 @@ export function Button({ type, color, content, onClick }: ButtonProps) {
     </MediumButton>
   ) : type === 'small' ? (
     // 버튼_소는 white color 밖에 없음
-    <SmallButton color="white" onClick={onClick}>
+    <SmallButton color={color} onClick={onClick}>
       {content || '이미지 업로드'}
     </SmallButton>
   ) : type === 'popup' ? (
