@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
+
 
   html,
   body {
@@ -29,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: black;
   }
+
 `;
 
 export default GlobalStyle;

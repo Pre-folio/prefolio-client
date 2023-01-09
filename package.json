@@ -38,9 +38,11 @@
     "@storybook/manager-webpack4": "^6.5.15",
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
+    "@types/react-datepicker": "^4.8.0",
     "@types/styled-components": "^5.1.26",
     "babel-loader": "^8.3.0",
     "babel-plugin-styled-components": "^2.0.7",
-    "eslint-plugin-storybook": "^0.6.8"
+    "eslint-plugin-storybook": "^0.6.8",
+    "react-datepicker": "^4.8.0"
   }
 }
