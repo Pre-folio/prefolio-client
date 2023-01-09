@@ -6,6 +6,7 @@ interface TagProps {
   color?: string;
   content?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  isClicked?: boolean;
 }
 
 interface ITag {
