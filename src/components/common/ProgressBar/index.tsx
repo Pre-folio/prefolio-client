@@ -1,8 +1,8 @@
 import { Slider } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { shadow, theme } from '../../styles/theme';
-import { Row } from './Wrapper';
+import { shadow, theme } from '../../../styles/theme';
+import { Row } from '../Wrapper';
 
 const SliderBar = styled(Slider)<{ progress: number | number[] }>((props) =>
   props.progress

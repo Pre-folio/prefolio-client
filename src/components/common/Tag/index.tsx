@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { shadow, theme } from '../../styles/theme';
+import { shadow, theme } from '../../../styles/theme';
 
 interface TagProps {
   type: 'activity' | 'field';

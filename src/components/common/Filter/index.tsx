@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { shadow, theme } from '../../styles/theme';
-import { CheckIcon } from '../Icons/CheckIcon';
-import { Row } from './Wrapper';
+import { shadow, theme } from '../../../styles/theme';
+import { Row } from '../Wrapper';
+import { CheckIcon } from '../../Icons/CheckIcon';
 
 interface FilterProps {
   type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project';

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { isLoggedInState } from '../../store/LoggedIn/loggedInState';
-import { theme } from '../../styles/theme';
-import { Logo } from '../Icons/Logo';
-import { Button } from './Button';
-import { Row } from './Wrapper';
+import { isLoggedInState } from '../../../store/LoggedIn/loggedInState';
+import { theme } from '../../../styles/theme';
+import { Row } from '../Wrapper';
+import { Logo } from '../../Icons/Logo';
+import { Button } from '../Button';
 
 export function Header() {
   const router = useRouter();

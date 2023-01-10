@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { theme } from '../../styles/theme/theme';
-import { shadow } from '../../styles/theme';
 import React from 'react';
+import { shadow, theme } from '../../../styles/theme';
 
 interface ButtonProps {
   type: 'big' | 'medium' | 'small' | 'popup';
