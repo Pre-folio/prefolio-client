@@ -15,16 +15,16 @@ Big.args = {
 };
 
 export const Medium = Template.bind({});
-Big.args = {
+Medium.args = {
   type: 'medium',
 };
 
 export const Small = Template.bind({});
-Big.args = {
+Small.args = {
   type: 'small',
 };
 
 export const Popup = Template.bind({});
-Big.args = {
+Popup.args = {
   type: 'popup',
 };

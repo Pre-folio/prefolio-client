@@ -59,8 +59,8 @@ const FilterButton = styled.button<IFilter>`
         ? theme.palette.Blue100
         : props.type === 'design'
         ? theme.palette.Purple100
-        : theme.palette.Gray40
-      : theme.palette.Black};
+        : theme.palette.Black
+      : theme.palette.Gray40};
   box-shadow: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
