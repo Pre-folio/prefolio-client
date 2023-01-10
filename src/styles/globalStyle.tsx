@@ -1,11 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
 
+
   html,
   body {
-    width: 100%;
-    height: 100%;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system,
+      BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+      'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+   
+    box-sizing: border-box;
   }
   
   #root {
@@ -23,12 +29,21 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     background-color: transparent;
     -webkit-tap-highlight-color : transparent;
+    cursor: pointer;
   }
   
   a, a:visited {
     text-decoration: none;
     color: black;
   }
+
+  button:focus {
+    outline: none;
+  }
+  input:focus {
+    outline: none;
+  }
+
 `;
 
 export default GlobalStyle;
