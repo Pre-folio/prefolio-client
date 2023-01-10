@@ -16,9 +16,9 @@ interface IFilter {
 
 export function Filter({ type, isClicked, onClick }: FilterProps) {
   return (
-    <FilterButton type={type} isClicked={isClicked} onClick={onClick}>
-      <Row justifyContent="center" alignItems="center">
-        {isClicked ? <CheckIcon /> : ''}
+    <FilterButton type={type} isClicked={isClicked} onClick={onClick} name={type}>
+      <Row justifyContent="center" alignItems="center" gap="4px">
+        {isClicked ? <CheckIcon type={type} /> : ''}
         {type === 'dev'
           ? '개발'
           : type === 'design'
