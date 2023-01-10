@@ -2,12 +2,21 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config) => {
-    // 아래를 추가합니다.
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
-      issuer: { and: [/\.(js|ts)x?$/] },
-      use: ['@svgr/webpack'],
+      issuer: { and: [/\.(js|ts|md)x?$/] },
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            prettier: false,
+            svgo: true,
+            svgoConfig: { plugins: [{ removeViewBox: false }] },
+            titleProp: true,
+          },
+        },
+      ],
     });
     return config;
   },

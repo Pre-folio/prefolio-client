@@ -27,13 +27,3 @@ Small.args = {
   padding: '14px 20px 14px 20px',
   typo: 'Body1',
 };
-
-export const Search = Template.bind({});
-Search.args = {
-  type: 'text',
-  placeholder: '내용을 입력하세요.',
-  height: 58,
-  padding: '20px 0px 20px 34px',
-  typo: 'Body1',
-  leftIcon: <SearchIcon />,
-};
