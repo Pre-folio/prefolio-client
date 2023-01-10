@@ -39,6 +39,7 @@ const FilterButton = styled.button<IFilter>`
   width: auto;
   height: 34px;
   padding: 8px 20px;
+  border-radius: 6px;
   font-size: ${theme.typo.Body1};
   background-color: ${(props) =>
     props.isClicked
@@ -53,7 +54,7 @@ const FilterButton = styled.button<IFilter>`
   color: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
-        ? theme.palette.Mint100
+        ? theme.palette.Minttext
         : props.type === 'dev'
         ? theme.palette.Blue100
         : props.type === 'design'
