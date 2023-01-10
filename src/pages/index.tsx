@@ -1,8 +1,4 @@
-import { Button } from '../components/elements/Button';
-import { Tag } from '../components/elements/Tag';
-import { Filter } from '../components/elements/Filter';
-import { Header } from '../components/elements/Header';
-import { ProgressBar } from '../components/elements/ProgressBar';
+import { Tag } from '../components/common/Tag';
 
 function Home() {
   return (
