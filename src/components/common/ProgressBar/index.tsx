@@ -100,15 +100,15 @@ export function ProgressBar() {
   };
 
   return (
-    <Row gap="24px">
+    <Row gap='24px'>
       <div style={{ width: '588px' }}>
         <SliderBar
           progress={value}
           defaultValue={20}
           value={typeof value === 'number' ? value : 10}
           onChange={handleSliderChange}
-          aria-label="custom thumb label"
-          aria-labelledby="discrete-slider"
+          aria-label='custom thumb label'
+          aria-labelledby='discrete-slider'
           style={{ height: '20px' }}
           step={10}
           marks
@@ -123,7 +123,8 @@ const ValueBox = styled.div<{ value: number | number[] }>`
   padding: 4px 10px;
   width: auto;
   height: 26px;
-  background-color: ${(props) => (props.value === 0 ? theme.palette.Gray30 : theme.palette.Navy)};
+  background-color: ${(props) =>
+    props.value === 0 ? theme.palette.Gray30 : theme.palette.Navy};
   color: ${theme.palette.White};
   font-size: ${theme.typo.Label1};
   border-radius: 4px;
