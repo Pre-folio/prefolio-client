@@ -1,36 +1,42 @@
-import { HTMLAttributes, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 import { calcRem, theme } from '../../../styles/theme';
+import { Input, InputProps } from '../Input';
+import { CalenderIcon } from '../../../assets/icons';
 
-export const DatePicker = () => {
-  const [startDate, setStartDate] = useState(new Date());
+export const DatePicker = (props: InputProps) => {
+  const [startDate, setStartDate] = useState();
+  const [color, setColor] = useState(`${theme.palette.Gray40}`);
+
+  useEffect(() => {
+    startDate
+      ? setColor(`${theme.palette.Minttext}`)
+      : setColor(`${theme.palette.Gray40}`);
+  }, [startDate]);
 
   return (
-    <div>
-      <DatePickerStyles>
-        <ReactDatePicker
-          selected={startDate}
-          onChange={(date: any) => setStartDate(date)}
-          disabledKeyboardNavigation
-          dateFormat='yyyy-MM-dd'
-          placeholderText='Select date'
-        />
-      </DatePickerStyles>
-      <DatePickerStyles>
-        <ReactDatePicker
-          selected={startDate}
-          onChange={(date: any) => setStartDate(date)}
-          showTimeSelect
-          showTimeSelectOnly
-          timeFormat='HH:mm aa'
-          timeIntervals={30}
-          timeCaption='time'
-          dateFormat='MMMM d, yyyy h:mm aa'
-        />
-      </DatePickerStyles>
-    </div>
+    <DatePickerStyles>
+      <ReactDatePicker
+        selected={startDate}
+        onChange={(date: any) => setStartDate(date)}
+        disabledKeyboardNavigation
+        dateFormat='yyyy-MM-dd'
+        placeholderText='Select date'
+        customInput={
+          <Input
+            value={startDate}
+            height={46}
+            width={486}
+            padding={'14px 20px 14px 20px'}
+            typo={'Body1'}
+            rightIcon={<CalenderIcon width={26} height={26} stroke={color} />}
+            {...props}
+          />
+        }
+      />
+    </DatePickerStyles>
   );
 };
 

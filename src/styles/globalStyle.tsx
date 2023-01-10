@@ -29,11 +29,19 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     background-color: transparent;
     -webkit-tap-highlight-color : transparent;
+    cursor: pointer;
   }
   
   a, a:visited {
     text-decoration: none;
     color: black;
+  }
+
+  button:focus {
+    outline: none;
+  }
+  input:focus {
+    outline: none;
   }
 
 `;
