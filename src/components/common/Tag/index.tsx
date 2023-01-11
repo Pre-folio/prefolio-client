@@ -26,6 +26,7 @@ export function Tag({ type, color, content, onClick }: TagProps) {
 }
 
 const ActivityTag = styled.button`
+  ${theme.typo.Label2}
   padding: 6px 10px;
   width: auto;
   height: 28px;
@@ -36,6 +37,7 @@ const ActivityTag = styled.button`
 `;
 
 const FieldTag = styled.button<ITag>`
+  ${theme.typo.Label2}
   padding: 6px 10px;
   width: auto;
   height: 28px;

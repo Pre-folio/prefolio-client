@@ -57,10 +57,14 @@ const Tab = styled.div<{
   height: 47px;
   padding-bottom: 22px;
 
-  ${({ barState }) => css`
-    color: ${barState ? `${theme.palette.Gray50}` : `${theme.palette.Gray30}`};
-    ${barState ? `${theme.typo.Heading4}` : `${theme.typo.Heading5}`}
-  `}
+  ${({ barState }) =>
+    css`
+      color: ${barState
+        ? `${theme.palette.Gray50}`
+        : `${theme.palette.Gray30}`};
+    `}
+
+  ${({ barState }) => (barState ? theme.typo.Heading4 : theme.typo.Heading5)};
 
   display: flex;
   justify-content: center;

@@ -16,8 +16,13 @@ interface IFilter {
 
 export function Filter({ type, isClicked, onClick }: FilterProps) {
   return (
-    <FilterButton type={type} isClicked={isClicked} onClick={onClick} name={type}>
-      <Row justifyContent="center" alignItems="center" gap="4px">
+    <FilterButton
+      type={type}
+      isClicked={isClicked}
+      onClick={onClick}
+      name={type}
+    >
+      <Row justifyContent='center' alignItems='center' gap='4px'>
         {isClicked ? <CheckIcon type={type} /> : ''}
         {type === 'dev'
           ? '개발'
@@ -40,7 +45,7 @@ const FilterButton = styled.button<IFilter>`
   height: 34px;
   padding: 8px 20px;
   border-radius: 6px;
-  font-size: ${theme.typo.Body1};
+  ${theme.typo.Body1};
   background-color: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
