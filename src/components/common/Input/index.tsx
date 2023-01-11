@@ -85,7 +85,6 @@ const InputWrapper = styled.div<{
   height: ${({ height }) => (height ? `${height}px` : `56px`)};
   width: ${({ width }) => (width ? `${width}px` : '100%')};
 
-  // ㅡ.ㅡ
   display: flex;
   align-items: center;
   justify-content: space-between;
