@@ -35,7 +35,10 @@ export interface PostCardProps {
 
 export const PostCard = (props: PostCardProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [iconColor, setIconColor] = useState('none');
+  const [iconFillColor, setIconFillColor] = useState('none');
+  const [iconStrokeColor, setIconStrokeColor] = useState(
+    `${theme.palette.Gray20}`
+  );
 
   const handleIconClick = (e: any) => {
     if (e.target === ref.current?.childNodes[0]) {
@@ -46,17 +49,20 @@ export const PostCard = (props: PostCardProps) => {
   };
 
   useEffect(() => {
-    console.log(props.scrapped);
-    props.scrapped
-      ? setIconColor(`${theme.palette.Red}`)
-      : setIconColor('none');
+    if (props.scrapped) {
+      setIconFillColor(`${theme.palette.Mint100}`);
+      setIconStrokeColor(`${theme.palette.Mint100}`);
+    } else {
+      setIconFillColor('none');
+      setIconStrokeColor(`${theme.palette.Gray20}`);
+    }
   }, [props.scrapped]);
 
   return (
     <PostCardWrapper>
       <MockThumbnail>
         <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
-          <ScrappIcon fill={iconColor} />
+          <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
         </ScrappIconWrapper>
       </MockThumbnail>
 
@@ -95,7 +101,7 @@ const MockThumbnail = styled.div`
   width: 282px;
   height: 158px;
 
-  background-color: ${theme.palette.Gray20};
+  background-color: ${theme.palette.Gray10};
 
   display: flex;
   justify-content: flex-end;
