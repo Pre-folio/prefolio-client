@@ -12,13 +12,13 @@ export const shadow = {
      0px 2px 6px 0px ${palette.Shadow.Button.Black};
     `,
     Green: `
-      box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Green};
+      0px 2px 6px 0px ${palette.Shadow.Button.Green};
     `,
     Blue: `
-      box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Blue};
+      0px 2px 6px 0px ${palette.Shadow.Button.Blue};
     `,
     Purple: `
-      box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Purple};
+      0px 2px 6px 0px ${palette.Shadow.Button.Purple};
     `,
   },
 };

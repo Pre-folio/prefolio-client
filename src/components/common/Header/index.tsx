@@ -40,7 +40,7 @@ export function Header() {
             }}
           />
         ) : (
-          <Row gap='16px'>
+          <Row gap="16px">
             <Button
               type={'medium'}
               color={'mint'}
@@ -49,7 +49,7 @@ export function Header() {
                 router.push('/write');
               }}
             />
-            <ProfileImageWrapper alt='프로필 이미지' src='' />
+            <ProfileImageWrapper alt="프로필 이미지" src="" />
           </Row>
         )
       ) : (
@@ -75,6 +75,9 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: ${theme.palette.Navy};
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `;
 
 const ProfileImageWrapper = styled.img`
