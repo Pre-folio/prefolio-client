@@ -90,7 +90,7 @@ const PostCardWrapper = styled.div`
   width: 282px;
 
   background-color: ${theme.palette.White};
-  ${theme.shadow.Card.Black};
+  box-shadow: ${theme.shadow.Card.Black};
 
   display: flex;
   flex-direction: column;
