@@ -35,16 +35,16 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps }: 
           sort={gradeToString || '2학년'}
           style={{ backgroundColor: theme.palette.Gray10, color: theme.palette.Gray50 }}
         />
-        <Tag type="field" sort={field} />
+        <Tag type="field" sort={field || 'dev'} />
       </Row>
       <Column marginTop="30px" gap="12px" style={{ fontSize: `${theme.typo.Body1}`, color: `${theme.palette.Gray50}` }}>
         <Row justifyContent="space-between" style={{ width: '100%' }}>
           <span>추천수</span>
-          <span>{hits}</span>
+          <span>{hits || 4}</span>
         </Row>
         <Row justifyContent="space-between" style={{ width: '100%' }}>
           <span>스크랩수</span>
-          <span>{scraps}</span>
+          <span>{scraps || 4}</span>
         </Row>
       </Column>
     </Container>
@@ -62,17 +62,25 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & span {
+    ${theme.typo.Body1};
+  }
 `;
 
-const ImageWrapper = styled.img`
+interface ImageWrapperProps {
+  src: string;
+}
+const ImageWrapper = styled.img<ImageWrapperProps>`
   width: 130px;
   height: 130px;
   border-radius: 50%;
   object-fit: cover;
+  background-color: ${(props) => (props.src ? '' : theme.palette.Gray30)};
 `;
 
 const NicknameWrapper = styled.div`
   margin-top: 30px;
-  font-size: ${theme.typo.Heading3};
+  ${theme.typo.Heading3};
   color: ${theme.palette.Black};
 `;

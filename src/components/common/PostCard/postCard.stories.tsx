@@ -19,8 +19,8 @@ const Template: ComponentStory<typeof PostCard> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   title: '글제목 한 줄',
-  field: ['기획'],
-  activity: ['동아리/학회', '프로젝트', '인턴'],
+  field: ['plan'],
+  activity: ['society', 'project', 'intern'],
   postDate: '2023.01.11',
   hits: 22,
 };
