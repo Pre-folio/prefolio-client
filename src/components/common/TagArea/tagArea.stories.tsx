@@ -3,7 +3,7 @@ import { TagArea } from '.';
 import React from 'react';
 
 export default {
-  title: 'Tag',
+  title: 'TagArea',
   component: TagArea,
   argTypes: {},
 } as ComponentMeta<typeof TagArea>;
