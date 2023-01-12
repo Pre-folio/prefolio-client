@@ -70,10 +70,10 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag key={index} type={'field'} content={index} color={'mint'} />
+            <Tag key={index} type={'field'} sort={index} />
           ))}
           {props.activity.map((index) => (
-            <Tag key={index} type={'activity'} content={index} />
+            <Tag key={index} type={'activity'} sort={index} />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>
@@ -90,7 +90,7 @@ const PostCardWrapper = styled.div`
   width: 282px;
 
   background-color: ${theme.palette.White};
-  ${theme.shadow.Card.Black};
+  box-shadow: ${theme.shadow.Card.Black};
 
   display: flex;
   flex-direction: column;
