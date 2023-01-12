@@ -1,13 +1,9 @@
-import { Tag } from '../components/common/Tag';
+import { ProfileCard } from '../components/common/ProfileCard';
 
 function Home() {
   return (
     <div>
-      {/* <Button type="small" content="버튼" /> */}
-      <Tag type='field' color='blue' content='개발' />
-      {/* <Filter type="dev" /> */}
-      {/* <Header /> */}
-      {/* <ProgressBar /> */}
+      <ProfileCard imageSrc="" nickname="장영준" grade={2} field="design" hits={4} scraps={100} />
     </div>
   );
 }

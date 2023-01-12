@@ -1,24 +1,23 @@
-import { css } from 'styled-components';
 import { palette } from './palette';
 
+/* offset-x | offset-y | blur-radius | spread-radius | color */
 export const shadow = {
   Card: {
-    Black: css`
-      /* offset-x | offset-y | blur-radius | spread-radius | color */
-      box-shadow: 0px 0px 16px 0px ${palette.Shadow.Card.Black};
+    Black: `
+      0px 0px 16px 0px ${palette.Shadow.Card.Black};
     `,
   },
   Button: {
-    Black: css`
-      box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Black};
+    Black: `
+     0px 2px 6px 0px ${palette.Shadow.Button.Black};
     `,
-    Green: css`
+    Green: `
       box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Green};
     `,
-    Blue: css`
+    Blue: `
       box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Blue};
     `,
-    Purple: css`
+    Purple: `
       box-shadow: 0px 2px 6px 0px ${palette.Shadow.Button.Purple};
     `,
   },
