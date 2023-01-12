@@ -18,19 +18,16 @@ Default.args = {
 export const Plan = Template.bind({});
 Plan.args = {
   type: 'field',
-  color: 'mint',
 };
 
 export const Dev = Template.bind({});
 Dev.args = {
   type: 'field',
-  color: 'blue',
   content: '개발',
 };
 
 export const Design = Template.bind({});
 Design.args = {
   type: 'field',
-  color: 'purple',
   content: '디자인',
 };
