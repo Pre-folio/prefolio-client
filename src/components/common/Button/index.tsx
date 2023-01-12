@@ -62,13 +62,17 @@ const DefaultButton = styled.button<IButton>`
       : props.color === 'navy'
       ? shadow.Button.Black
       : props.color === 'white' && shadow.Card.Black};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BigButton = styled(DefaultButton)`
   width: auto;
   height: 60px;
   padding: 18px 70px;
-  font-size: ${theme.typo.Heading3};
+  ${theme.typo.Heading3};
   border-radius: 14px;
 `;
 
@@ -76,7 +80,7 @@ const MediumButton = styled(DefaultButton)`
   width: auto;
   height: 46px;
   padding: 14px 30px;
-  font-size: ${theme.typo.Label1};
+  ${theme.typo.Label1};
   border-radius: 10px;
 `;
 
@@ -84,7 +88,7 @@ const SmallButton = styled(DefaultButton)`
   width: auto;
   height: 34px;
   padding: 8px 20px;
-  font-size: ${theme.typo.Body1};
+  ${theme.typo.Body1};
   border-radius: 6px;
 `;
 
@@ -92,6 +96,6 @@ const PopupButton = styled(DefaultButton)`
   width: 282px;
   height: 60px;
   padding: 18px 0px;
-  font-size: ${theme.typo.Heading3};
+  ${theme.typo.Heading3};
   border-radius: 10px;
 `;
