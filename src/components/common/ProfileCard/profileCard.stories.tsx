@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ProfileCard } from '.';
 
 export default {
-  title: 'PartCard',
+  title: 'ProfileCard',
   component: ProfileCard,
   argTypes: {},
 } as ComponentMeta<typeof ProfileCard>;

@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { PostButton } from '.';
 
 export default {
-  title: 'PartCard',
+  title: 'PostButton',
   component: PostButton,
   argTypes: {},
 } as ComponentMeta<typeof PostButton>;
