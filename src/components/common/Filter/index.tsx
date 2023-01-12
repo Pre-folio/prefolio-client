@@ -5,7 +5,7 @@ import { CheckIcon } from '../../Icons/CheckIcon';
 
 interface FilterProps {
   type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project';
-  isClicked?: boolean;
+  isClicked?: boolean | any;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -16,13 +16,8 @@ interface IFilter {
 
 export function Filter({ type, isClicked, onClick }: FilterProps) {
   return (
-    <FilterButton
-      type={type}
-      isClicked={isClicked}
-      onClick={onClick}
-      name={type}
-    >
-      <Row justifyContent='center' alignItems='center' gap='4px'>
+    <FilterButton type={type} isClicked={isClicked} onClick={onClick} name={type}>
+      <Row justifyContent="center" alignItems="center" gap="4px">
         {isClicked ? <CheckIcon type={type} /> : ''}
         {type === 'dev'
           ? '개발'
