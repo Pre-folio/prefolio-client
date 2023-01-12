@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   type: 'activity',
-  sort: 'socieyu',
+  sort: 'society',
 };
 
 export const Plan = Template.bind({});
