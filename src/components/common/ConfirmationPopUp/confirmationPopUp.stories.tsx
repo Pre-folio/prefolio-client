@@ -11,7 +11,7 @@ export default {
 
 const Template: ComponentStory<typeof ConfirmationPopUp> = (args) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  console.log(isOpen);
+
   return (
     <div>
       <Button

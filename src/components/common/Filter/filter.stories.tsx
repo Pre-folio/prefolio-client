@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { useState } from 'react';
 import { Filter } from '.';
 
 export default {
@@ -7,7 +8,16 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof Filter>;
 
-const Template: ComponentStory<typeof Filter> = (args) => <Filter {...args} />;
+const Template: ComponentStory<typeof Filter> = (args) => {
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  return (
+    <Filter
+      {...args}
+      isClicked={isClicked}
+      onClick={() => setIsClicked(!isClicked)}
+    />
+  );
+};
 
 export const Plan = Template.bind({});
 Plan.args = {
