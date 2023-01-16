@@ -6,11 +6,15 @@ import { theme } from '../../../styles/theme';
 import { Filter } from '../Filter';
 import { Column, Row } from '../Wrapper';
 
+interface TagAreaProps {
+  width: string;
+}
+
 /**
  *
  * @returns recoil의 selectedTagsListState로 상태관리 가능
  */
-export function TagArea() {
+export function TagArea({ width }: TagAreaProps) {
   const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
 
   const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +37,7 @@ export function TagArea() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper width={width}>
       <Column gap="18px" alignItems="flex-start">
         <Row gap="12px">
           <CategoryTextArea>분야별</CategoryTextArea>
@@ -55,8 +59,8 @@ export function TagArea() {
   );
 }
 
-const Wrapper = styled.div`
-  width: 1200px;
+const Wrapper = styled.div<TagAreaProps>`
+  width: ${(props) => props.width};
   padding: 24px 30px;
   background-color: ${theme.palette.Gray10};
   border: 8px;

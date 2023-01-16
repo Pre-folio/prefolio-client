@@ -15,8 +15,10 @@ export const Section = styled.section`
   height: 100vh;
 
   padding-top: 74px;
-  justify-content: center;
-  align-items: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
 `;
 
 export const Row = styled.div<IWrapper>`
