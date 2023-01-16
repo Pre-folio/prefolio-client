@@ -1,9 +1,8 @@
-import { Header } from '../../components/elements/Header';
+import { Header } from '../../components/common/Header';
 
 const Write = () => {
   return (
     <>
-      <Header />
       <div>게시글 작성</div>
     </>
   );

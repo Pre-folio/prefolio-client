@@ -51,11 +51,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {props.rightIcon}
         </InputWrapper>
 
-        <MessageWrapper errorMessage={props.errorMessage}>
-          {props.errorMessage && (
+        {props.errorMessage && (
+          <MessageWrapper errorMessage={props.errorMessage}>
             <Text color={errorMessageColor}>{props.errorMessage}</Text>
-          )}
-        </MessageWrapper>
+          </MessageWrapper>
+        )}
       </Wrapper>
     );
   }

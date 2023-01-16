@@ -77,7 +77,7 @@ const DatePickerStyles = styled.div`
     z-index: 1;
   }
   .react-datepicker-popper[data-placement^='bottom'] {
-    margin-top: 10px;
+    margin-top: 14px;
     padding: 0;
   }
 
