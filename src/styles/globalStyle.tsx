@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
    
     box-sizing: border-box;
+    margin: 0;
   }
   
   #root {

@@ -10,7 +10,9 @@ export interface IWrapper {
 }
 
 export const Section = styled.section`
-  width: 100%;
+  width: 1200px;
+  height: 100vh;
+
   padding-top: 74px;
 `;
 
