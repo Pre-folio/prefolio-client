@@ -37,11 +37,14 @@ export function TagArea() {
           <Filter onClick={onClickButton} isClicked={isClicked('dev')} type="dev" />
           <Filter onClick={onClickButton} isClicked={isClicked('design')} type="design" />
         </Row>
-        <Row gap="12px">
-          <CategoryTextArea>활동별</CategoryTextArea>
-          <Filter onClick={onClickButton} isClicked={isClicked('society')} type="society" />
-          <Filter onClick={onClickButton} isClicked={isClicked('intern')} type="intern" />
-          <Filter onClick={onClickButton} isClicked={isClicked('project')} type="project" />
+        <Row alignItems="flex-end" justifyContent="space-between" width="100%">
+          <Row gap="12px">
+            <CategoryTextArea>활동별</CategoryTextArea>
+            <Filter onClick={onClickButton} isClicked={isClicked('society')} type="society" />
+            <Filter onClick={onClickButton} isClicked={isClicked('intern')} type="intern" />
+            <Filter onClick={onClickButton} isClicked={isClicked('project')} type="project" />
+          </Row>
+          <TextArea>* 태그를 선택해 분류해볼 수 있어요</TextArea>
         </Row>
       </Column>
     </Wrapper>
@@ -60,4 +63,9 @@ const CategoryTextArea = styled.span`
   margin-right: 20px;
   ${theme.typo.Body1}
   color: ${theme.palette.Gray40};
+`;
+
+const TextArea = styled.div`
+  ${theme.typo.Label2};
+  color: ${theme.palette.Gray20};
 `;

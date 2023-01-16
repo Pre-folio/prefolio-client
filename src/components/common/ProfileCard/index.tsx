@@ -33,9 +33,9 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps }: 
         <Tag
           type="activity"
           sort={gradeToString || '2학년'}
-          style={{ backgroundColor: theme.palette.Gray10, color: theme.palette.Gray50 }}
+          style={{ backgroundColor: theme.palette.Gray10, color: theme.palette.Gray50, boxShadow: 'none' }}
         />
-        <Tag type="field" sort={field || 'dev'} />
+        <Tag type="field" sort={field || 'dev'} style={{ boxShadow: 'none' }} />
       </Row>
       <Column marginTop="30px" gap="12px" style={{ fontSize: `${theme.typo.Body1}`, color: `${theme.palette.Gray50}` }}>
         <Row justifyContent="space-between" style={{ width: '100%' }}>
