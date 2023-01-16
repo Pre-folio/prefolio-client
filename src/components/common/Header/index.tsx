@@ -21,13 +21,14 @@ export function Header() {
         <></>
       ) : isLoggedIn ? (
         // 로그인 된 경우
-        currentUrl === '/write' ? (
+        currentUrl.includes('/write') ? (
           <Button
             type={'medium'}
             color={'mint'}
             content={'업로드하기'}
             onClick={() => {
-              router.push('/login');
+              // router.push('/login');
+              //TODO 업로드 시 버튼
             }}
           />
         ) : currentUrl.includes('/profile') ? (
@@ -36,7 +37,8 @@ export function Header() {
             color={'mint'}
             content={'새 글 작성'}
             onClick={() => {
-              router.push('/write');
+              // router.push('/write');
+              // TODO 게시글 작성 페이지로 이동
             }}
           />
         ) : (
