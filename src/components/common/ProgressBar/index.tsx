@@ -1,6 +1,8 @@
 import { Slider } from '@mui/material';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { progressBarState } from '../../../store/ProgressBar/ProgressBarState';
 import { shadow, theme } from '../../../styles/theme';
 import { Row } from '../Wrapper';
 
@@ -92,8 +94,12 @@ const SliderBar = styled(Slider)<{ progress: number | number[] }>((props) =>
       }
 );
 
+/**
+ *
+ * @returns recoil의 progressBarState로 상태관리
+ */
 export function ProgressBar() {
-  const [value, setValue] = useState<number | number[]>(0);
+  const [value, setValue] = useRecoilState(progressBarState);
 
   const handleSliderChange = (e: any, newValue: number | number[]) => {
     setValue(newValue);

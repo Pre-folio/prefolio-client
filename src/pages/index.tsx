@@ -17,7 +17,7 @@ function Home() {
       {/* <ProfileCard nickname="장영준" grade={2} /> */}
       {/* <PostButton type={'scrap'} counts={4} /> */}
       {/* <Header /> */}
-      <TagArea />
+      {/* <TagArea /> */}
     </div>
   );
 }

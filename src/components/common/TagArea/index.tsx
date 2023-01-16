@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { selectedTagsListState } from '../../../store/TagState';
+import { selectedTagsListState } from '../../../store/TagArea/tagAreaState';
 import { theme } from '../../../styles/theme';
 import { Filter } from '../Filter';
 import { Column, Row } from '../Wrapper';
 
+/**
+ *
+ * @returns recoil의 selectedTagsListState로 상태관리 가능
+ */
 export function TagArea() {
   const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
 
