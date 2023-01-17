@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=7725d32bbcc9",
+    "deploy": "next build && next export"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -52,7 +54,10 @@
     "@types/styled-components": "^5.1.26",
     "babel-loader": "^9.1.2",
     "babel-plugin-styled-components": "^2.0.7",
+    "chromatic": "^6.14.0",
     "eslint-plugin-storybook": "^0.6.8",
     "react-datepicker": "^4.8.0"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "prefolio-client@0.1.0"
 }

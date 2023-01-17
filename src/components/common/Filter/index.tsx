@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { shadow, theme } from '../../styles/theme';
-import { CheckIcon } from '../Icons/CheckIcon';
-import { Row } from './Wrapper';
+import { shadow, theme } from '../../../styles/theme';
+import { Row } from '../Wrapper';
+import { CheckIcon } from '../../Icons/CheckIcon';
 
 interface FilterProps {
   type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project';
-  isClicked?: boolean;
+  isClicked?: boolean | any;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -39,7 +39,8 @@ const FilterButton = styled.button<IFilter>`
   width: auto;
   height: 34px;
   padding: 8px 20px;
-  font-size: ${theme.typo.Body1};
+  border-radius: 6px;
+  ${theme.typo.Body1};
   background-color: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
@@ -53,13 +54,13 @@ const FilterButton = styled.button<IFilter>`
   color: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
-        ? theme.palette.Mint100
+        ? theme.palette.Minttext
         : props.type === 'dev'
         ? theme.palette.Blue100
         : props.type === 'design'
         ? theme.palette.Purple100
-        : theme.palette.Gray40
-      : theme.palette.Black};
+        : theme.palette.Black
+      : theme.palette.Gray40};
   box-shadow: ${(props) =>
     props.isClicked
       ? props.type === 'plan'
