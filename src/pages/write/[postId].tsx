@@ -13,7 +13,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
 import { progressBarState } from '../../store/ProgressBar/ProgressBarState';
-import useInput from '../../hooks/UseInput';
+import useInput from '../../hooks/useInput';
 
 const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
 
