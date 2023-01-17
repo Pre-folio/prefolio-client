@@ -1,5 +1,3 @@
-import { Header } from '../../components/common/Header';
-
 const Write = () => {
   return (
     <>
