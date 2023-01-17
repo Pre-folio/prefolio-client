@@ -4,7 +4,7 @@ import { theme } from '../../styles/theme';
 import { Tag } from '../common/Tag';
 import { Column, Row } from '../common/Wrapper';
 
-interface GuideLineProps {
+export interface GuideLineProps {
   type: 'society' | 'project' | 'intern' | any;
   style?: CSSProperties;
 }
@@ -82,6 +82,7 @@ const Wrapper = styled.div`
   background-color: ${theme.palette.Gray10};
   display: flex;
   justify-content: flex-start;
+  border-bottom: 1px solid ${theme.palette.Gray15};
 `;
 
 const BigTextArea = styled.div`

@@ -6,12 +6,14 @@ import { ProgressBar } from '../../components/common/ProgressBar';
 import { TagArea } from '../../components/common/TagArea';
 import { Column, Row } from '../../components/common/Wrapper';
 import { theme } from '../../styles/theme';
-import { Tag } from '../../components/common/Tag';
 import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
 import { GuideLine } from '../../components/WritingPage/GuideLine';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
+import dynamic from 'next/dynamic';
+
+const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
 
 const Write = () => {
   const [toolsList, setToolsList] = useState<string[]>(['FIGMA', 'ㅁㄴㅇㄹ']);
@@ -103,25 +105,29 @@ const Write = () => {
             <Column justifyContent="flex-start" alignItems="flex-start">
               <Button
                 type={'small'}
-                content={isGuideLineButtonClicked ? '가이드라인 보기' : '가이드라인 접기'}
+                content={isGuideLineButtonClicked ? '가이드라인 접기' : '가이드라인 보기'}
                 color={'mint'}
                 onClick={() => {
                   setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
                 }}
               />
               {isGuideLineButtonClicked ? (
-                <></>
-              ) : (
                 <Column marginTop="20px">
                   {tagsList.map((tag) => {
-                    if (tag === 'society' || 'project' || 'intern') {
+                    if (tag === 'society' || tag === 'project' || tag === 'intern') {
                       return <GuideLine type={tag} key={tag} />;
                     }
+                    return;
                   })}
                 </Column>
+              ) : (
+                <></>
               )}
             </Column>
           </Row>
+          <div style={{ height: '300px' }}>
+            <Editor />
+          </div>
         </Column>
       </div>
     </>

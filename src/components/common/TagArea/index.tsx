@@ -9,7 +9,7 @@ import { Filter } from '../Filter';
 import { Column, Row } from '../Wrapper';
 
 interface TagAreaProps {
-  width: string;
+  width?: string;
 }
 
 /**
