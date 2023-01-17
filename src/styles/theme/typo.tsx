@@ -57,4 +57,20 @@ export const typo = {
     font-size: ${calcRem(16)};
     line-height: 100%;
   `,
+  Gotham: css`
+    font-family: 'Gotham';
+    font-style: normal;
+    font-weight: 500;
+    font-size: ${calcRem(64)};
+    line-height: 131.5%;
+
+    letter-spacing: -0.05em;
+    text-transform: capitalize;
+  `,
+  Landing: css`
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-size: ${calcRem(60)};
+    line-height: 150%;
+  `,
 } as const;

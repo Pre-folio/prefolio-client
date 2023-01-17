@@ -73,22 +73,22 @@ export function Header() {
 }
 
 const HeaderWrapper = styled.div`
-  width: 100%;
-  background-color: ${theme.palette.Navy};
+  width: 100vw;
   height: 74px;
+  margin-left: calc(-50vw + 50%);
+
+  background-color: ${theme.palette.Navy};
 
   display: flex;
   justify-content: center;
 
-  position: absolute;
+  position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 999;
 `;
 
 const Wrapper = styled.div`
   width: 1200px;
-  padding: 0px 146px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;

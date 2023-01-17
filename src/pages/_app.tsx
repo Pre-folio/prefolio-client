@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { Layout } from '../components/layout/Layout';
 import GlobalStyle from '../styles/globalStyle';
 import { theme } from '../styles/theme/theme';
+import '../../public/static/fonts/style.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
