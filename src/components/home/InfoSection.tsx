@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 
-interface LandingInfoProps {
+interface InfoSectionProps {
   title1: string;
   title2: string;
   description1: string;
@@ -9,27 +9,29 @@ interface LandingInfoProps {
   justify: string;
 }
 
-export const LandingInfo = (props: LandingInfoProps) => {
+export const InfoSection = (props: InfoSectionProps) => {
   return (
-    <LandingInfoWrapper justify={props.justify}>
+    <InfoWrapper justify={props.justify}>
       <Space height={180} />
       <Text typo='Heading1' color='Black'>
         {props.title1}
-        <br />
+      </Text>
+      <Text typo='Heading1' color='Black'>
         {props.title2}
       </Text>
       <Space height={36} />
       <Text typo='Heading5' color='Black'>
         {props.description1}
-        <br />
+      </Text>
+      <Text typo='Heading5' color='Black'>
         {props.description2}
       </Text>
       <Space height={188.33} />
-    </LandingInfoWrapper>
+    </InfoWrapper>
   );
 };
 
-const LandingInfoWrapper = styled.div<{
+const InfoWrapper = styled.section<{
   justify: string;
 }>`
   width: 1200px;

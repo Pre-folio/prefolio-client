@@ -67,4 +67,10 @@ export const typo = {
     letter-spacing: -0.05em;
     text-transform: capitalize;
   `,
+  Landing: css`
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-size: ${calcRem(60)};
+    line-height: 150%;
+  `,
 } as const;
