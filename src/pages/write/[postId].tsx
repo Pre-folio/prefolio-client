@@ -12,7 +12,6 @@ import { GuideLine } from '../../components/WritingPage/GuideLine';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
-import { progressBarState } from '../../store/ProgressBar/ProgressBarState';
 import useInput from '../../hooks/useInput';
 
 const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
@@ -30,6 +29,11 @@ const Write = () => {
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
+      if (toolsList.length > 7) {
+        alert('최대 8개까지만 가능합니다!');
+        e.currentTarget.value = '';
+        return;
+      }
       setToolsList([...toolsList, e.currentTarget.value]);
       e.currentTarget.value = '';
     }

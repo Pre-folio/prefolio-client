@@ -1,6 +1,6 @@
-export function HelpIcon() {
+export function HelpIcon({ className }: { className: string }) {
   return (
-    <button>
+    <button className={className}>
       <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_494_10384)">
           <path
