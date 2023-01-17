@@ -15,9 +15,10 @@ const TextEditor = () => {
 
   const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
     console.log(blob);
-    // const url = await uploadImage(blob)
-    // callback(url, '첨부 이미지');
-    // return false;
+  };
+
+  const onClickUploadButton = () => {
+    console.log(editorRef.current?.getInstance().getHTML());
   };
 
   return (
@@ -45,7 +46,7 @@ const TextEditor = () => {
           }}
         />
       </EditorWrapper>
-      <Button type="medium" color="mint" content="업로드하기" />
+      <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
     </Column>
   );
 };

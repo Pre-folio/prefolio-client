@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DatePicker } from '../../components/common/DatePicker';
 import { Input } from '../../components/common/Input';
@@ -12,13 +12,29 @@ import { GuideLine } from '../../components/WritingPage/GuideLine';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
+import { progressBarState } from '../../store/ProgressBar/ProgressBarState';
+import useInput from '../../hooks/UseInput';
 
 const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
 
 const Write = () => {
-  const [toolsList, setToolsList] = useState<string[]>(['FIGMA', 'ㅁㄴㅇㄹ']);
+  const [toolsList, setToolsList] = useState<string[]>([]);
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
-  const tagsList = useRecoilValue(selectedTagsListState);
+  const tags = useRecoilValue(selectedTagsListState);
+
+  const title = useInput(''); // title.value가 값임
+  const startDate = useInput(''); // startDate.value 가 값임
+  const endDate = useInput(''); // endDate.value가 값임
+  const contribution = useInput(''); // contribution.value가 값임
+  const roll = useInput(''); // roll.value가 값임
+
+  const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      setToolsList([...toolsList, e.currentTarget.value]);
+      e.currentTarget.value = '';
+    }
+  };
+
   return (
     <>
       <ThumbnailImageWrapper>
@@ -32,25 +48,31 @@ const Write = () => {
           style={{ height: '800px' }}
           gap="42px"
         >
-          <Input width={1200} placeholder="제목을 입력하세요." typo={'Heading3'} />
+          <Input width={1200} placeholder="제목을 입력하세요." typo={'Heading3'} {...title} />
           <Row height="auto">
             <CategoryTextArea>
               활동 기간
               <span>*</span>
             </CategoryTextArea>
             <Row>
-              <DatePicker height={46} placeholder="시작 날짜를 선택하세요." typo={'Body1'} />
+              <DatePicker {...startDate} height={46} placeholder="시작 날짜를 선택하세요." typo={'Body1'} />
               <div style={{ width: '126px', textAlign: 'center' }}>~</div>
-              <DatePicker height={46} placeholder="종료 날짜를 선택하세요." typo={'Body1'} />
+              <DatePicker {...endDate} height={46} placeholder="종료 날짜를 선택하세요." typo={'Body1'} />
             </Row>
           </Row>
           <Row marginTop="-17px">
             <CategoryTextArea>기여도</CategoryTextArea>
-            <ProgressBar />
+            <ProgressBar {...contribution} />
           </Row>
           <Row gap="24px" width="100%" justifyContent="flex-start" marginTop="-17px">
             <CategoryTextArea>맡은 역할</CategoryTextArea>
-            <Input typo={'Body1'} width={1098} height={46} placeholder="활동에서 주로 맡은 역할을 작성해주세요." />
+            <Input
+              typo={'Body1'}
+              width={1098}
+              height={46}
+              placeholder="활동에서 주로 맡은 역할을 작성해주세요."
+              {...roll}
+            />
           </Row>
           <Row gap="24px" width="100%" justifyContent="flex-start" alignItems="center">
             <CategoryTextArea>사용 툴</CategoryTextArea>
@@ -59,6 +81,7 @@ const Write = () => {
               height={46}
               placeholder="활동에서 사용한 툴을 작성해주세요. (최대 8개)"
               typo={'Body1'}
+              onKeyPress={onEnterToolBar}
             />
           </Row>
           {toolsList.length === 0 ? (
@@ -113,7 +136,7 @@ const Write = () => {
               />
               {isGuideLineButtonClicked ? (
                 <Column marginTop="20px">
-                  {tagsList.map((tag) => {
+                  {tags.map((tag) => {
                     if (tag === 'society' || tag === 'project' || tag === 'intern') {
                       return <GuideLine type={tag} key={tag} />;
                     }
