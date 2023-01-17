@@ -1,50 +1,38 @@
 import styled from 'styled-components';
 import { Button } from '../components/common/Button';
-import { LandingInfo } from '../components/home/LandingInfo';
+import { BottomSection } from '../components/home/BottomSection';
+import { InfoSection } from '../components/home/InfoSection';
+import { StartSection } from '../components/home/StartSection';
 import { KeyOfPalette, KeyOfTypo, theme } from '../styles/theme';
 
 function Home() {
   return (
     <Wrapper>
       <TextWrapper>
-        <Space height={205} />
-        <Text typo='Heading2' color='Black'>
-          대학생이라면 이용해야 하는
-          <br />
-          IT 스펙 저장소,
-        </Text>
-        <Space height={42} />
-        <Text typo='Gotham' color='Navy'>
-          Prepare
-          <br />
-          Your Portfolio!
-        </Text>
-        <Space height={80} />
-        <Button type='big' color='mint' content='바로 시작하기' />
-        <Space height={183} />
-        <LandingInfo
+        <StartSection />
+        <InfoSection
           title1='분야별로 스펙 활동'
           title2='모아보기'
           description1='다양한 분야의 활동 뿐 아니라'
           description2='동아리, 공모전 등 분야별로 구경할 수 있어요.'
           justify='flex-start'
         />
-        <LandingInfo
+        <InfoSection
           title1='자유롭게'
           title2='스크랩 하기'
           description1='다양한 분야의 스펙활동 기록을'
           description2='자유롭게 스크랩하여 저장할 수 있어요.'
           justify='flex-end'
         />
-        <LandingInfo
+        <InfoSection
           title1='내 스펙활동'
           title2='아카이빙'
           description1='쉽고 빠르게 스펙활동을 기록하여'
           description2='편리하게 아카이빙 해보세요.'
           justify='flex-start'
         />
+        <BottomSection />
       </TextWrapper>
-
       <Section1 />
       <Section2 />
       <Section3 />
@@ -129,18 +117,4 @@ const Section5 = styled.div`
 const TextWrapper = styled.div`
   position: absolute;
   z-index: 1;
-`;
-
-const Text = styled.div<{
-  typo: KeyOfTypo;
-  color: KeyOfPalette;
-}>`
-  ${({ typo, theme }) => theme.typo[typo]};
-  color: ${({ color }) => theme.palette[color]};
-`;
-
-const Space = styled.div<{
-  height: number;
-}>`
-  height: ${({ height }) => `${height}px`};
 `;
