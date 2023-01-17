@@ -8,9 +8,15 @@ import { Column, Row } from '../../components/common/Wrapper';
 import { theme } from '../../styles/theme';
 import { Tag } from '../../components/common/Tag';
 import { Filter } from '../../components/common/Filter';
+import { Button } from '../../components/common/Button';
+import { GuideLine } from '../../components/WritingPage/GuideLine';
+import { useRecoilValue } from 'recoil';
+import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 
 const Write = () => {
-  const [toolsList, setToolsList] = useState<string[]>(['FIGMA']);
+  const [toolsList, setToolsList] = useState<string[]>(['FIGMA', 'ㅁㄴㅇㄹ']);
+  const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
+  const tagsList = useRecoilValue(selectedTagsListState);
   return (
     <>
       <ThumbnailImageWrapper>
@@ -59,11 +65,11 @@ const Write = () => {
             <Column marginTop="-22px">
               <Row justifyContent="flex-end">
                 <CategoryTextArea />
-                <div style={{ width: '1098px', backgroundColor: theme.palette.Gray20, height: '1px' }} />
+                <div style={{ width: '1098px', border: `1px solid ${theme.palette.Gray15}` }} />
               </Row>
-              <Row marginTop="20px" justifyContent="flex-end" alignItems="flex-end">
+              <Row marginTop="20px" justifyContent="flex-start" alignItems="flex-start">
                 <CategoryTextArea />
-                <Row gap="12px">
+                <Row width="1098px" gap="12px" justifyContent="flex-start" alignItems="flext-start">
                   {toolsList.map((tool) => {
                     return (
                       <Filter
@@ -73,6 +79,7 @@ const Write = () => {
                           backgroundColor: theme.palette.Gray10,
                           color: theme.palette.Gray40,
                           boxShadow: `${theme.shadow.Button.Black} !important`,
+                          cursor: 'none',
                         }}
                       />
                     );
@@ -87,6 +94,33 @@ const Write = () => {
               <span>*</span>
             </CategoryTextArea>
             <TagArea width="1098px" />
+          </Row>
+          <Row justifyContent="flex-start" alignItems="flex-start">
+            <CategoryTextArea>
+              본문 작성
+              <span>*</span>
+            </CategoryTextArea>
+            <Column justifyContent="flex-start" alignItems="flex-start">
+              <Button
+                type={'small'}
+                content={isGuideLineButtonClicked ? '가이드라인 보기' : '가이드라인 접기'}
+                color={'mint'}
+                onClick={() => {
+                  setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
+                }}
+              />
+              {isGuideLineButtonClicked ? (
+                <></>
+              ) : (
+                <Column marginTop="20px">
+                  {tagsList.map((tag) => {
+                    if (tag === 'society' || 'project' || 'intern') {
+                      return <GuideLine type={tag} key={tag} />;
+                    }
+                  })}
+                </Column>
+              )}
+            </Column>
           </Row>
         </Column>
       </div>
