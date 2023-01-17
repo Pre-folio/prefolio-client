@@ -12,19 +12,19 @@ interface LandingInfoProps {
 export const LandingInfo = (props: LandingInfoProps) => {
   return (
     <LandingInfoWrapper justify={props.justify}>
-      <Space height={190} />
+      <Space height={180} />
       <Text typo='Heading1' color='Black'>
         {props.title1}
         <br />
         {props.title2}
       </Text>
-      <Space height={54} />
+      <Space height={36} />
       <Text typo='Heading5' color='Black'>
         {props.description1}
         <br />
         {props.description2}
       </Text>
-      <Space height={196} />
+      <Space height={188.33} />
     </LandingInfoWrapper>
   );
 };
@@ -32,9 +32,10 @@ export const LandingInfo = (props: LandingInfoProps) => {
 const LandingInfoWrapper = styled.div<{
   justify: string;
 }>`
+  width: 1200px;
   display: flex;
   flex-direction: column;
-  justify-content: ${({ justify }) => `${justify}`};
+  align-items: ${({ justify }) => `${justify}`};
 `;
 
 const Text = styled.div<{

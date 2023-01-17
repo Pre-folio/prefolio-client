@@ -7,21 +7,23 @@ function Home() {
   return (
     <Wrapper>
       <TextWrapper>
-        <Space height={205} />
-        <Text typo='Heading2' color='Black'>
-          대학생이라면 이용해야 하는
-          <br />
-          IT 스펙 저장소,
-        </Text>
-        <Space height={42} />
+        <Space height={185} />
+        <TextBox>
+          <Text typo='Heading2' color='Black'>
+            대학생이라면 이용해야 하는
+            <br />
+            IT 스펙 저장소,
+          </Text>
+        </TextBox>
+        <Space height={12} />
         <Text typo='Gotham' color='Navy'>
           Prepare
           <br />
           Your Portfolio!
         </Text>
-        <Space height={80} />
+        <Space height={70} />
         <Button type='big' color='mint' content='바로 시작하기' />
-        <Space height={183} />
+        <Space height={174.33} />
         <LandingInfo
           title1='분야별로 스펙 활동'
           title2='모아보기'
@@ -129,6 +131,11 @@ const Section5 = styled.div`
 const TextWrapper = styled.div`
   position: absolute;
   z-index: 1;
+`;
+
+const TextBox = styled.div`
+  height: 108px;
+  display: flex;
 `;
 
 const Text = styled.div<{
