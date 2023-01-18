@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { progressBarState } from '../../../store/ProgressBar/ProgressBarState';
 import { shadow, theme } from '../../../styles/theme';
+import { InputProps } from '../Input';
 import { Row } from '../Wrapper';
 
 const SliderBar = styled(Slider)<{ progress: number | number[] }>((props) =>
@@ -98,12 +99,15 @@ const SliderBar = styled(Slider)<{ progress: number | number[] }>((props) =>
  *
  * @returns recoil의 progressBarState로 상태관리
  */
-export function ProgressBar() {
-  const [value, setValue] = useRecoilState(progressBarState);
+export function ProgressBar(props: InputProps) {
+  // const [value, setValue] = useRecoilState(progressBarState);
+  const tempValue = props.value;
+  const value: number | number[] = Number(tempValue);
+  const onChange: any = props.onChange;
 
-  const handleSliderChange = (e: any, newValue: number | number[]) => {
-    setValue(newValue);
-  };
+  // const handleSliderChange = (e: any, newValue: number | number[]) => {
+  //   setValue(newValue);
+  // };
 
   return (
     <Row gap="24px">
@@ -112,7 +116,7 @@ export function ProgressBar() {
           progress={value}
           defaultValue={20}
           value={typeof value === 'number' ? value : 10}
-          onChange={handleSliderChange}
+          onChange={onChange}
           aria-label="custom thumb label"
           aria-labelledby="discrete-slider"
           style={{ height: '20px' }}

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export interface IWrapper {
   width?: string;
+  height?: string;
   justifyContent?: string;
   alignItems?: string;
   marginBottom?: string;
@@ -14,12 +15,17 @@ export const Section = styled.section`
   height: 100vh;
 
   padding-top: 74px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
 `;
 
 export const Row = styled.div<IWrapper>`
   width: ${(props) => props.width};
+  /* height: ${(props) => props.height || '100%'}; */
+  height: auto;
   display: flex;
-  height: 100%;
   justify-content: ${(props) => props.justifyContent || 'center'};
   align-items: ${(props) => props.alignItems || 'center'};
   margin-bottom: ${(props) => props.marginBottom};
@@ -29,9 +35,10 @@ export const Row = styled.div<IWrapper>`
 
 export const Column = styled.div<IWrapper>`
   width: ${(props) => props.width};
+  /* height: ${(props) => props.height || '100%'}; */
+  height: auto;
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: ${(props) => props.justifyContent || 'center'};
   align-items: ${(props) => props.alignItems || 'center'};
   margin-bottom: ${(props) => props.marginBottom};
