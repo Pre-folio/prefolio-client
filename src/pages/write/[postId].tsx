@@ -146,7 +146,7 @@ const Write = () => {
                           backgroundColor: theme.palette.Gray10,
                           color: theme.palette.Gray40,
                           boxShadow: `${theme.shadow.Button.Black} !important`,
-                          cursor: 'none',
+                          cursor: 'default',
                         }}
                         onClickCancelButton={(e) => onClickCancelButton(tool)}
                       />
