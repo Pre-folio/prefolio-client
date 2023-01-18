@@ -30,9 +30,16 @@ const Board = () => {
   const [endDate, setEndDate] = useState<string>(''); // 끝 날짜
   const [createdAt, setCreatedAt] = useState<string>(''); // 생성날짜
   const [hits, setHits] = useState<number>(0); // 조회수
+  const [tags, setTags] = useState<string[]>([]); // 태그
+  const [tools, setTools] = useState<string[]>([]); // 사용 툴
+  const [contribution, setContribution] = useState<number>(0); // 기여도
+  const [role, setRole] = useState<string>(''); // 맡은 역할
   const [likes, setLikes] = useState<number>(0); // 좋아요수
   const [scraps, setScraps] = useState<number>(0); // 스크랩수
   const [textContent, setTextContent] = useState<string>(''); // text body
+
+  const tags_ = ['design', 'intern'];
+  const tools_ = ['피그마', '인디자인'];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '100px' }}>
@@ -50,7 +57,13 @@ const Board = () => {
           </Column>
           <div>조회수 {hits || '100'}</div>
         </DetailInfoArea>
-        <PostTagArea style={{ marginTop: '56px' }} />
+        <PostTagArea
+          style={{ marginTop: '56px' }}
+          tags={tags.length !== 0 ? tags : tags_}
+          tools={tools.length !== 0 ? tools : tools_}
+          contribution={contribution || 80}
+          role={role || 'UI 디자인, 그래픽'}
+        />
         <Viewer style={{ marginTop: '72px' }} />
       </Column>
     </div>
