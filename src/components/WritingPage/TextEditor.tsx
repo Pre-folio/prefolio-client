@@ -64,5 +64,16 @@ const EditorWrapper = styled.div`
 
   .toastui-editor-main-container {
     background-color: white;
+    /* font: Pretendard;
+    font-size: 140px; */
+  }
+
+  & .ProseMirror {
+    font: Pretendard;
+    font-size: 18px;
+  }
+  & .toastui-editor-contents {
+    font: Pretendard;
+    font-size: 18px;
   }
 `;
