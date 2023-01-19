@@ -55,7 +55,7 @@ export function TagArea({ width }: TagAreaProps) {
           {urlPath.includes('write') ? (
             <HelpIconArea className="help-area">
               <HelpIcon className="help-icon" />
-              <img className="hover-img" alt="호버 이미지" src="/src/login/TagHoverImage.png" />
+              <img className="hover-img" alt="호버 이미지" src="/src/writePage/TagHoverImage.png" />
             </HelpIconArea>
           ) : (
             <></>
