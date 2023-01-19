@@ -4,7 +4,7 @@ import { calcRem, KeyOfPalette, KeyOfTypo, theme } from '../../../styles/theme';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
-  width?: number;
+  width?: number | string;
   height?: number;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -26,28 +26,12 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  */
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      value,
-      height = 56,
-      errorMessageColor = 'Red',
-      padding = '24px',
-      typo = 'Label1',
-      ...props
-    }: InputProps,
-    ref
-  ) => {
+  ({ value, height = 56, errorMessageColor = 'Red', padding = '24px', typo = 'Label1', ...props }: InputProps, ref) => {
     return (
       <Wrapper>
         <InputWrapper width={props.width} height={height}>
           {props.leftIcon}
-          <StyledInput
-            value={value}
-            ref={ref}
-            onClick={props.onClick}
-            typo={typo}
-            {...props}
-          />
+          <StyledInput value={value} ref={ref} onClick={props.onClick} typo={typo} {...props} />
           {props.rightIcon}
         </InputWrapper>
 
@@ -71,7 +55,7 @@ const Wrapper = styled.div`
 `;
 
 const InputWrapper = styled.div<{
-  width?: number;
+  width?: number | string;
   height?: number;
   padding?: string;
 }>`
@@ -114,8 +98,7 @@ const MessageWrapper = styled.div<{
   errorMessage?: string;
 }>`
   padding-left: 16px;
-  padding-bottom: ${({ errorMessage }) =>
-    errorMessage ? `${calcRem(18)}` : '0'};
+  padding-bottom: ${({ errorMessage }) => (errorMessage ? `${calcRem(18)}` : '0')};
   height: ${({ errorMessage }) => (errorMessage ? '0' : `${calcRem(18)}`)};
 `;
 
