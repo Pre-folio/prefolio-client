@@ -11,7 +11,9 @@ export const DatePicker = (props: InputProps) => {
   const [color, setColor] = useState(`${theme.palette.Gray40}`);
 
   useEffect(() => {
-    startDate ? setColor(`${theme.palette.Minttext}`) : setColor(`${theme.palette.Gray40}`);
+    startDate
+      ? setColor(`${theme.palette.Minttext}`)
+      : setColor(`${theme.palette.Gray40}`);
   }, [startDate]);
 
   return (
@@ -20,7 +22,7 @@ export const DatePicker = (props: InputProps) => {
         selected={startDate}
         onChange={(date: any) => setStartDate(date)}
         disabledKeyboardNavigation
-        dateFormat="yyyy-MM-dd"
+        dateFormat='yyyy-MM-dd'
         placeholderText={props.placeholder}
         customInput={
           <Input

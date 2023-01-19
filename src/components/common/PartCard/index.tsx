@@ -1,20 +1,32 @@
 import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../../styles/theme';
+import { darken } from 'polished';
 
 export interface PartCardProps {
   graphic?: string;
   varient: PartCardVarient;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  selected?: boolean;
 }
 
-type PartCardVarient = 'plan' | 'dev' | 'design';
+export type PartCardVarient = 'plan' | 'dev' | 'design';
 
 const CARD_COLOR = {
   normal: {
     plan: `${theme.palette.Mint10}`,
     dev: `${theme.palette.Blue10}`,
     design: `${theme.palette.Purple10}`,
+  },
+  active: {
+    plan: `${darken(0.03, theme.palette.Mint10)}`,
+    dev: `${darken(0.03, theme.palette.Blue10)}`,
+    design: `${darken(0.03, theme.palette.Purple10)}`,
+  },
+  selected: {
+    plan: `${darken(0.05, theme.palette.Mint10)}`,
+    dev: `${darken(0.05, theme.palette.Blue10)}`,
+    design: `${darken(0.05, theme.palette.Purple10)}`,
   },
 };
 
@@ -34,7 +46,11 @@ const CARD_FIELD = {
 
 export const PartCard = (props: PartCardProps) => {
   return (
-    <PartCardWrapper varient={props.varient} onClick={props.onClick}>
+    <PartCardWrapper
+      varient={props.varient}
+      selected={props.selected}
+      onClick={props.onClick}
+    >
       <MockGraphic />
       <Field>{CARD_FIELD[props.varient]}</Field>
     </PartCardWrapper>
@@ -43,6 +59,7 @@ export const PartCard = (props: PartCardProps) => {
 
 const PartCardWrapper = styled.button<{
   varient: PartCardVarient;
+  selected?: boolean;
 }>`
   width: 180px;
 
@@ -55,6 +72,21 @@ const PartCardWrapper = styled.button<{
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  /* &:hover {
+    background-color: ${({ varient }) => CARD_COLOR.hover[varient]} !important;
+  } */
+
+  &:active {
+    background-color: ${({ varient }) => CARD_COLOR.active[varient]} !important;
+  }
+
+  ${({ selected, varient }) =>
+    css`
+      background-color: ${selected
+        ? `${CARD_COLOR.selected[varient]}`
+        : `${CARD_COLOR.normal[varient]}`} !important;
+    `}
 `;
 
 const MockGraphic = styled.div`
