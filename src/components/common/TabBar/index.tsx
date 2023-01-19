@@ -19,12 +19,7 @@ export interface TabBarProps {
  * false: 오른쪽
  */
 
-export const TabBar = ({
-  barState,
-  setBarState,
-  leftTab = '내가 쓴 글',
-  rightTab = '스크랩',
-}: TabBarProps) => {
+export const TabBar = ({ barState, setBarState, leftTab = '내가 쓴 글', rightTab = '스크랩' }: TabBarProps) => {
   const ref = useRef<HTMLDivElement[] | null[]>([]);
 
   const HandleTabClick = (e: any) => {
@@ -59,9 +54,7 @@ const Tab = styled.div<{
 
   ${({ barState }) =>
     css`
-      color: ${barState
-        ? `${theme.palette.Gray50}`
-        : `${theme.palette.Gray30}`};
+      color: ${barState ? `${theme.palette.Gray50}` : `${theme.palette.Gray30}`};
     `}
 
   ${({ barState }) => (barState ? theme.typo.Heading4 : theme.typo.Heading5)};
@@ -78,8 +71,7 @@ const TabLine = styled.div<{
   width: 142px;
   height: 0px;
 
-  border: ${({ barState }) =>
-    barState ? `1.5px solid ${theme.palette.Gray50}` : 0};
+  border: ${({ barState }) => (barState ? `1.5px solid ${theme.palette.Gray50}` : 0)};
 
   border-radius: 2px;
 `;
