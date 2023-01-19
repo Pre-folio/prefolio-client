@@ -13,11 +13,14 @@ import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
+import { UploadIcon } from '../../components/Icons/UploadIcon';
+import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 
 const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
 
 const Write = () => {
   const [toolsList, setToolsList] = useState<string[]>([]);
+  const [thumbnailImage, setThumbnailImage] = useState<Blob>();
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
   const tags = useRecoilValue(selectedTagsListState);
 
@@ -39,10 +42,38 @@ const Write = () => {
     }
   };
 
+  const onUploadThumbnailImage = (file: Blob) => {
+    setThumbnailImage(file);
+  };
+
+  const onClickTrashCanIcon = () => {
+    setThumbnailImage(undefined);
+  };
+
+  const onClickCancelButton = (toolName: string) => {
+    const tempToolsList = toolsList.filter((tool) => tool !== toolName);
+    setToolsList(tempToolsList);
+  };
+
   return (
     <>
       <ThumbnailImageWrapper>
         <ImageUploadArea />
+        <Column style={{ position: 'absolute', zIndex: '1', left: `calc(50% + 548px)`, marginTop: '438px' }} gap="30px">
+          <div>
+            <input
+              type="file"
+              id="img-upload"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                if (e.target.files) return onUploadThumbnailImage(e.target.files[0]);
+              }}
+              accept="image/x-png,image/gif,image/jpeg"
+            />
+            <UploadIcon htmlFor="img-upload" />
+          </div>
+          <TrashCanIcon onClick={onClickTrashCanIcon} />
+        </Column>
       </ThumbnailImageWrapper>
       <div style={{ alignItems: 'center' }}>
         <Column
@@ -98,18 +129,26 @@ const Write = () => {
               </Row>
               <Row marginTop="20px" justifyContent="flex-start" alignItems="flex-start">
                 <CategoryTextArea />
-                <Row width="1098px" gap="12px" justifyContent="flex-start" alignItems="flext-start">
+                <Row
+                  width="1098px"
+                  gap="12px"
+                  justifyContent="flex-start"
+                  alignItems="flext-start"
+                  style={{ overflowX: 'scroll' }}
+                >
                   {toolsList.map((tool) => {
                     return (
                       <Filter
                         key={tool}
                         type={tool}
+                        hasCancelButton
                         style={{
                           backgroundColor: theme.palette.Gray10,
                           color: theme.palette.Gray40,
                           boxShadow: `${theme.shadow.Button.Black} !important`,
-                          cursor: 'none',
+                          cursor: 'default',
                         }}
+                        onClickCancelButton={(e) => onClickCancelButton(tool)}
                       />
                     );
                   })}
@@ -138,8 +177,8 @@ const Write = () => {
                   setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
                 }}
               />
-              {isGuideLineButtonClicked ? (
-                <Column marginTop="20px">
+              {isGuideLineButtonClicked && (
+                <Column marginTop="20px" gap="6px">
                   {tags.map((tag) => {
                     if (tag === 'society' || tag === 'project' || tag === 'intern') {
                       return <GuideLine type={tag} key={tag} />;
@@ -147,8 +186,6 @@ const Write = () => {
                     return;
                   })}
                 </Column>
-              ) : (
-                <></>
               )}
             </Column>
           </Row>

@@ -102,6 +102,7 @@ const HelpIconArea = styled.div`
   & .help-icon:hover + .hover-img {
     display: block;
     position: absolute;
+    //TODO 비율에 따른 위치 조정 필요
     top: 159%;
     left: 48%;
     z-index: 1;
