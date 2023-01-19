@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 
 export interface IWrapper {
   width?: string;
@@ -37,4 +38,24 @@ export const Column = styled.div<IWrapper>`
   margin-bottom: ${(props) => props.marginBottom};
   margin-top: ${(props) => props.marginTop};
   gap: ${(props) => props.gap};
+`;
+
+export const Text = styled.div<{
+  typo: KeyOfTypo;
+  color: KeyOfPalette;
+  height: number;
+}>`
+  ${({ typo }) => theme.typo[typo]};
+  color: ${({ color }) => theme.palette[color]};
+
+  display: flex;
+  align-items: center;
+
+  height: ${({ height }) => `${height}px`};
+`;
+
+export const Space = styled.div<{
+  height: number;
+}>`
+  height: ${({ height }) => `${height}px`};
 `;

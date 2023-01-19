@@ -1,5 +1,19 @@
+import styled from 'styled-components';
+import { SettingList } from '../../components/setting/SettingList';
+
 const Setting = () => {
-  return <div>내 정보 입력하기</div>;
+  return (
+    <Wrapper>
+      <SettingList />
+    </Wrapper>
+  );
 };
 
 export default Setting;
+
+const Wrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+`;
