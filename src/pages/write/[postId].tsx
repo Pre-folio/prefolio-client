@@ -9,20 +9,29 @@ import { theme } from '../../styles/theme';
 import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
 import { GuideLine } from '../../components/WritingPage/GuideLine';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
+import axios from 'axios';
 
 const Editor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
 
 const Write = () => {
   const [toolsList, setToolsList] = useState<string[]>([]);
-  const [thumbnailImage, setThumbnailImage] = useState<Blob>();
+  const [fileBlob, setFileBlob] = useState<any>();
+
+  const [thumbnailImage, setThumbnailImage] = useState<any>();
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
+  // const [userInfo, setUserInfo] = useRecoilState(user)
   const tags = useRecoilValue(selectedTagsListState);
+  const [token, setToken] = useState<string | null>('');
+  useEffect(() => {
+    setToken(localStorage.getItem('prefolio-token'));
+  }, []);
+  const [thumbnailUploadUrl, setThumbnailUploadUrl] = useState('');
 
   const title = useInput(''); // title.value가 값임
   const startDate = useInput(''); // startDate.value 가 값임
@@ -42,8 +51,36 @@ const Write = () => {
     }
   };
 
-  const onUploadThumbnailImage = (file: Blob) => {
-    setThumbnailImage(file);
+  const onUploadThumbnailImage = (file: any) => {
+    let fileReader = new FileReader();
+    let fileName;
+    if (file) {
+      fileReader.onload = (e) => {
+        // console.log(fileReader.result);
+        if (fileReader.result) {
+          fileName = fileReader.result;
+        }
+      };
+      fileReader.readAsArrayBuffer(file);
+
+      axios
+        .get('https://api.prefolio.net/source/url', {
+          params: {
+            filePath: 'thumbnail',
+          },
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res);
+          const url = res.data.data;
+          setThumbnailUploadUrl(url);
+          console.log(url);
+
+          // axios.put(url, fileName).then((res) => {
+          //   console.log(res);
+          // });
+        });
+    }
   };
 
   const onClickTrashCanIcon = () => {
