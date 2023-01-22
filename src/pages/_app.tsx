@@ -9,7 +9,7 @@ import { theme } from '../styles/theme/theme';
 import '../../public/static/fonts/style.css';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
