@@ -9,9 +9,9 @@ export function postPosts(post: object) {
   });
 }
 
-export function getPosts(id: number) {
-  return client.get(`/posts/post/${id}`).then((res) => {
-    console.log(res);
+export async function getPost(id: number) {
+  return await client.get(`/posts/post/${id}`).then((res) => {
+    // console.log(res);
     return res;
   });
 }

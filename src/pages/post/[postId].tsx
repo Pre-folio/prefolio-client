@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { getPosts } from '../../apis/posts';
+import { getPost } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
 import { PostTagArea } from '../../components/postPage/PostTagArea';
@@ -12,6 +14,10 @@ import { theme } from '../../styles/theme';
 const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), { ssr: false });
 
 const Board = () => {
+  const router = useRouter();
+  const { postId } = router.query;
+  const [postData, setPostData] = useState({});
+
   /*
   {
   "thumbnail": "string",
@@ -26,9 +32,23 @@ const Board = () => {
   }
   */
 
+  const postIdToNumber = Number(postId);
+  // const { isLoading, data } = useQuery<any>(['get-post', postIdToNumber], postIdToNumber && getPost(postIdToNumber));
+  // console.log(isLoading, data);
+
+  const getPostData = async () => {
+    if (postId) {
+      const postIdToNumber = Number(postId);
+      const res = await getPost(postIdToNumber);
+      setPostData(res);
+    }
+  };
+
   useEffect(() => {
-    getPosts(46);
-  }, []);
+    getPostData();
+  }, [postId]);
+
+  console.log(postData);
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url

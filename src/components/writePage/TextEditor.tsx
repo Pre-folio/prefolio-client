@@ -53,10 +53,10 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
     const postId = await postPosts(postContent);
     console.log(postId);
 
-    // if (postId) {
-    //   router.push({ pathname: `/post/${postId}` });
-    //   //페이지 이동
-    // }
+    if (postId) {
+      router.push({ pathname: `/post/${postId}` });
+      //페이지 이동
+    }
   };
 
   return (
