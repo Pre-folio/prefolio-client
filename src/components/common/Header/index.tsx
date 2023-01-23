@@ -11,7 +11,6 @@ export function Header() {
   const router = useRouter();
   const currentUrl = router.asPath;
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  console.log(currentUrl);
 
   return (
     <HeaderWrapper>
