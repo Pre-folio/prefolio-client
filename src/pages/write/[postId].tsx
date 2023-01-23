@@ -8,7 +8,7 @@ import { Column, Row } from '../../components/common/Wrapper';
 import { theme } from '../../styles/theme';
 import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
-import { GuideLine } from '../../components/WritingPage/GuideLine';
+import { GuideLine } from '../../components/writePage/GuideLine';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
@@ -17,7 +17,7 @@ import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../api/uploadImage';
 
-const TextEditor = dynamic(() => import('../../components/WritingPage/TextEditor'), { ssr: false });
+const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
 
 const Write = () => {
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
