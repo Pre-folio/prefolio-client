@@ -5,9 +5,9 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import styled from 'styled-components';
 import { Column } from '../common/Wrapper';
 import { Button } from '../common/Button';
-import { postPosts } from '../../api/posts';
+import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';
-import { getPresignedUrl, uploadFile } from '../../api/uploadImage';
+import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -51,10 +51,12 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
     };
 
     const postId = await postPosts(postContent);
-    if (postId) {
-      router.push({ pathname: `/post/${postId}` });
-      //페이지 이동
-    }
+    console.log(postId);
+
+    // if (postId) {
+    //   router.push({ pathname: `/post/${postId}` });
+    //   //페이지 이동
+    // }
   };
 
   return (

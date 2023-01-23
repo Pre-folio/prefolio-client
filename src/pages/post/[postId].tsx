@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getPosts } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
 import { PostTagArea } from '../../components/postPage/PostTagArea';
@@ -23,7 +24,11 @@ const Board = () => {
   "actTag": "string",
   "contents": "string"
   }
-   */
+  */
+
+  useEffect(() => {
+    getPosts(46);
+  }, []);
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url

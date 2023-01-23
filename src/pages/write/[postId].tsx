@@ -15,7 +15,7 @@ import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
-import { getPresignedUrl, uploadFile } from '../../api/uploadImage';
+import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
 const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
 
