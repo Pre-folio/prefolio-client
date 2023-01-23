@@ -36,10 +36,6 @@ const Write = () => {
   const [toolsList, setToolsList] = useState<string[]>([]);
   const tags = useRecoilValue(selectedTagsListState);
 
-  useEffect(() => {
-    console.log(startDate.value);
-  }, [startDate.value]);
-
   // const post = {
   //   thumbnail: thumbnailUploadUrl,
   //   title: title.value,

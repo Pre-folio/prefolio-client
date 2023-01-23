@@ -27,7 +27,7 @@ export function getPresignedUrl(path: any) {
 
 interface uploadFileProps {
   url: string;
-  file: Blob | any;
+  file: Blob | File | any;
 }
 /**
  *
@@ -35,8 +35,12 @@ interface uploadFileProps {
  * @param file 업로드할 raw 파일
  * @returns 응답 코드
  */
-export function uploadFile({ url, file }: uploadFileProps) {
+export function uploadFile({ url, file }: any) {
+  console.log(url, file);
+
   return axios.put(url, file).then((res) => {
+    console.log(res);
+
     return res.status;
   });
 }

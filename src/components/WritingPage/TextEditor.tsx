@@ -7,18 +7,30 @@ import { Column } from '../common/Wrapper';
 import { Button } from '../common/Button';
 import { postPosts } from '../../api/posts';
 import { useRouter } from 'next/router';
+import { getPresignedUrl, uploadFile } from '../../api/uploadImage';
 
 type HookCallback = (url: string, text?: string) => void;
 
 const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contribution, task, toolsList, tags }: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
+  const [imageUrl, setImageUrl] = useState('');
 
-  const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
-    console.log(blob);
+  const onUploadImage = async (file: any, callback: HookCallback) => {
+    const url = await getPresignedUrl('IMAGE');
+    console.log(url);
+    const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
+    if (url) {
+      // presigned url에 파일 업로드 후 url 저장.
+      const statusCode = await uploadFile({ url, file });
+      if (statusCode === 200) {
+        setImageUrl(slicedUrl);
+        callback(slicedUrl, '이미지');
+      }
+    }
   };
 
-  const onClickUploadButton = () => {
+  const onClickUploadButton = async () => {
     let postContent;
     const text = editorRef.current?.getInstance().getHTML();
 
@@ -38,9 +50,10 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
       contents: text,
     };
 
-    const postId = postPosts(postContent);
+    const postId = await postPosts(postContent);
     if (postId) {
-      router.push(`/post/${postId}`);
+      router.push({ pathname: `/post/${postId}` });
+      //페이지 이동
     }
   };
 
