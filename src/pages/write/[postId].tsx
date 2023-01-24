@@ -16,6 +16,7 @@ import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
+import { formatDate } from '../../hooks/formatDate';
 
 const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
 
@@ -35,19 +36,6 @@ const Write = () => {
   const task = useInput(''); // task.value가 값임
   const [toolsList, setToolsList] = useState<string[]>([]);
   const tags = useRecoilValue(selectedTagsListState);
-
-  // const post = {
-  //   thumbnail: thumbnailUploadUrl,
-  //   title: title.value,
-  //   startDate: startDate.value,
-  //   endDate: endDate.value,
-  //   contribution: contribution.value,
-  //   task: task.value,
-  //   tools: toolsList.toString(),
-  //   partTag: partTag,
-  //   actTag: actTag,
-  //   contents: 'string',
-  // };
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -226,8 +214,8 @@ const Write = () => {
             <TextEditor
               thumbnailUploadUrl={thumbnailUploadUrl}
               title={title.value}
-              startDate={startDate.value}
-              endDate={endDate.value}
+              startDate={formatDate(startDate.value)}
+              endDate={formatDate(endDate.value)}
               contribution={contribution.value}
               task={task.value}
               toolsList={toolsList}

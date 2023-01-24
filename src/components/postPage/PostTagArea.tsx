@@ -18,7 +18,7 @@ export function PostTagArea({ tags, tools, contribution, role, style }: TagListP
       <Column gap="18px" justifyContent="flex-start" alignItems="flex-start">
         <Row gap="57px">
           <CategoryTextArea>태그</CategoryTextArea>
-          <Row gap="12px">
+          <Row gap="12px" style={{ maxWidth: '380px', overflowX: 'scroll', backgroundColor: 'red' }}>
             {tags?.map((tag: any) => {
               if (tag === 'dev' || tag === 'plan' || tag === 'design') {
                 return <Tag type={'field'} sort={tag} key={tag} />;
