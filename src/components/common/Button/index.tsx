@@ -7,25 +7,27 @@ interface ButtonProps {
   color?: string;
   content?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  width?: number;
 }
 
 interface IButton {
   color?: 'mint' | 'gray' | 'navy' | any;
+  width?: number;
 }
 
-export function Button({ type, color, content, onClick }: ButtonProps) {
+export function Button({ type, color, content, onClick, width }: ButtonProps) {
   return type === 'big' ? (
     // 버튼_대는 mint color 밖에 없음
-    <BigButton color={color} onClick={onClick}>
+    <BigButton color={color} onClick={onClick} width={width}>
       {content || '시작하기'}
     </BigButton>
   ) : type === 'medium' ? (
-    <MediumButton color={color} onClick={onClick}>
+    <MediumButton color={color} onClick={onClick} width={width}>
       {content || '로그인/가입'}
     </MediumButton>
   ) : type === 'small' ? (
     // 버튼_소는 white color 밖에 없음
-    <SmallButton color={color} onClick={onClick}>
+    <SmallButton color={color} onClick={onClick} width={width}>
       {content || '이미지 업로드'}
     </SmallButton>
   ) : type === 'popup' ? (
@@ -66,10 +68,10 @@ const DefaultButton = styled.button<IButton>`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: ${(props) => (props.width ? `${props.width}px` : 'auto')};
 `;
 
 const BigButton = styled(DefaultButton)`
-  width: auto;
   height: 60px;
   padding: 18px 70px;
   ${theme.typo.Heading3};
@@ -77,7 +79,6 @@ const BigButton = styled(DefaultButton)`
 `;
 
 const MediumButton = styled(DefaultButton)`
-  width: auto;
   height: 46px;
   padding: 14px 30px;
   ${theme.typo.Label1};
@@ -85,7 +86,6 @@ const MediumButton = styled(DefaultButton)`
 `;
 
 const SmallButton = styled(DefaultButton)`
-  width: auto;
   height: 34px;
   padding: 8px 20px;
   ${theme.typo.Body1};

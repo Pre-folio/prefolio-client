@@ -12,6 +12,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessageColor?: KeyOfPalette;
   padding?: string;
   typo?: KeyOfTypo;
+  setValue?: Function;
 }
 
 /**

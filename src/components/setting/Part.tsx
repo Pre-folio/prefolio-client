@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Controller } from 'react-hook-form';
 import { Button } from '../common/Button';
 import { PartCard, PartCardVarient } from '../common/PartCard';
 import { Flex, Text } from '../common/Wrapper';
 
-export const Part = () => {
+export const Part = (props: any) => {
   const [selectedPart, setSelectedPart] = useState<string>('');
   const parts: PartCardVarient[] = ['plan', 'dev', 'design'];
 
@@ -17,16 +18,26 @@ export const Part = () => {
       <Text typo={'Heading5'} color={'Black'} height={22}>
         분야를 선택해 주세요.
       </Text>
-      <Flex justify='space-between' width={588}>
-        {parts.map((part: PartCardVarient) => (
-          <PartCard
-            key={part}
-            varient={part}
-            selected={part === selectedPart}
-            onClick={() => handleButtonClick(part)}
-          />
-        ))}
-      </Flex>
+      <Controller
+        rules={{ required: true }}
+        control={props.control}
+        name='type'
+        render={({ field: { onChange } }) => (
+          <Flex justify='space-between' width={588}>
+            {parts.map((part: PartCardVarient) => (
+              <PartCard
+                key={part}
+                varient={part}
+                selected={part === selectedPart}
+                onClick={() => {
+                  handleButtonClick(part);
+                  onChange(part);
+                }}
+              />
+            ))}
+          </Flex>
+        )}
+      />
     </Flex>
   );
 };

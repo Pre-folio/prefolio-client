@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
+import { Controller } from 'react-hook-form';
 import { Button } from '../common/Button';
 import { Flex, Text } from '../common/Wrapper';
 
-export const Grade = () => {
-  const [selectedGrade, setSelectedGrade] = useState<string>('');
-  const grades = ['1학년', '2학년', '3학년', '4학년'];
+export const Grade = (props: any) => {
+  const [selectedGrade, setSelectedGrade] = useState<number>();
+  const grades = [1, 2, 3, 4];
 
-  //버튼 컴포넌트 width 수정 가능하도록 수정 필요
-  const handleButtonClick = (grade: string) => {
+  const handleButtonClick = (grade: number) => {
     setSelectedGrade(grade);
   };
 
@@ -16,17 +16,28 @@ export const Grade = () => {
       <Text typo={'Heading5'} color={'Black'} height={22}>
         학년을 선택해 주세요.
       </Text>
-      <Flex justify='space-between' width={588} gap={15}>
-        {grades.map((grade: string) => (
-          <Button
-            key={grade}
-            type={'medium'}
-            content={grade}
-            color={`${grade === selectedGrade ? 'mint' : 'gray'}`}
-            onClick={() => handleButtonClick(grade)}
-          />
-        ))}
-      </Flex>
+      <Controller
+        rules={{ required: true }}
+        control={props.control}
+        name='grade'
+        render={({ field: { onChange } }) => (
+          <Flex justify='space-between' width={588} gap={15}>
+            {grades.map((grade: number) => (
+              <Button
+                key={grade}
+                type={'medium'}
+                content={`${grade}학년`}
+                color={`${grade === selectedGrade ? 'mint' : 'gray'}`}
+                onClick={() => {
+                  handleButtonClick(grade);
+                  onChange(grade);
+                }}
+                width={136}
+              />
+            ))}
+          </Flex>
+        )}
+      />
     </Flex>
   );
 };

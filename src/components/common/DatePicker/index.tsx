@@ -14,6 +14,9 @@ export const DatePicker = (props: InputProps) => {
     startDate
       ? setColor(`${theme.palette.Minttext}`)
       : setColor(`${theme.palette.Gray40}`);
+    if (props.setValue) {
+      props.setValue(startDate);
+    }
   }, [startDate]);
 
   return (

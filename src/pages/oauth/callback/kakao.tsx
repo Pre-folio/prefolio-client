@@ -6,7 +6,7 @@ import { useUser } from '../../../hooks/useUser';
 const Callback = () => {
   const router = useRouter();
   const { code } = router.query;
-  const { kakaoValidationMutation } = useAuth(code);
+  const { kakaoValidationMutation } = useAuth();
 
   useEffect(() => {
     if (code && typeof code === 'string') {

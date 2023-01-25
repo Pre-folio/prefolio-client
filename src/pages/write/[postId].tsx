@@ -15,23 +15,43 @@ import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
+import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
-const Editor = dynamic(() => import('../../components/writePage/TextEditor'), {
-  ssr: false,
-});
+const TextEditor = dynamic(
+  () => import('../../components/writePage/TextEditor'),
+  { ssr: false }
+);
 
 const Write = () => {
-  const [toolsList, setToolsList] = useState<string[]>([]);
-  const [thumbnailImage, setThumbnailImage] = useState<Blob>();
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] =
     useState<boolean>(false);
-  const tags = useRecoilValue(selectedTagsListState);
+  // const [userInfo, setUserInfo] = useRecoilState(user)
+  // const [token, setToken] = useState<string | null>('');
+  // useEffect(() => {
+  //   setToken(localStorage.getItem('prefolio-token'));
+  // }, []);
 
+  const [thumbnailUploadUrl, setThumbnailUploadUrl] = useState('');
   const title = useInput(''); // title.value가 값임
   const startDate = useInput(''); // startDate.value 가 값임
   const endDate = useInput(''); // endDate.value가 값임
   const contribution = useInput(''); // contribution.value가 값임
-  const roll = useInput(''); // roll.value가 값임
+  const task = useInput(''); // task.value가 값임
+  const [toolsList, setToolsList] = useState<string[]>([]);
+  const tags = useRecoilValue(selectedTagsListState);
+
+  // const post = {
+  //   thumbnail: thumbnailUploadUrl,
+  //   title: title.value,
+  //   startDate: startDate.value,
+  //   endDate: endDate.value,
+  //   contribution: contribution.value,
+  //   task: task.value,
+  //   tools: toolsList.toString(),
+  //   partTag: partTag,
+  //   actTag: actTag,
+  //   contents: 'string',
+  // };
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -45,12 +65,22 @@ const Write = () => {
     }
   };
 
-  const onUploadThumbnailImage = (file: Blob) => {
-    setThumbnailImage(file);
+  const onUploadThumbnailImage = async (file: any) => {
+    // presigned url 받는 api.
+    const url = await getPresignedUrl('THUMBNAIL');
+    const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
+
+    if (url) {
+      // presigned url에 파일 업로드 후 url 저장.
+      const statusCode = await uploadFile({ url, file });
+      if (statusCode === 200) {
+        setThumbnailUploadUrl(slicedUrl);
+      }
+    }
   };
 
   const onClickTrashCanIcon = () => {
-    setThumbnailImage(undefined);
+    setThumbnailUploadUrl('');
   };
 
   const onClickCancelButton = (toolName: string) => {
@@ -61,7 +91,16 @@ const Write = () => {
   return (
     <>
       <ThumbnailImageWrapper>
-        <ImageUploadArea />
+        {thumbnailUploadUrl.length > 1 ? (
+          <img
+            src={thumbnailUploadUrl}
+            alt='게시글 썸네일 이미지'
+            width='996px'
+            height='100%'
+          />
+        ) : (
+          <ImageUploadArea />
+        )}
         <Column
           style={{
             position: 'absolute',
@@ -138,7 +177,7 @@ const Write = () => {
               width={1098}
               height={46}
               placeholder='활동에서 주로 맡은 역할을 작성해주세요.'
-              {...roll}
+              {...task}
             />
           </Row>
           <Row
@@ -244,7 +283,16 @@ const Write = () => {
             </Column>
           </Row>
           <div style={{ height: '300px' }}>
-            <Editor />
+            <TextEditor
+              thumbnailUploadUrl={thumbnailUploadUrl}
+              title={title.value}
+              startDate={startDate.value}
+              endDate={endDate.value}
+              contribution={contribution.value}
+              task={task.value}
+              toolsList={toolsList}
+              tags={tags}
+            />
           </div>
         </Column>
       </div>

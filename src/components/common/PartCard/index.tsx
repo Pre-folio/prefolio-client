@@ -73,10 +73,6 @@ const PartCardWrapper = styled.button<{
   flex-direction: column;
   justify-content: center;
 
-  /* &:hover {
-    background-color: ${({ varient }) => CARD_COLOR.hover[varient]} !important;
-  } */
-
   &:active {
     background-color: ${({ varient }) => CARD_COLOR.active[varient]} !important;
   }
