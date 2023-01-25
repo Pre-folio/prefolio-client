@@ -8,10 +8,12 @@ import { PostCard } from '../../components/common/PostCard';
 import { TagArea } from '../../components/common/TagArea';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
+import { useQuery } from 'react-query';
 
 const Profile = () => {
   const router = useRouter();
   const watchingUserId = router.query.id;
+  const isMyProfile = true; // 로그인 작업 이후 isMyProfile = (내 userId === watchingUserId)
 
   // 유저 정보 get api
   const nickname_ = '장영준';
@@ -22,8 +24,11 @@ const Profile = () => {
 
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');
+  const [posts_, setPosts_] = useState([]);
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
   const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
+
+  // const {isLoading, data} = useQuery(['get-user-post'], get)
 
   useEffect(() => {
     if (barState) {

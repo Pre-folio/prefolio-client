@@ -19,8 +19,9 @@ const Board = () => {
   const router = useRouter();
   const { postId } = router.query;
   const postIdToNumber = Number(postId);
+
   const { isLoading: isPostLoading, data: postData } = useQuery(
-    ['post-data'],
+    ['post-data', postIdToNumber],
     async () => await getPost(postIdToNumber)
   );
 
@@ -134,18 +135,21 @@ const Board = () => {
 
 export default Board;
 
-export function getServerSideProps(context: any) {
-  // const router = useRouter();
-  const { postId } = context.query;
-  const postIdToNumber = Number(postId);
-  const queryClient = new QueryClient();
-  queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
+// export async function getServerSideProps(context: any) {
+//   // const router = useRouter();
+//   const { postId } = context.query;
+//   const postIdToNumber = Number(postId);
+//   // const queryClient = new QueryClient();
+//   // queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
+//   const res = await getPost(postIdToNumber);
+//   const result = res.data;
+//   // const result = await res.json();
+//   return {
+//     props: {
+//       result,
+//     },
+//   };
+// }
 
 const ThumbnailImageWrapper = styled.div`
   width: 100vw;
