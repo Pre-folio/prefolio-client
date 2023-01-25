@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import styled from 'styled-components';
+import { getLikes, getScraps } from '../../apis/onClickPostContent';
 import { getPost } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
@@ -31,8 +32,6 @@ const Board = () => {
   const [createdAt, setCreatedAt] = useState<string>(''); // 생성날짜
   const [hits, setHits] = useState<number>(0); // 조회수
   const [tags, setTags] = useState<string[]>([]); // 태그
-  const [partTag, setPartTag] = useState<string[]>([]);
-  const [actTag, setActTag] = useState<string[]>([]);
   const [tools, setTools] = useState<string[]>([]); // 사용 툴
   const [contribution, setContribution] = useState<number>(0); // 기여도
   const [task, setTask] = useState<string>(''); // 맡은 역할
@@ -45,7 +44,7 @@ const Board = () => {
     profileImage: '',
     type: '',
   });
-  const [isHitButtonClicked, setIsHitButtonClicked] = useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
   const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
 
   useEffect(() => {
@@ -67,11 +66,28 @@ const Board = () => {
       setLikes(data.count.likes);
       setScraps(data.count.scraps);
       setUserInfo(data.user);
+      setIsLikedButtonClicked(data.isLiked);
+      setIsScrapButtonClicked(data.isScrapped);
     }
   }, [isPostLoading]);
 
-  const [likes_, setLikes_] = useState(likes);
-  const [scraps_, setScraps_] = useState(scraps);
+  // 스크랩 버튼 클릭 함수
+  const onClickScrapButton = async () => {
+    const { data, message } = await getScraps(postIdToNumber, !isScrapButtonClicked);
+    if (message === 'SUCCESS') {
+      setIsScrapButtonClicked(!isScrapButtonClicked);
+      setScraps(data.scraps);
+    }
+  };
+
+  // 좋아요 버튼 클릭 함수
+  const onClickLikeButton = async () => {
+    const { data, message } = await getLikes(postIdToNumber, !isLikedButtonClicked);
+    if (message === 'SUCCESS') {
+      setIsLikedButtonClicked(!isLikedButtonClicked);
+      setLikes(data.likes);
+    }
+  };
 
   // TODO 게시글 작성자가 현재 보고 있는 유저일 경우 버튼 누르는거 막기 등
 
@@ -100,32 +116,8 @@ const Board = () => {
         />
         <Viewer style={{ marginTop: '72px' }} data={content} />
         <PostButtonWrapper>
-          <PostButton
-            type={'hit'}
-            isClicked={isHitButtonClicked}
-            onClick={() => {
-              setIsHitButtonClicked(!isHitButtonClicked);
-              if (isHitButtonClicked) {
-                setLikes_(likes_ - 1);
-              } else {
-                setLikes_(likes_ + 1);
-              }
-            }}
-            counts={likes_}
-          />
-          <PostButton
-            type={'scrap'}
-            isClicked={isScrapButtonClicked}
-            onClick={() => {
-              setIsScrapButtonClicked(!isScrapButtonClicked);
-              if (isScrapButtonClicked) {
-                setScraps_(scraps_ - 1);
-              } else {
-                setScraps_(scraps_ + 1);
-              }
-            }}
-            counts={scraps_}
-          />
+          <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+          <PostButton type={'scrap'} isClicked={isScrapButtonClicked} onClick={onClickScrapButton} counts={scraps} />
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea

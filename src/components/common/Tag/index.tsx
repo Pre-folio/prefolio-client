@@ -37,12 +37,14 @@ export function Tag({ type, sort, style }: TagProps) {
 const ActivityTag = styled.button`
   ${theme.typo.Label2}
   padding: 6px 10px;
-  width: auto;
+  width: auto !important;
   height: 28px;
   border-radius: 4px;
   background-color: ${theme.palette.Gray10};
   color: ${theme.palette.Gray50};
   box-shadow: ${shadow.Button.Black};
+  text-overflow: initial;
+  word-break: keep-all !important;
 
   cursor: default;
 `;
@@ -73,4 +75,5 @@ const FieldTag = styled.button<ITag>`
       : props.field === 'design' && shadow.Button.Purple};
 
   cursor: default;
+  word-break: keep-all !important;
 `;

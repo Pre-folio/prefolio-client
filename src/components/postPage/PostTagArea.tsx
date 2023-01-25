@@ -18,21 +18,35 @@ export function PostTagArea({ tags, tools, contribution, role, style }: TagListP
       <Column gap="18px" justifyContent="flex-start" alignItems="flex-start">
         <Row gap="57px">
           <CategoryTextArea>태그</CategoryTextArea>
-          <Row gap="12px" style={{ maxWidth: '380px', overflowX: 'scroll', backgroundColor: 'red' }}>
-            {tags?.map((tag: any) => {
+          <Row gap="12px" justifyContent="flex-start" style={{ maxWidth: '360px', overflowX: 'scroll' }}>
+            {tags?.map((tag: any, index: number) => {
               if (tag === 'dev' || tag === 'plan' || tag === 'design') {
-                return <Tag type={'field'} sort={tag} key={tag} />;
+                return <Tag type={'field'} sort={tag} key={index} style={{ wordBreak: 'keep-all' }} />;
               } else {
-                return <Tag type={'activity'} sort={tag} key={tag} style={{ backgroundColor: 'white' }} />;
+                return (
+                  <Tag
+                    type={'activity'}
+                    sort={tag}
+                    key={index}
+                    style={{ backgroundColor: 'white', wordBreak: 'keep-all' }}
+                  />
+                );
               }
             })}
           </Row>
         </Row>
-        <Row gap="38px">
+        <Row gap="38px" style={{ height: '28px' }}>
           <CategoryTextArea>사용 툴</CategoryTextArea>
-          <Row gap="12px">
-            {tools?.map((tool: any) => {
-              return <Tag type={'activity'} sort={tool} key={tool} style={{ backgroundColor: 'white' }} />;
+          <Row gap="12px" justifyContent="flex-start" style={{ maxWidth: '360px', overflowX: 'scroll' }}>
+            {tools?.map((tool: any, index: number) => {
+              return (
+                <Tag
+                  type={'activity'}
+                  sort={tool}
+                  key={index}
+                  style={{ backgroundColor: 'white', wordBreak: 'keep-all' }}
+                />
+              );
             })}
           </Row>
         </Row>
@@ -87,4 +101,7 @@ const DivisionLine = styled.div`
 const RoleTextArea = styled.div`
   ${theme.typo.Body2};
   color: ${theme.palette.Gray40};
+  /* max-width: 360px; */
+  overflow: scroll;
+  white-space: pre-wrap;
 `;
