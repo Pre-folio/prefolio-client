@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { client } from './client';
 
-const token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImlzcyI6InByZWZvbGlvIiwiaWF0IjoxNjc0NDg1NTkxLCJleHAiOjE2NzQ1NzE5OTEsImlkIjoxNSwicm9sZXMiOiJVU0VSIn0.XGkCApVUHWQamjJ7wjutgzTDvYe9KgbHYe5GKSWfkbk';
-
 interface getPresignedUrlProps {
   path: string;
 }
@@ -18,7 +15,6 @@ export function getPresignedUrl(path: any) {
       params: {
         path: path,
       },
-      headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => {
       return res.data.data.url;

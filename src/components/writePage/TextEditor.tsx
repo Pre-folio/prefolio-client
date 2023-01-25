@@ -64,6 +64,8 @@ const TextEditor = ({
     };
 
     const postId = await postPosts(postContent);
+    console.log(postId);
+
     if (postId) {
       router.push({ pathname: `/post/${postId}` });
       //페이지 이동

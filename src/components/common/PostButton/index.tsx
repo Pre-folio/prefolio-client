@@ -48,7 +48,7 @@ export function PostButton({ type, isClicked, counts, onClick }: PostButtonProps
         <TextArea>
           {type === 'scrap' ? (isClicked ? '스크랩 취소' : '스크랩 하기') : isClicked ? '추천 취소' : '추천 하기'}
         </TextArea>
-        <CountArea>{counts || 10}</CountArea>
+        <CountArea>{counts}</CountArea>
       </Column>
     </Wrapper>
   );
