@@ -1,11 +1,24 @@
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { isLoggedInState } from '../../store/LoggedIn/loggedInState';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 import { Button } from '../common/Button';
 
 export const StartSection = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (isLoggedIn) {
+      router.push('/feed');
+    } else {
+      router.push('/login');
+    }
+  };
   return (
-    <section>
-      <Space height={185} />
+    <Section>
+      <Space height={190} />
       <Text typo='Heading2' color='Black'>
         대학생이라면 이용해야 하는
         <br />
@@ -18,11 +31,20 @@ export const StartSection = () => {
         Your Portfolio!
       </Text>
       <Space height={70} />
-      <Button type='big' color='mint' content='바로 시작하기' />
+      <Button
+        type='big'
+        color='mint'
+        content='바로 시작하기'
+        onClick={handleButtonClick}
+      />
       <Space height={174.33} />
-    </section>
+    </Section>
   );
 };
+
+const Section = styled.section`
+  /* background-image: url('/images/home/home1.png'); */
+`;
 
 const Text = styled.div<{
   typo: KeyOfTypo;

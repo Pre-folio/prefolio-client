@@ -42,7 +42,7 @@ export function Header() {
               }}
             />
           ) : (
-            <Row gap="16px">
+            <Row gap='16px'>
               <Button
                 type={'medium'}
                 color={'mint'}
@@ -52,7 +52,7 @@ export function Header() {
                   // TODO 게시글 작성 페이지로 이동
                 }}
               />
-              <ProfileImageWrapper alt="프로필 이미지" src="" />
+              <ProfileImageWrapper alt='프로필 이미지' src='' />
             </Row>
           )
         ) : (
