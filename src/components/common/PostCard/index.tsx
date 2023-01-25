@@ -41,9 +41,9 @@ export const PostCard = (props: PostCardProps) => {
 
   const handleIconClick = (e: any) => {
     if (e.target === ref.current?.childNodes[0]) {
-      props.setScrapped(!props.scrapped);
+      props.setScrapped && props.setScrapped(!props.scrapped);
     } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
-      props.setScrapped(!props.scrapped);
+      props.setScrapped && props.setScrapped(!props.scrapped);
     }
   };
 
