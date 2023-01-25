@@ -4,6 +4,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import sourceAPI from '../../apis/source';
+import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { SearchIcon, TrashIcon, UploadIcon } from '../../assets/icons';
 import { JoinFormValues, useJoinForm } from '../../hooks/useJoinForm';
 import { usePresignedURL } from '../../hooks/usePresignedURL';
@@ -16,46 +17,51 @@ export interface ProfileImageProps {
   errors: any;
   control: any;
   watch: any;
+  setValue: any;
 }
 
 export const ProfileImage = ({
   register,
   errors,
   watch,
+  setValue,
   ...props
 }: ProfileImageProps) => {
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>(
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/156116406a-2730-4365-8ce4-68d627952462?'
+  );
   const [trashIconColor, setTrashIconColor] = useState<string>(
     `${theme.palette.Gray20}`
   );
 
-  const { setSource } = usePresignedURL();
-
-  const imageUpaloader = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImage(URL.createObjectURL(e.target.files[0]));
-
-      // uploadFormdataMutation.mutate('PROFILE');
-      setTrashIconColor(`${theme.palette.Gray40}`);
-    }
-  };
-
-  // 2번째 업로드부터는 안 됨
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      onSelectFiles(e);
+      const url = await getPresignedUrl('PROFILE');
+      const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
 
-      setImage(URL.createObjectURL(e.target.files[0]));
-      // console.log(await onSelectFiles(e));
-      // setSource(await onSelectFiles(e));
-      // uploadFormdataMutation.mutate('PROFILE');
-      setTrashIconColor(`${theme.palette.Gray40}`);
+      if (url) {
+        const statusCode = await uploadFile({
+          url: url,
+          file: e.target.files[0],
+        });
+        if (statusCode === 200) {
+          setImage(slicedUrl);
+          setTrashIconColor(`${theme.palette.Gray40}`);
+          setValue('profileImage', slicedUrl);
+        }
+      }
     }
   };
 
   const handleTrashIconClick = () => {
-    setImage('');
+    setImage(
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/156116406a-2730-4365-8ce4-68d627952462?'
+    );
     setTrashIconColor(`${theme.palette.Gray20}`);
+    setValue(
+      'profileImage',
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/156116406a-2730-4365-8ce4-68d627952462?'
+    );
   };
 
   return (
@@ -68,12 +74,12 @@ export const ProfileImage = ({
         <Flex gap={30}>
           <label>
             <input
+              {...(register('profileImage'), { onChange: handleImageChange })}
               type='file'
               id='profileImage'
               style={{ display: 'none' }}
               // onChange={handleImageChange}
               accept='image/x-png, image/gif, image/jpeg'
-              {...(register('profileImage'), { onChange: handleImageChange })}
             />
             <UploadIcon stroke={theme.palette.Gray40} />
           </label>

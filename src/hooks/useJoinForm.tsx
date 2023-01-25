@@ -28,6 +28,8 @@ export const useJoinForm = () => {
     mode: 'onChange',
     defaultValues: {
       nickname: '',
+      profileImage:
+        'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/156116406a-2730-4365-8ce4-68d627952462?',
     },
   });
   const { kakaoJoinMutation } = useAuth();
@@ -67,7 +69,7 @@ export const useJoinForm = () => {
     try {
       kakaoJoinMutation.mutate(getValues());
     } catch (error: unknown) {
-      await console.log('error...', 'error');
+      await console.log('error...', error);
     }
   });
 

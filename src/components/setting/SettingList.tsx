@@ -17,6 +17,7 @@ export const SettingList = () => {
     errors,
     nicknameValidation,
     getValues,
+    setValue,
     joinPrefolio,
   } = useJoinForm();
 
@@ -44,6 +45,7 @@ export const SettingList = () => {
         errors={errors}
         control={control}
         watch={watch}
+        setValue={setValue}
       />
       <Space height={80} />
       <Grade control={control} />
