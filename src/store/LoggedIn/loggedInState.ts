@@ -12,5 +12,5 @@ const checkStorage = () => {
 
 export const isLoggedInState = atom<boolean>({
   key: 'isLoggedInState',
-  default: true,
+  default: checkStorage(),
 });
