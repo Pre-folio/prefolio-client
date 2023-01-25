@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { atom, useRecoilState } from 'recoil';
+import { atom, selector, useRecoilState } from 'recoil';
 import { GetUserInfoResponse } from '../../apis/auth';
 import { getCookie } from '../../utils/cookie';
 
