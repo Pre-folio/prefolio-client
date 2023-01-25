@@ -5,13 +5,22 @@ import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import styled from 'styled-components';
 import { Column } from '../common/Wrapper';
 import { Button } from '../common/Button';
-import { postPosts } from '../../api/posts';
+import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';
-import { getPresignedUrl, uploadFile } from '../../api/uploadImage';
+import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
 type HookCallback = (url: string, text?: string) => void;
 
-const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contribution, task, toolsList, tags }: any) => {
+const TextEditor = ({
+  thumbnailUploadUrl,
+  title,
+  startDate,
+  endDate,
+  contribution,
+  task,
+  toolsList,
+  tags,
+}: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
   const [imageUrl, setImageUrl] = useState('');
@@ -34,8 +43,12 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
     let postContent;
     const text = editorRef.current?.getInstance().getHTML();
 
-    const partTagList = tags.filter((tag: any) => tag === 'dev' || tag === 'design' || tag === 'plan');
-    const actTageList = tags.filter((tag: any) => tag === 'society' || tag === 'intern' || tag === 'project');
+    const partTagList = tags.filter(
+      (tag: any) => tag === 'dev' || tag === 'design' || tag === 'plan'
+    );
+    const actTageList = tags.filter(
+      (tag: any) => tag === 'society' || tag === 'intern' || tag === 'project'
+    );
 
     postContent = {
       thumbnail: thumbnailUploadUrl,

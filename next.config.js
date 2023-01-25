@@ -2,12 +2,6 @@
 
 const nextConfig = {
   reactStrictMode: false,
-  env: {
-    BASE_URL: process.env.BASE_URL,
-    REST_API_KEY: process.env.REST_API_KEY,
-    REDIRECT_URI: process.env.REDIRECT_URI,
-    KAKAO_OAUTH_URL: process.env.KAKAO_OAUTH_URL,
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

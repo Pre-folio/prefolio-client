@@ -1,8 +1,14 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 import { KakaoButton } from './KakaoButton';
 
 export const LoginPage = () => {
+  const router = useRouter();
+  const KAKAO = process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL;
+  console.log(KAKAO);
+  console.log(process.env.NEXT_PUBLIC_REDIRECT_URI);
+
   return (
     <Wrapper>
       <Space height={106} />
@@ -20,7 +26,11 @@ export const LoginPage = () => {
       <Space height={60} />
       <Img />
       <Space height={100} />
-      <KakaoButton />
+      <KakaoButton
+        onClick={() =>
+          router.push(`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}`)
+        }
+      />
     </Wrapper>
   );
 };

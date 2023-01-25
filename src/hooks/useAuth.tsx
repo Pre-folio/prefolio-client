@@ -6,24 +6,26 @@ import authAPI, {
   KakaoJoinResponse,
   KakaoValidationResponse,
 } from '../apis/auth';
-import { userState } from '../store/Auth/userState';
+import { accessToken, userState } from '../store/Auth/userState';
+import { isLoggedInState } from '../store/LoggedIn/loggedInState';
+import { setAccessToken } from '../utils/cookie';
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [user, setUser] = useRecoilState(userState);
+  const [token, setToken] = useRecoilState(accessToken);
+  const [login, setLogin] = useRecoilState(isLoggedInState);
 
   // 가입 여부 확인
   const kakaoValidationMutation = useMutation(authAPI.KAKAO_VALIDATION, {
     onSuccess: (data: KakaoValidationResponse) => {
-      queryClient.setQueryData(['access_token'], data.accessToken);
-      console.log(data);
-      console.log(data.accessToken);
+      setAccessToken(data.accessToken);
       if (data.userId) {
-        // 이미 가입한 유저인 경우 로그인 진행
+        // 가입한 유저인 경우 로그인
         kakaoLoginMutation.mutate(data.userId);
       } else {
-        // 가입하지 않은 경우 회원가입 진행
+        // 가입하지 않은 경우 회원가입
         router.push('/settings');
       }
     },
@@ -47,6 +49,7 @@ export const useAuth = () => {
     onSuccess: (data: GetUserInfoResponse) => {
       console.log('회원가입/로그인 완료, userInfo:', data);
       setUser(data);
+      setLogin(true);
       router.push('/feed');
     },
     onError: (error: any) => console.log(error),

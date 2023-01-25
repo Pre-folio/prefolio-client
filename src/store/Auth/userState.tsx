@@ -1,5 +1,7 @@
-import { atom } from 'recoil';
+import axios from 'axios';
+import { atom, useRecoilState } from 'recoil';
 import { GetUserInfoResponse } from '../../apis/auth';
+import { getCookie } from '../../utils/cookie';
 
 export const userState = atom<GetUserInfoResponse>({
   key: 'userState',
@@ -13,4 +15,18 @@ export const userState = atom<GetUserInfoResponse>({
     countScrap: 0,
     countLike: 0,
   },
+});
+
+export const checkCookie = () => {
+  if (typeof window !== 'undefined') {
+    if (getCookie()) {
+      return getCookie();
+    }
+    return '';
+  }
+};
+
+export const accessToken = atom<string>({
+  key: 'accessToken',
+  default: checkCookie(),
 });

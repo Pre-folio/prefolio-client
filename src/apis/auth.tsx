@@ -1,4 +1,4 @@
-import { AnyRecord } from 'dns';
+import { setAccessToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 
 export interface KakaoValidationResponse {
@@ -26,7 +26,7 @@ export const authAPI = {
   KAKAO_VALIDATION: async (code: string): Promise<KakaoValidationResponse> => {
     const response = await publicClient.get(`/kakao/login?code=${code}`);
     const accessToken = response.data.data.accessToken;
-    localStorage.setItem('accessToken', accessToken); //나중에 쿠키로
+    setAccessToken(accessToken);
     return response.data.data;
   },
 

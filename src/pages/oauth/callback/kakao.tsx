@@ -14,7 +14,7 @@ const Callback = () => {
     }
   }, [code]);
 
-  return <div>hi</div>;
+  return <div></div>;
 };
 
 export default Callback;

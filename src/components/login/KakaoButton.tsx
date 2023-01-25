@@ -1,9 +1,13 @@
+import { useRouter } from 'next/router';
 import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { KakaoIcon } from '../../assets/icons';
 import { theme } from '../../styles/theme';
 
 export const KakaoButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
+  // href={process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}
+  // http://localhost:3000/%60https:/kauth.kakao.com/oauth/authorize?client_id=%27448df92a872863d23fb53063e2ea6e12%27;&redirect_uri=%27http://localhost:3000/oauth/callback/kakao%27;&response_type=code`; 이렇게 이동...
+
   return (
     <StyledButton {...props}>
       <KakaoIcon />
