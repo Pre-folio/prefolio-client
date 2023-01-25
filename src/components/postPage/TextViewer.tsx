@@ -18,5 +18,6 @@ export default function TextViewer({ style, data }: TextViewerProps) {
 const Wrapper = styled.div`
   & .toastui-editor-contents {
     color: white;
+    font-size: 18px;
   }
 `;

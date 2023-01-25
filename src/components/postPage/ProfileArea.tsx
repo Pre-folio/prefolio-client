@@ -18,8 +18,8 @@ export default function ProfileArea({ style, imageSrc, nickname, grade, field }:
       <Column gap="33px" alignItems="flex-start">
         <NicknameArea>{nickname || '닉네임'}</NicknameArea>
         <Row gap="14px">
-          <Tag type="activity" sort={`${grade || 2}학년`} />
-          <Tag type="field" sort={field || 'dev'} />
+          <Tag type="activity" sort={`${grade || 2}학년`} style={{ boxShadow: 'none' }} />
+          <Tag type="field" sort={field || 'dev'} style={{ boxShadow: 'none' }} />
         </Row>
       </Column>
     </Row>
