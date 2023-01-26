@@ -12,21 +12,21 @@ interface InfoSectionProps {
 export const InfoSection = (props: InfoSectionProps) => {
   return (
     <InfoWrapper justify={props.justify}>
-      <Space height={180} />
+      <Space height={185} />
       <Text typo='Heading1' color='Black'>
         {props.title1}
       </Text>
       <Text typo='Heading1' color='Black'>
         {props.title2}
       </Text>
-      <Space height={36} />
+      <Space height={28.32} />
       <Text typo='Heading5' color='Black'>
         {props.description1}
       </Text>
       <Text typo='Heading5' color='Black'>
         {props.description2}
       </Text>
-      <Space height={188.33} />
+      <Space height={192} />
     </InfoWrapper>
   );
 };

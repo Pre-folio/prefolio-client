@@ -18,10 +18,14 @@ import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { formatDate } from '../../hooks/formatDate';
 
-const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
+const TextEditor = dynamic(
+  () => import('../../components/writePage/TextEditor'),
+  { ssr: false }
+);
 
 const Write = () => {
-  const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
+  const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] =
+    useState<boolean>(false);
   // const [userInfo, setUserInfo] = useRecoilState(user)
   // const [token, setToken] = useState<string | null>('');
   // useEffect(() => {
@@ -76,66 +80,105 @@ const Write = () => {
     <>
       <ThumbnailImageWrapper>
         {thumbnailUploadUrl.length > 1 ? (
-          <img src={thumbnailUploadUrl} alt="게시글 썸네일 이미지" width="996px" height="100%" />
+          <img
+            src={thumbnailUploadUrl}
+            alt='게시글 썸네일 이미지'
+            width='996px'
+            height='100%'
+          />
         ) : (
           <ImageUploadArea />
         )}
-        <Column style={{ position: 'absolute', zIndex: '1', left: `calc(50% + 548px)`, marginTop: '438px' }} gap="30px">
+        <Column
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            left: `calc(50% + 548px)`,
+            marginTop: '438px',
+          }}
+          gap='30px'
+        >
           <div>
             <input
-              type="file"
-              id="img-upload"
+              type='file'
+              id='img-upload'
               style={{ display: 'none' }}
               onChange={(e) => {
-                if (e.target.files) return onUploadThumbnailImage(e.target.files[0]);
+                if (e.target.files)
+                  return onUploadThumbnailImage(e.target.files[0]);
               }}
-              accept="image/x-png,image/gif,image/jpeg"
+              accept='image/x-png,image/gif,image/jpeg'
             />
-            <UploadIcon htmlFor="img-upload" />
+            <UploadIcon htmlFor='img-upload' />
           </div>
           <TrashCanIcon onClick={onClickTrashCanIcon} />
         </Column>
       </ThumbnailImageWrapper>
       <div style={{ alignItems: 'center' }}>
         <Column
-          marginTop="60px"
-          justifyContent="flex-start"
-          alignItems="flex-start"
+          marginTop='60px'
+          justifyContent='flex-start'
+          alignItems='flex-start'
           style={{ height: '800px' }}
-          gap="42px"
+          gap='42px'
         >
-          <Input width={1200} placeholder="제목을 입력하세요." typo={'Heading3'} {...title} />
-          <Row height="auto">
+          <Input
+            width={1200}
+            placeholder='제목을 입력하세요.'
+            typo={'Heading3'}
+            {...title}
+          />
+          <Row height='auto'>
             <CategoryTextArea>
               활동 기간
               <span>*</span>
             </CategoryTextArea>
             <Row>
-              <DatePicker {...startDate} height={46} placeholder="시작 날짜를 선택하세요." typo={'Body1'} />
+              <DatePicker
+                {...startDate}
+                height={46}
+                placeholder='시작 날짜를 선택하세요.'
+                typo={'Body1'}
+              />
               <div style={{ width: '126px', textAlign: 'center' }}>~</div>
-              <DatePicker {...endDate} height={46} placeholder="종료 날짜를 선택하세요." typo={'Body1'} />
+              <DatePicker
+                {...endDate}
+                height={46}
+                placeholder='종료 날짜를 선택하세요.'
+                typo={'Body1'}
+              />
             </Row>
           </Row>
-          <Row marginTop="-17px">
+          <Row marginTop='-17px'>
             <CategoryTextArea>기여도</CategoryTextArea>
             <ProgressBar {...contribution} />
           </Row>
-          <Row gap="24px" width="100%" justifyContent="flex-start" marginTop="-17px">
+          <Row
+            gap='24px'
+            width='100%'
+            justifyContent='flex-start'
+            marginTop='-17px'
+          >
             <CategoryTextArea>맡은 역할</CategoryTextArea>
             <Input
               typo={'Body1'}
               width={1098}
               height={46}
-              placeholder="활동에서 주로 맡은 역할을 작성해주세요."
+              placeholder='활동에서 주로 맡은 역할을 작성해주세요.'
               {...task}
             />
           </Row>
-          <Row gap="24px" width="100%" justifyContent="flex-start" alignItems="center">
+          <Row
+            gap='24px'
+            width='100%'
+            justifyContent='flex-start'
+            alignItems='center'
+          >
             <CategoryTextArea>사용 툴</CategoryTextArea>
             <Input
               width={1098}
               height={46}
-              placeholder="활동에서 사용한 툴을 작성해주세요. (최대 8개)"
+              placeholder='활동에서 사용한 툴을 작성해주세요. (최대 8개)'
               typo={'Body1'}
               onKeyPress={onEnterToolBar}
             />
@@ -143,18 +186,27 @@ const Write = () => {
           {toolsList.length === 0 ? (
             ''
           ) : (
-            <Column marginTop="-22px">
-              <Row justifyContent="flex-end">
+            <Column marginTop='-22px'>
+              <Row justifyContent='flex-end'>
                 <CategoryTextArea />
-                <div style={{ width: '1098px', border: `1px solid ${theme.palette.Gray15}` }} />
+                <div
+                  style={{
+                    width: '1098px',
+                    border: `1px solid ${theme.palette.Gray15}`,
+                  }}
+                />
               </Row>
-              <Row marginTop="20px" justifyContent="flex-start" alignItems="flex-start">
+              <Row
+                marginTop='20px'
+                justifyContent='flex-start'
+                alignItems='flex-start'
+              >
                 <CategoryTextArea />
                 <Row
-                  width="1098px"
-                  gap="12px"
-                  justifyContent="flex-start"
-                  alignItems="flext-start"
+                  width='1098px'
+                  gap='12px'
+                  justifyContent='flex-start'
+                  alignItems='flext-start'
                   style={{ overflowX: 'scroll' }}
                 >
                   {toolsList.map((tool) => {
@@ -177,31 +229,39 @@ const Write = () => {
               </Row>
             </Column>
           )}
-          <Row justifyContent="flex-start" alignItems="flex-start">
+          <Row justifyContent='flex-start' alignItems='flex-start'>
             <CategoryTextArea>
               태그 선택
               <span>*</span>
             </CategoryTextArea>
-            <TagArea width="1098px" />
+            <TagArea width='1098px' />
           </Row>
-          <Row justifyContent="flex-start" alignItems="flex-start">
+          <Row justifyContent='flex-start' alignItems='flex-start'>
             <CategoryTextArea>
               본문 작성
               <span>*</span>
             </CategoryTextArea>
-            <Column justifyContent="flex-start" alignItems="flex-start">
+            <Column justifyContent='flex-start' alignItems='flex-start'>
               <Button
                 type={'small'}
-                content={isGuideLineButtonClicked ? '가이드라인 접기' : '가이드라인 보기'}
+                content={
+                  isGuideLineButtonClicked
+                    ? '가이드라인 접기'
+                    : '가이드라인 보기'
+                }
                 color={'mint'}
                 onClick={() => {
                   setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
                 }}
               />
               {isGuideLineButtonClicked && (
-                <Column marginTop="20px" gap="6px">
+                <Column marginTop='20px' gap='6px'>
                   {tags.map((tag) => {
-                    if (tag === 'society' || tag === 'project' || tag === 'intern') {
+                    if (
+                      tag === 'society' ||
+                      tag === 'project' ||
+                      tag === 'intern'
+                    ) {
                       return <GuideLine type={tag} key={tag} />;
                     }
                     return;

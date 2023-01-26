@@ -13,7 +13,9 @@ import TextViewer from '../../components/postPage/TextViewer';
 import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 
-const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), { ssr: false });
+const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
+  ssr: false,
+});
 
 const Board = () => {
   const router = useRouter();
@@ -93,7 +95,14 @@ const Board = () => {
   // TODO 게시글 작성자가 현재 보고 있는 유저일 경우 버튼 누르는거 막기 등
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '100px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingBottom: '100px',
+      }}
+    >
       <ThumbnailImageWrapper>
         <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
       </ThumbnailImageWrapper>

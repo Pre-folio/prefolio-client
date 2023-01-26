@@ -6,11 +6,15 @@ import { theme } from '../../../styles/theme';
 import { Row } from '../Wrapper';
 import { Logo } from '../../Icons/Logo';
 import { Button } from '../Button';
+import useAutoLogin from '../../../hooks/useAutoLogin';
+import { userState } from '../../../store/Auth/userState';
 
 export function Header() {
   const router = useRouter();
   const currentUrl = router.asPath;
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  useAutoLogin();
+  const user = useRecoilValue(userState);
 
   return (
     <HeaderWrapper>
@@ -42,7 +46,7 @@ export function Header() {
               }}
             />
           ) : (
-            <Row gap="16px">
+            <Row gap='16px'>
               <Button
                 type={'medium'}
                 color={'mint'}
@@ -52,7 +56,10 @@ export function Header() {
                   // TODO 게시글 작성 페이지로 이동
                 }}
               />
-              <ProfileImageWrapper alt="프로필 이미지" src="" />
+              <ProfileImageWrapper
+                alt='프로필 이미지'
+                src={user.profileImage}
+              />
             </Row>
           )
         ) : (
@@ -97,6 +104,5 @@ const ProfileImageWrapper = styled.img`
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1px solid white; // 초기 구분을 위해
   object-fit: cover;
 `;
