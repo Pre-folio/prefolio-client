@@ -138,7 +138,12 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
+      <Row
+        width='100%'
+        alignItems='flex-start'
+        justifyContent='flex-start'
+        gap='24px'
+      >
         <ProfileCard
           nickname={nickname_}
           grade={grade_}
@@ -148,9 +153,14 @@ const Profile = () => {
           style={{ position: 'fixed', top: '180px' }}
         />
         <div style={{ width: '100%' }} />
-        <Column width="calc(100% - 282px)" alignItems="flex-start" justifyContent="flex-start" gap="46px">
+        <Column
+          width='calc(100% - 282px)'
+          alignItems='flex-start'
+          justifyContent='flex-start'
+          gap='46px'
+        >
           <TabBar barState={barState} setBarState={setBarState} />
-          {selectedBar === 'scraps' && <TagArea width="100%" />}
+          {selectedBar === 'scraps' && <TagArea width='100%' />}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
               posts.map((postInfo: any) => {
