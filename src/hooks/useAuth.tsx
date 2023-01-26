@@ -1,11 +1,7 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import { useRecoilState } from 'recoil';
-import authAPI, {
-  GetUserInfoResponse,
-  KakaoJoinResponse,
-  KakaoValidationResponse,
-} from '../apis/auth';
+import authAPI, { GetUserInfoResponse, KakaoJoinResponse, KakaoValidationResponse } from '../apis/auth';
 import { accessToken, userState } from '../store/Auth/userState';
 import { isLoggedInState } from '../store/LoggedIn/loggedInState';
 import { setAccessToken } from '../utils/cookie';
@@ -21,9 +17,9 @@ export const useAuth = () => {
   const kakaoValidationMutation = useMutation(authAPI.KAKAO_VALIDATION, {
     onSuccess: (data: KakaoValidationResponse) => {
       setAccessToken(data.accessToken);
-      if (data.userId) {
+      if (data.isMember) {
         // 가입한 유저인 경우 로그인
-        kakaoLoginMutation.mutate(data.userId);
+        data.userId && kakaoLoginMutation.mutate(data.userId!);
       } else {
         // 가입하지 않은 경우 회원가입
         router.push('/settings');
@@ -39,7 +35,7 @@ export const useAuth = () => {
     onSuccess: (data: KakaoJoinResponse) => {
       queryClient.setQueryData(['user_id'], data);
       console.log('회원가입 완료, user_id:', data);
-      kakaoLoginMutation.mutate(data.userId);
+      data.userId && kakaoLoginMutation.mutate(data.userId);
     },
     onError: (error: any) => console.log(error),
   });

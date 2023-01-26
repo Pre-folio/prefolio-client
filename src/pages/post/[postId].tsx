@@ -76,7 +76,7 @@ const Board = () => {
 
   // 스크랩 버튼 클릭 함수
   const onClickScrapButton = async () => {
-    const { data, message } = await getScraps(postIdToNumber, !isScrapButtonClicked);
+    const { data, message } = await getScraps(postIdToNumber);
     if (message === 'SUCCESS') {
       setIsScrapButtonClicked(!isScrapButtonClicked);
       setScraps(data.scraps);
@@ -85,7 +85,7 @@ const Board = () => {
 
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
-    const { data, message } = await getLikes(postIdToNumber, !isLikedButtonClicked);
+    const { data, message } = await getLikes(postIdToNumber);
     if (message === 'SUCCESS') {
       setIsLikedButtonClicked(!isLikedButtonClicked);
       setLikes(data.likes);
