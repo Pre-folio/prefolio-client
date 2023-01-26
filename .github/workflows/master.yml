@@ -19,7 +19,10 @@ jobs:
 
       - name: yarn deploy
         env:
-          NEXT_PUBLIC_API_URL:
+          NEXT_PUBLIC_REST_API_KEY: ${{ secrets.NEXT_PUBLIC_REST_API_KEY }}
+          NEXT_PUBLIC_REDIRECT_URI: ${{secrets.NEXT_PUBLIC_REDIRECT_URI}}
+          NEXT_PUBLIC_KAKAO_OAUTH_URL: ${{secrets.NEXT_PUBLIC_KAKAO_OAUTH_URL}}
+
         run: |
           npm install -g yarn
           yarn install --frozen-lockfile
