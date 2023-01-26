@@ -15,7 +15,7 @@ import { userState } from '../../store/Auth/userState';
 const Profile = () => {
   const router = useRouter();
   const userInfo = useRecoilValue(userState);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const watchingUserId = router.query.id;
   const isMyProfile = true; // 로그인 작업 이후 isMyProfile = (내 userId === watchingUserId)
@@ -33,8 +33,6 @@ const Profile = () => {
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
   const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
 
-  // const {isLoading, data} = useQuery(['get-user-post'], get)
-
   useEffect(() => {
     if (barState) {
       setSelectedBar('posts');
@@ -43,51 +41,17 @@ const Profile = () => {
     }
   }, [barState]);
 
-  // const userPosts = getUserPosts(15, 5, 8);
+  const { isLoading: isPostsLoading, data: postData } = useQuery(
+    ['user-posts'],
+    async () => await getUserPosts(17, 0, 8)
+  );
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
-  const posts = [
-    {
-      id: 0,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-    {
-      id: 1,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: true,
-    },
-    {
-      id: 2,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-    {
-      id: 3,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-  ];
+  // const posts = userPosts?.data.data.cardPosts;
+  console.log(postData);
+
+  const posts = postData?.data.cardPosts;
+
   // selectedBar이 scrap일 경우 스크랩한 글 get api
   const scraps = [
     {
@@ -153,16 +117,19 @@ const Profile = () => {
           {selectedBar === 'scraps' && <TagArea width="100%" />}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
-              posts.map((postInfo: any) => {
+              !isPostsLoading &&
+              posts?.map((postInfo: any) => {
                 return (
                   <PostCard
-                    key={postInfo.id}
-                    scrapped={postInfo.isScrapped}
+                    key={postInfo.postId}
+                    scrapped={false}
                     title={postInfo.title}
                     field={postInfo.partTag}
                     activity={postInfo.actTag}
-                    postDate={postInfo.createdAt.slice(0, 10)}
-                    hits={postInfo.hits}
+                    // postDate={scrapInfo.createdAt.slice(0, 10)}
+                    // hits={postInfo.hits}
+                    postDate={'2022.12.19'}
+                    hits={92}
                   />
                 );
               })}
