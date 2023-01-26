@@ -21,9 +21,10 @@ export const useAuth = () => {
   const kakaoValidationMutation = useMutation(authAPI.KAKAO_VALIDATION, {
     onSuccess: (data: KakaoValidationResponse) => {
       setAccessToken(data.accessToken);
-      if (data.userId) {
+      console.log('asdf', data);
+      if (data.isMember) {
         // 가입한 유저인 경우 로그인
-        kakaoLoginMutation.mutate(data.userId);
+        kakaoLoginMutation.mutate(data.userId!);
       } else {
         // 가입하지 않은 경우 회원가입
         router.push('/settings');
