@@ -11,7 +11,16 @@ import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
 type HookCallback = (url: string, text?: string) => void;
 
-const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contribution, task, toolsList, tags }: any) => {
+const TextEditor = ({
+  thumbnailUploadUrl,
+  title,
+  startDate,
+  endDate,
+  contribution,
+  task,
+  toolsList,
+  tags,
+}: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
   const [imageUrl, setImageUrl] = useState('');
@@ -34,8 +43,12 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
     let postContent;
     const text = editorRef.current?.getInstance().getHTML();
 
-    const partTagList = tags.filter((tag: any) => tag === 'dev' || tag === 'design' || tag === 'plan');
-    const actTageList = tags.filter((tag: any) => tag === 'society' || tag === 'intern' || tag === 'project');
+    const partTagList = tags.filter(
+      (tag: any) => tag === 'dev' || tag === 'design' || tag === 'plan'
+    );
+    const actTageList = tags.filter(
+      (tag: any) => tag === 'society' || tag === 'intern' || tag === 'project'
+    );
 
     postContent = {
       thumbnail: thumbnailUploadUrl,
@@ -60,13 +73,13 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
   };
 
   return (
-    <Column gap="20px" alignItems="flex-end">
+    <Column gap='20px' alignItems='flex-end'>
       <EditorWrapper>
         <Editor
           ref={editorRef}
-          placeholder="내용을 입력해주세요."
-          previewStyle="vertical" // 미리보기 스타일 지정
-          height="520px" // 에디터 창 높이
+          placeholder='내용을 입력해주세요.'
+          previewStyle='vertical' // 미리보기 스타일 지정
+          height='520px' // 에디터 창 높이
           // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
           toolbarItems={[
             ['heading', 'bold', 'italic', 'strike'],
@@ -84,7 +97,12 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
           }}
         />
       </EditorWrapper>
-      <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
+      <Button
+        type='medium'
+        color='mint'
+        content='업로드하기'
+        onClick={onClickUploadButton}
+      />
     </Column>
   );
 };

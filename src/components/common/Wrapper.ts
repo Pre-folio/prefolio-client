@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 
 export interface IWrapper {
   width?: string;
@@ -44,4 +45,42 @@ export const Column = styled.div<IWrapper>`
   margin-bottom: ${(props) => props.marginBottom};
   margin-top: ${(props) => props.marginTop};
   gap: ${(props) => props.gap};
+`;
+
+export const Text = styled.div<{
+  typo: KeyOfTypo;
+  color: KeyOfPalette;
+  height: number;
+}>`
+  ${({ typo }) => theme.typo[typo]};
+  color: ${({ color }) => theme.palette[color]};
+
+  display: flex;
+  align-items: center;
+
+  height: ${({ height }) => `${height}px`};
+`;
+
+export const Space = styled.div<{
+  height: number;
+}>`
+  height: ${({ height }) => `${height}px`};
+`;
+
+export const Flex = styled.div<{
+  direction?: string;
+  justify?: string;
+  align?: string;
+  gap?: number;
+  width?: number;
+  height?: number;
+}>`
+  display: flex;
+  flex-direction: ${({ direction }) => (direction ? `${direction}` : 'row')};
+  justify-content: ${({ justify }) => (justify ? `${justify}` : 'center')};
+  align-items: ${({ align }) => (align ? `${align}` : 'center')};
+  gap: ${({ gap }) => (gap ? `${gap}px` : '0px')};
+
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  height: ${({ height }) => (height ? `${height}px` : '100%')};
 `;

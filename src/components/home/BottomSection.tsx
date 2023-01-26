@@ -1,11 +1,24 @@
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { isLoggedInState } from '../../store/LoggedIn/loggedInState';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 import { Button } from '../common/Button';
 
 export const BottomSection = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (isLoggedIn) {
+      router.push('/feed');
+    } else {
+      router.push('/login');
+    }
+  };
   return (
     <section>
-      <Space height={244} />
+      <Space height={248} />
       <TextFlex>
         <Text typo='Landing' color='White'>
           친구의 스펙 구경하고
@@ -14,9 +27,14 @@ export const BottomSection = () => {
           나의 활동도 기록하세요!
         </Text>
         <Space height={56} />
-        <Button type='big' color='mint' content='바로 시작하기' />
+        <Button
+          type='big'
+          color='mint'
+          content='바로 시작하기'
+          onClick={handleButtonClick}
+        />
       </TextFlex>
-      <Space height={229} />
+      <Space height={233} />
     </section>
   );
 };

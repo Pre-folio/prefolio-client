@@ -13,7 +13,9 @@ import TextViewer from '../../components/postPage/TextViewer';
 import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 
-const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), { ssr: false });
+const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
+  ssr: false,
+});
 
 const Board = () => {
   const router = useRouter();
@@ -44,8 +46,10 @@ const Board = () => {
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] =
+    useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (!isPostLoading) {
@@ -73,7 +77,10 @@ const Board = () => {
 
   // 스크랩 버튼 클릭 함수
   const onClickScrapButton = async () => {
-    const { data, message } = await getScraps(postIdToNumber, !isScrapButtonClicked);
+    const { data, message } = await getScraps(
+      postIdToNumber,
+      !isScrapButtonClicked
+    );
     if (message === 'SUCCESS') {
       setIsScrapButtonClicked(!isScrapButtonClicked);
       setScraps(data.scraps);
@@ -82,7 +89,10 @@ const Board = () => {
 
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
-    const { data, message } = await getLikes(postIdToNumber, !isLikedButtonClicked);
+    const { data, message } = await getLikes(
+      postIdToNumber,
+      !isLikedButtonClicked
+    );
     if (message === 'SUCCESS') {
       setIsLikedButtonClicked(!isLikedButtonClicked);
       setLikes(data.likes);
@@ -92,14 +102,29 @@ const Board = () => {
   // TODO 게시글 작성자가 현재 보고 있는 유저일 경우 버튼 누르는거 막기 등
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '100px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingBottom: '100px',
+      }}
+    >
       <ThumbnailImageWrapper>
-        <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+        <ImageUploadArea
+          alt='썸네일 이미지'
+          src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+        />
       </ThumbnailImageWrapper>
-      <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+      <Column
+        width='996px'
+        justifyContent='center'
+        alignItems='flex-start'
+        marginTop='60px'
+      >
         <TitleArea>{title || '게시글 제목'}</TitleArea>
         <DetailInfoArea>
-          <Column justifyContent="space-between" alignItems="flex-start">
+          <Column justifyContent='space-between' alignItems='flex-start'>
             <div>
               활동 기간 : {startDate || '2022.08.29'}~{endDate || '2022.09.30'}
             </div>
@@ -116,8 +141,18 @@ const Board = () => {
         />
         <Viewer style={{ marginTop: '72px' }} data={content} />
         <PostButtonWrapper>
-          <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
-          <PostButton type={'scrap'} isClicked={isScrapButtonClicked} onClick={onClickScrapButton} counts={scraps} />
+          <PostButton
+            type={'hit'}
+            isClicked={isLikedButtonClicked}
+            onClick={onClickLikeButton}
+            counts={likes}
+          />
+          <PostButton
+            type={'scrap'}
+            isClicked={isScrapButtonClicked}
+            onClick={onClickScrapButton}
+            counts={scraps}
+          />
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea
@@ -139,7 +174,10 @@ export function getServerSideProps(context: any) {
   const { postId } = context.query;
   const postIdToNumber = Number(postId);
   const queryClient = new QueryClient();
-  queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
+  queryClient.prefetchQuery(
+    ['post-data'],
+    async () => await getPost(postIdToNumber)
+  );
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

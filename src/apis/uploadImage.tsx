@@ -1,5 +1,5 @@
-import client from './client';
 import axios from 'axios';
+import { client } from './client';
 
 interface getPresignedUrlProps {
   path: string;
