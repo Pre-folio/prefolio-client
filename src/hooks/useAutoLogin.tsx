@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { isLoggedInState } from '../store/LoggedIn/loggedInState';
 import { getCookie } from '../utils/cookie';
+import { useAuth } from './useAuth';
 
 export default function useAutoLogin() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
