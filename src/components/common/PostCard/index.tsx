@@ -8,9 +8,10 @@ import { useRouter } from 'next/router';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
+  // scrap post 위해서는 id도 props로 받아야 할 것임
   thumbnail?: string;
   scrapped: boolean;
-  setScrapped: SetterOrUpdater<boolean>;
+  setScrapped?: SetterOrUpdater<boolean>;
   title: string;
   field: string[];
   activity: string[];
@@ -39,15 +40,13 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(
-    `${theme.palette.Gray20}`
-  );
+  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
 
   const handleIconClick = (e: any) => {
     if (e.target === ref.current?.childNodes[0]) {
-      props.setScrapped(!props.scrapped);
+      props.setScrapped && props.setScrapped(!props.scrapped);
     } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
-      props.setScrapped(!props.scrapped);
+      props.setScrapped && props.setScrapped(!props.scrapped);
     }
   };
 

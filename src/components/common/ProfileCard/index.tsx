@@ -1,8 +1,7 @@
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import { shadow, theme } from '../../../styles/theme';
 import { Column, Row } from '../Wrapper';
 import { Tag } from '../Tag';
-import { color } from '@mui/system';
 
 interface ProfileCardProps {
   imageSrc?: string;
@@ -11,6 +10,7 @@ interface ProfileCardProps {
   field?: string;
   hits?: number;
   scraps?: number;
+  style?: CSSProperties;
 }
 
 /**
@@ -23,13 +23,13 @@ interface ProfileCardProps {
  * @param scraps 스크랩수
  * @returns
  */
-export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps }: ProfileCardProps) {
+export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, style }: ProfileCardProps) {
   const gradeToString: string = `${grade}학년`;
   return (
-    <Container>
+    <Container style={style}>
       <ImageWrapper alt="프로필 이미지" src={imageSrc ? imageSrc : ''} />
       <NicknameWrapper>{nickname || '닉네임'}</NicknameWrapper>
-      <Row marginTop="30px" gap="12px">
+      <Row width="100%" justifyContent="space-between" marginTop="30px">
         <Tag
           type="activity"
           sort={gradeToString || '2학년'}
@@ -37,7 +37,12 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps }: 
         />
         <Tag type="field" sort={field || 'dev'} style={{ boxShadow: 'none' }} />
       </Row>
-      <Column marginTop="30px" gap="12px" style={{ fontSize: `${theme.typo.Body1}`, color: `${theme.palette.Gray50}` }}>
+      <Column
+        width="100%"
+        marginTop="30px"
+        gap="12px"
+        style={{ fontSize: `${theme.typo.Body1}`, color: `${theme.palette.Gray50}` }}
+      >
         <Row justifyContent="space-between" style={{ width: '100%' }}>
           <span>추천수</span>
           <span>{hits || 4}</span>

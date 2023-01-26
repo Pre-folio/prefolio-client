@@ -41,25 +41,22 @@ export function Header() {
               color={'mint'}
               content={'새 글 작성'}
               onClick={() => {
-                // router.push('/write');
+                router.push('/write');
                 // TODO 게시글 작성 페이지로 이동
               }}
             />
           ) : (
-            <Row gap='16px'>
+            <Row gap="16px">
               <Button
                 type={'medium'}
                 color={'mint'}
                 content={'새 글 작성'}
                 onClick={() => {
-                  // router.push('/write');
+                  router.push('/write');
                   // TODO 게시글 작성 페이지로 이동
                 }}
               />
-              <ProfileImageWrapper
-                alt='프로필 이미지'
-                src={user.profileImage}
-              />
+              <ProfileImageWrapper alt="프로필 이미지" src={user.profileImage} />
             </Row>
           )
         ) : (
