@@ -157,6 +157,7 @@ const Profile = () => {
                 return (
                   <PostCard
                     key={postInfo.id}
+                    id={postInfo.id}
                     scrapped={postInfo.isScrapped}
                     title={postInfo.title}
                     field={postInfo.partTag}
@@ -171,6 +172,7 @@ const Profile = () => {
                 return (
                   <PostCard
                     key={scrapInfo.id}
+                    id={scrapInfo.id}
                     scrapped={true}
                     title={scrapInfo.title}
                     field={scrapInfo.partTag}
