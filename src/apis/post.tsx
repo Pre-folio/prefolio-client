@@ -18,12 +18,15 @@ export interface PostResponse {
 }
 
 export const postAPI = {
-  ALL: async (): Promise<PostResponse> => {
-    const response = await client.get(`/posts/all?`, {
+  ALL: async (token: string): Promise<PostResponse> => {
+    const response = await publicClient.get(`/posts/all?`, {
       params: {
         sortBy: 'CREATED_AT',
         pageNum: 0,
         limit: 16,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.data;
