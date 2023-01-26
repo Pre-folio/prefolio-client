@@ -6,7 +6,7 @@ const client: AxiosInstance = axios.create({
   baseURL: PREFOLIO_API_URL,
   withCredentials: true, // refresh_token cookie를 주고받기 위함
   headers: {
-    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImlzcyI6InByZWZvbGlvIiwiaWF0IjoxNjc0Njc1MzQ2LCJleHAiOjE2NzQ3NjE3NDYsImlkIjoxNSwicm9sZXMiOiJVU0VSIn0.qXorLJVWljk-j7BBfzoqWUbidgpRCOLvHp4v4IdmHpI`,
+    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImlzcyI6InByZWZvbGlvIiwiaWF0IjoxNjc0NzEyMjU2LCJleHAiOjE2NzQ3OTg2NTYsImlkIjoxNSwicm9sZXMiOiJVU0VSIn0.YRWGaxMONWi9njqDs7HgllHIoEKKySlSZTVWicdL8I8`,
   },
 });
 

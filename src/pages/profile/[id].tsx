@@ -9,6 +9,7 @@ import { TagArea } from '../../components/common/TagArea';
 import { useRecoilValue } from 'recoil';
 import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
 import { useQuery } from 'react-query';
+import { getUserPosts } from '../../apis/posts';
 
 const Profile = () => {
   const router = useRouter();
@@ -37,6 +38,8 @@ const Profile = () => {
       setSelectedBar('scraps');
     }
   }, [barState]);
+
+  const userPosts = getUserPosts(15, 5, 8);
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
   const posts = [

@@ -15,3 +15,17 @@ export async function getPost(id: number) {
     return res;
   });
 }
+
+export async function getUserPosts(userId: number, pageNum: number, limit: number) {
+  return await client
+    .get(`/posts/${userId}`, {
+      params: {
+        pageNum: pageNum,
+        limit: limit,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      return res.data;
+    });
+}
