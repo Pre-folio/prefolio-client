@@ -1,21 +1,17 @@
 import { client } from './client';
 
-export function getScraps(postId: number, isScrapped: boolean) {
-  return client
-    .get(`/posts/scraps/${postId}`, { params: { isScrapped: isScrapped } })
-    .then((res) => {
-      console.log(res.data);
+export function getScraps(postId: number) {
+  return client.get(`/posts/scraps/${postId}`).then((res) => {
+    console.log(res.data);
 
-      return res.data;
-    });
+    return res.data;
+  });
 }
 
-export function getLikes(postId: number, isLiked: boolean) {
-  return client
-    .get(`/posts/likes/${postId}`, { params: { isLiked: isLiked } })
-    .then((res) => {
-      console.log(res.data);
+export function getLikes(postId: number) {
+  return client.get(`/posts/likes/${postId}`).then((res) => {
+    console.log(res.data);
 
-      return res.data;
-    });
+    return res.data;
+  });
 }
