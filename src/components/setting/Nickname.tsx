@@ -1,0 +1,84 @@
+import { useEffect, useState } from 'react';
+import {
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetError,
+} from 'react-hook-form';
+import { useQuery } from 'react-query';
+import styled from 'styled-components';
+import authAPI from '../../apis/auth';
+import { JoinFormValues, useJoinForm } from '../../hooks/useJoinForm';
+import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
+import { Input } from '../common/Input';
+
+export interface NicknameProps {
+  register: UseFormRegister<JoinFormValues>;
+  errors: any;
+  nicknameValidation: any;
+}
+
+/**
+ * @param register
+ * @param errors
+ * @param nicknameValidation
+ */
+
+export const Nickname = ({
+  errors,
+  register,
+  nicknameValidation,
+}: NicknameProps) => {
+  return (
+    <Wrapper>
+      <Text typo={'Heading5'} color={'Black'} height={22}>
+        닉네임을 입력하세요.
+      </Text>
+      <Space height={36} />
+      <Input
+        width={588}
+        height={46}
+        placeholder={'최대 24byte'}
+        errorMessage={
+          errors.nickname
+            ? errors.nickname?.message
+            : '*사용 가능한 닉네임입니다.'
+        }
+        errorMessageColor={errors.nickname?.message ? 'Red' : 'Blue100'}
+        {...register('nickname', {
+          required: '*2byte 이상 입력해 주세요.',
+          maxLength: {
+            value: 12,
+            message: '*24byte를 초과하였습니다.',
+          },
+          validate: { nicknameValidation },
+        })}
+      />
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const Text = styled.div<{
+  typo: KeyOfTypo;
+  color: KeyOfPalette;
+  height: number;
+}>`
+  ${({ typo }) => theme.typo[typo]};
+  color: ${({ color }) => theme.palette[color]};
+
+  display: flex;
+  align-items: center;
+
+  height: ${({ height }) => `${height}px`};
+`;
+
+const Space = styled.div<{
+  height: number;
+}>`
+  height: ${({ height }) => `${height}px`};
+`;

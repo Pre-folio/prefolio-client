@@ -4,7 +4,7 @@ import { calcRem, KeyOfPalette, KeyOfTypo, theme } from '../../../styles/theme';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
-  width?: number;
+  width?: number | string;
   height?: number;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -12,6 +12,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessageColor?: KeyOfPalette;
   padding?: string;
   typo?: KeyOfTypo;
+  setValue?: Function;
 }
 
 /**
@@ -71,7 +72,7 @@ const Wrapper = styled.div`
 `;
 
 const InputWrapper = styled.div<{
-  width?: number;
+  width?: number | string;
   height?: number;
   padding?: string;
 }>`

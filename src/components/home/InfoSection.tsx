@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 
-interface LandingInfoProps {
+interface InfoSectionProps {
   title1: string;
   title2: string;
   description1: string;
@@ -9,32 +9,35 @@ interface LandingInfoProps {
   justify: string;
 }
 
-export const LandingInfo = (props: LandingInfoProps) => {
+export const InfoSection = (props: InfoSectionProps) => {
   return (
-    <LandingInfoWrapper justify={props.justify}>
-      <Space height={190} />
+    <InfoWrapper justify={props.justify}>
+      <Space height={185} />
       <Text typo='Heading1' color='Black'>
         {props.title1}
-        <br />
+      </Text>
+      <Text typo='Heading1' color='Black'>
         {props.title2}
       </Text>
-      <Space height={54} />
+      <Space height={28.32} />
       <Text typo='Heading5' color='Black'>
         {props.description1}
-        <br />
+      </Text>
+      <Text typo='Heading5' color='Black'>
         {props.description2}
       </Text>
-      <Space height={196} />
-    </LandingInfoWrapper>
+      <Space height={192} />
+    </InfoWrapper>
   );
 };
 
-const LandingInfoWrapper = styled.div<{
+const InfoWrapper = styled.section<{
   justify: string;
 }>`
+  width: 1200px;
   display: flex;
   flex-direction: column;
-  justify-content: ${({ justify }) => `${justify}`};
+  align-items: ${({ justify }) => `${justify}`};
 `;
 
 const Text = styled.div<{
