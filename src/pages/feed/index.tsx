@@ -32,8 +32,6 @@ const Feed = () => {
 
   return (
     <div>
-      <Button onClick={() => openToast('정보를 모두 입력해주세요!')} />
-      <Toast varient='error' />
       <Banner />
       <Space height={100} />
       <FeedTagArea />
