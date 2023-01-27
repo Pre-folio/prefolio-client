@@ -12,6 +12,8 @@ export const palette = {
   Navy: '#11263A',
 
   Red: '#FF6D6D',
+  Red10: '#FFEDED',
+  Red80: '#EA4335',
 
   White: '#FFFFFF',
   Gray10: '#F3F5F8',

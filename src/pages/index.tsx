@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import { Button } from '../components/common/Button';
+import { Toast } from '../components/common/Toast';
 import { Flex } from '../components/common/Wrapper';
 import { BottomSection } from '../components/home/BottomSection';
 import { InfoSection } from '../components/home/InfoSection';
