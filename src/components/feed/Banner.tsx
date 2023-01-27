@@ -23,15 +23,14 @@ export const Banner = () => {
 
 const BannerImage = styled.img`
   width: 100vw;
+  margin-left: calc(-50vw + 50%);
   @media screen and (max-width: 1200px) {
     width: 1200px;
+    margin: 0;
   }
 `;
 
 const StyledCarousel = styled(Carousel)`
-  width: 100vw;
-  left: 0vw;
-
   .MuiButtonBase-root {
     top: -40px;
     z-index: 1;
@@ -41,8 +40,10 @@ const StyledCarousel = styled(Carousel)`
   }
 
   width: 100vw;
+  margin-left: calc(-50vw + 50%);
   @media screen and (max-width: 1200px) {
     width: 1200px;
+    margin: 0;
   }
 `;
 

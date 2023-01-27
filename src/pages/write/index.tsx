@@ -207,7 +207,7 @@ const Write = () => {
                   gap='12px'
                   justifyContent='flex-start'
                   alignItems='flext-start'
-                  style={{ overflowX: 'scroll' }}
+                  style={{ flexWrap: 'wrap' }}
                 >
                   {toolsList.map((tool) => {
                     return (

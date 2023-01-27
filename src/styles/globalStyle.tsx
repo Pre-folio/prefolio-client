@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
    
     box-sizing: border-box;
     margin: 0;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
   }
   
   #root {

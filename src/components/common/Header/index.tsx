@@ -79,7 +79,6 @@ export function Header() {
 }
 
 const HeaderWrapper = styled.div`
-  width: 100vw;
   left: 0vw;
   height: 74px;
 

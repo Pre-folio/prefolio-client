@@ -64,9 +64,10 @@ const ImgWrapper = styled.div`
   position: relative;
   width: 100vw;
   left: 0vw;
-
+  margin-left: calc(-50vw + 50%);
   @media screen and (max-width: 1200px) {
     width: 1200px;
+    margin-left: 0;
   }
 `;
 
@@ -75,10 +76,13 @@ const Section1 = styled.img`
   height: 100vh - 74px;
   width: 100vw;
 
+  //flex-basis: 100vw;
+
   @media screen and (max-width: 1200px) {
     width: 1200px;
+    margin-left: 0;
   }
-
+  display: flex;
   object-fit: cover;
 `;
 
