@@ -13,20 +13,15 @@ export interface PartCardProps {
 export type PartCardVarient = 'plan' | 'dev' | 'design';
 
 const CARD_COLOR = {
-  normal: {
-    plan: `${theme.palette.Mint10}`,
-    dev: `${theme.palette.Blue10}`,
-    design: `${theme.palette.Purple10}`,
-  },
   active: {
     plan: `${darken(0.03, theme.palette.Mint10)}`,
     dev: `${darken(0.03, theme.palette.Blue10)}`,
     design: `${darken(0.03, theme.palette.Purple10)}`,
   },
   selected: {
-    plan: `${darken(0.05, theme.palette.Mint10)}`,
-    dev: `${darken(0.05, theme.palette.Blue10)}`,
-    design: `${darken(0.05, theme.palette.Purple10)}`,
+    plan: `${theme.palette.Mint30}`,
+    dev: `${theme.palette.Blue30}`,
+    design: `${theme.palette.Purple30}`,
   },
 };
 
@@ -34,6 +29,12 @@ const CARD_FIELD = {
   plan: '기획',
   dev: '개발',
   design: '디자인',
+};
+
+const CARD_GRAPHIC = {
+  plan: 'images/common/part/plan.png',
+  dev: 'images/common/part/dev.png',
+  design: 'images/common/part/design.png',
 };
 
 /**
@@ -51,7 +52,7 @@ export const PartCard = (props: PartCardProps) => {
       selected={props.selected}
       onClick={props.onClick}
     >
-      <MockGraphic />
+      <Graphic src={`${CARD_GRAPHIC[props.varient]}`} />
       <Field>{CARD_FIELD[props.varient]}</Field>
     </PartCardWrapper>
   );
@@ -66,7 +67,7 @@ const PartCardWrapper = styled.button<{
   padding: 40px 16px 40px 16px;
   border-radius: 14px;
 
-  background-color: ${({ varient }) => CARD_COLOR.normal[varient]};
+  background-color: ${theme.palette.Gray10};
   box-shadow: ${theme.shadow.Card.Black};
 
   display: flex;
@@ -81,15 +82,15 @@ const PartCardWrapper = styled.button<{
     css`
       background-color: ${selected
         ? `${CARD_COLOR.selected[varient]}`
-        : `${CARD_COLOR.normal[varient]}`} !important;
+        : `${theme.palette.Gray10}`} !important;
     `}
 `;
 
-const MockGraphic = styled.div`
+const Graphic = styled.img`
   width: 148px;
   height: 160px;
 
-  background-color: ${theme.palette.Gray10};
+  background-color: transparent;
 `;
 
 const Field = styled.div`
