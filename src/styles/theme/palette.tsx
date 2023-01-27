@@ -6,12 +6,16 @@ export const palette = {
   Minttext: '#00C395',
 
   Blue100: '#68B7FF',
+  Blue30: '#C0E2FF',
   Blue10: '#F0F8FF',
   Purple100: '#C496FF',
+  Purple30: '#ECDDFF',
   Purple10: '#F9F4FF',
   Navy: '#11263A',
 
   Red: '#FF6D6D',
+  Red10: '#FFEDED',
+  Red80: '#EA4335',
 
   White: '#FFFFFF',
   Gray10: '#F3F5F8',

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import styled from 'styled-components';
 import { Flex, Space, Text } from '../common/Wrapper';
 
 export const NoPost = () => {
@@ -20,3 +20,5 @@ export const NoPost = () => {
     </Flex>
   );
 };
+
+const Image = styled.img``;
