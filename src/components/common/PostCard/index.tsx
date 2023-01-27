@@ -40,7 +40,9 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
+  const [iconStrokeColor, setIconStrokeColor] = useState(
+    `${theme.palette.Gray20}`
+  );
 
   const handleIconClick = (e: any) => {
     if (e.target === ref.current?.childNodes[0]) {

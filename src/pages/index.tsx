@@ -62,7 +62,8 @@ const Section1 = styled.img`
   bottom: 0;
   left: 0;
 
-  height: 777px;
+  //height: 777px;
+  height: 100vh - 74px;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
 
