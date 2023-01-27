@@ -80,8 +80,8 @@ export function Header() {
 
 const HeaderWrapper = styled.div`
   width: 100vw;
+  left: 0vw;
   height: 74px;
-  margin-left: calc(-50vw + 50%);
 
   background-color: ${theme.palette.Navy};
 
@@ -91,6 +91,11 @@ const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 999;
+
+  width: 100vw;
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+  }
 `;
 
 const Wrapper = styled.div`
