@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '../../assets/icons';
@@ -5,10 +6,10 @@ import { Input } from '../common/Input';
 import { Search } from '../common/Search';
 
 export const FloatSearch = () => {
-  const [color, setColor] = useState();
+  const router = useRouter();
   return (
     <div style={{ position: 'relative' }}>
-      <ToastContainer>
+      <ToastContainer onClick={() => router.push('/search')}>
         <Search width={792} height={58} />
       </ToastContainer>
     </div>
@@ -24,4 +25,6 @@ const ToastContainer = styled.div`
   top: 413px;
   z-index: 22;
   position: absolute;
+
+  cursor: pointer;
 `;

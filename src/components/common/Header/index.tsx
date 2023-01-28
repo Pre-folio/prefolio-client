@@ -6,15 +6,15 @@ import { theme } from '../../../styles/theme';
 import { Row } from '../Wrapper';
 import { Logo } from '../../Icons/Logo';
 import { Button } from '../Button';
-import useAutoLogin from '../../../hooks/useAutoLogin';
 import { userState } from '../../../store/Auth/userState';
+import { useAutoLogin } from '../../../hooks/useAutoLogin';
 
 export function Header() {
   const router = useRouter();
   const currentUrl = router.asPath;
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  useAutoLogin();
   const user = useRecoilValue(userState);
+  useAutoLogin();
 
   return (
     <HeaderWrapper>
