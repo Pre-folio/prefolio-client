@@ -41,16 +41,15 @@ const Board = () => {
   const [content, setContent] = useState<string>(''); // 게시글 글
   const [likes, setLikes] = useState<number>(0); // 좋아요수
   const [scraps, setScraps] = useState<number>(0); // 스크랩수
-  const [userInfo, setUserInfo] = useState<IUserInfo>({
+  const [postAuthInfo, setPostAuthInfo] = useState<IUserInfo>({
+    id: 0,
     grade: 0,
     nickname: '',
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] =
-    useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] =
-    useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isPostLoading) {
@@ -70,7 +69,7 @@ const Board = () => {
       setContent(data.post.contents);
       setLikes(data.count.likes);
       setScraps(data.count.scraps);
-      setUserInfo(data.user);
+      setPostAuthInfo(data.user);
       setIsLikedButtonClicked(data.isLiked);
       setIsScrapButtonClicked(data.isScrapped);
     }
@@ -106,20 +105,12 @@ const Board = () => {
       }}
     >
       <ThumbnailImageWrapper>
-        <ImageUploadArea
-          alt='썸네일 이미지'
-          src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-        />
+        <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
       </ThumbnailImageWrapper>
-      <Column
-        width='996px'
-        justifyContent='center'
-        alignItems='flex-start'
-        marginTop='60px'
-      >
+      <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
         <TitleArea>{title || '게시글 제목'}</TitleArea>
         <DetailInfoArea>
-          <Column justifyContent='space-between' alignItems='flex-start'>
+          <Column justifyContent="space-between" alignItems="flex-start">
             <div>
               활동 기간 : {startDate || '2022.08.29'}~{endDate || '2022.09.30'}
             </div>
@@ -136,25 +127,16 @@ const Board = () => {
         />
         <Viewer style={{ marginTop: '72px' }} data={content} />
         <PostButtonWrapper>
-          <PostButton
-            type={'hit'}
-            isClicked={isLikedButtonClicked}
-            onClick={onClickLikeButton}
-            counts={likes}
-          />
-          <PostButton
-            type={'scrap'}
-            isClicked={isScrapButtonClicked}
-            onClick={onClickScrapButton}
-            counts={scraps}
-          />
+          <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+          <PostButton type={'scrap'} isClicked={isScrapButtonClicked} onClick={onClickScrapButton} counts={scraps} />
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea
-          imageSrc={userInfo.profileImage}
-          nickname={userInfo.nickname}
-          grade={userInfo.grade}
-          field={userInfo.type.toLowerCase()}
+          userId={postAuthInfo.id}
+          imageSrc={postAuthInfo.profileImage}
+          nickname={postAuthInfo.nickname}
+          grade={postAuthInfo.grade}
+          field={postAuthInfo.type.toLowerCase()}
           style={{ marginTop: '86px' }}
         />
       </Column>
