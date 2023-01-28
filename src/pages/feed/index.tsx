@@ -7,6 +7,7 @@ import { Toast } from '../../components/common/Toast';
 import { Space } from '../../components/common/Wrapper';
 import { Banner } from '../../components/feed/Banner';
 import { FeedTagArea } from '../../components/feed/FeedTagArea';
+import { FloatSearch } from '../../components/feed/FloatSearh';
 import { NoPost } from '../../components/feed/NoPost';
 import { Posts, SinglePostResponse } from '../../components/feed/Posts';
 import { useToast } from '../../hooks/useToats';
@@ -32,6 +33,7 @@ const Feed = () => {
 
   return (
     <div>
+      <FloatSearch />
       <Banner />
       <Space height={100} />
       <FeedTagArea />
@@ -45,8 +47,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-const Button = styled.button`
-  height: 100px;
-  background-color: pink;
-`;

@@ -17,7 +17,7 @@ export const BottomSection = () => {
     }
   };
   return (
-    <section>
+    <Section>
       <Space height={248} />
       <TextFlex>
         <Text typo='Landing' color='White'>
@@ -35,9 +35,21 @@ export const BottomSection = () => {
         />
       </TextFlex>
       <Space height={233} />
-    </section>
+    </Section>
   );
 };
+
+const Section = styled.section`
+  height: 100vh;
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 1200px) {
+    margin-left: 0;
+  }
+`;
 
 const TextFlex = styled.div`
   display: flex;

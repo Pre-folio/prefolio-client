@@ -19,4 +19,9 @@ export const Layout = ({ children }: LayoutProps) => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+
+  width: 100vw;
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+  }
 `;

@@ -56,4 +56,8 @@ const Wrapper = styled.div`
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 24px;
+
+  @media screen and (max-width: 1200px) {
+    width: 100vw;
+  }
 `;

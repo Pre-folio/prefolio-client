@@ -207,7 +207,7 @@ const Write = () => {
                   gap='12px'
                   justifyContent='flex-start'
                   alignItems='flext-start'
-                  style={{ overflowX: 'scroll' }}
+                  style={{ flexWrap: 'wrap' }}
                 >
                   {toolsList.map((tool) => {
                     return (
@@ -295,6 +295,7 @@ const ThumbnailImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-left: calc(-50vw + 50%);
+  position: relative;
 `;
 
 const ImageUploadArea = styled.div`
