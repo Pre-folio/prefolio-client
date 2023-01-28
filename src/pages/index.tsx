@@ -43,10 +43,12 @@ function Home() {
       </Wrapper>
       <ImgWrapper>
         <Section1 src='/images/home/home1.png' alt='' />
-        <Section2 src='/images/home/home2.png' alt='' />
+        <Flex justify='space-between'>
+          <Section2 src='/images/home/home2.png' alt='' />
+        </Flex>
         <Section2 src='/images/home/home3.png' alt='' />
         <Section3 src='/images/home/home4.png' alt='' />
-        <Section1 src='/images/home/home5.jpg' alt='' />
+        <Section1 src='/images/home/home5.png' alt='' />
       </ImgWrapper>
     </>
   );
@@ -66,44 +68,39 @@ const ImgWrapper = styled.div`
   left: 0vw;
   margin-left: calc(-50vw + 50%);
   @media screen and (max-width: 1200px) {
-    width: 1200px;
     margin-left: 0;
   }
 `;
 
 const Section1 = styled.img`
-  //height: 777px;
-  height: 100vh - 74px;
+  height: 100vh;
   width: 100vw;
 
-  //flex-basis: 100vw;
-
   @media screen and (max-width: 1200px) {
-    width: 1200px;
     margin-left: 0;
   }
   display: flex;
   object-fit: cover;
+  background-color: ${theme.palette.Navy};
 `;
 
 const Section2 = styled.img`
-  height: 600px;
+  height: 100vh;
   width: 100vw;
+
   left: 0vw;
   @media screen and (max-width: 1200px) {
-    width: 1200px;
+    margin-left: 0;
   }
   object-fit: cover;
 `;
 
 const Section3 = styled.img`
   background-color: ${theme.palette.Mint10};
-
-  height: 600px;
+  height: 100vh;
   width: 100vw;
-  left: 0vw;
   @media screen and (max-width: 1200px) {
-    width: 1200px;
+    margin-left: 0;
   }
   object-fit: cover;
 `;

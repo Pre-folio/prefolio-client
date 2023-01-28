@@ -12,7 +12,6 @@ interface InfoSectionProps {
 export const InfoSection = (props: InfoSectionProps) => {
   return (
     <InfoWrapper justify={props.justify}>
-      <Space height={185} />
       <Text typo='Heading1' color='Black'>
         {props.title1}
       </Text>
@@ -26,7 +25,6 @@ export const InfoSection = (props: InfoSectionProps) => {
       <Text typo='Heading5' color='Black'>
         {props.description2}
       </Text>
-      <Space height={192} />
     </InfoWrapper>
   );
 };
@@ -34,10 +32,16 @@ export const InfoSection = (props: InfoSectionProps) => {
 const InfoWrapper = styled.section<{
   justify: string;
 }>`
+  height: 100vh;
   width: 1200px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: ${({ justify }) => `${justify}`};
+  @media screen and (max-width: 1200px) {
+    /* width: 1200px; */
+    margin-left: 0;
+  }
 `;
 
 const Text = styled.div<{
