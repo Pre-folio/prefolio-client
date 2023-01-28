@@ -60,5 +60,20 @@ export const useAuth = () => {
     onError: (error: any) => console.log(error),
   });
 
-  return { kakaoValidationMutation, kakaoJoinMutation, kakaoLoginMutation };
+  // 자동 로그인
+  const kakaoAutoLoginMutation = useMutation(authAPI.USER_INFO, {
+    onSuccess: (data: GetUserInfoResponse) => {
+      console.log('회원가입/로그인 완료, userInfo:', data);
+      setUser(data);
+      setLogin(true);
+    },
+    onError: (error: any) => console.log(error),
+  });
+
+  return {
+    kakaoValidationMutation,
+    kakaoJoinMutation,
+    kakaoLoginMutation,
+    kakaoAutoLoginMutation,
+  };
 };

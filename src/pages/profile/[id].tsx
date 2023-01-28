@@ -6,34 +6,50 @@ import { Column, Row } from '../../components/common/Wrapper';
 import { TabBar } from '../../components/common/TabBar';
 import { PostCard } from '../../components/common/PostCard';
 import { TagArea } from '../../components/common/TagArea';
-import { useRecoilValue } from 'recoil';
-import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  selectedActTagListState,
+  selectedPartTagListState,
+  selectedTagsListState,
+} from '../../store/TagArea/tagAreaState';
 import { useQuery } from 'react-query';
-import { getUserPosts } from '../../apis/posts';
+import { authAPI } from '../../apis/auth';
+import { getUserPosts, getUserScraps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
+import { getScraps } from '../../apis/onClickPostContent';
+import { getCookie } from '../../utils/cookie';
 
 const Profile = () => {
   const router = useRouter();
+  const [watchingUserInfo, setWatchingUserInfo] = useState({});
   const userInfo = useRecoilValue(userState);
-  console.log(userInfo);
-
   const watchingUserId = router.query.id;
-  const isMyProfile = true; // 로그인 작업 이후 isMyProfile = (내 userId === watchingUserId)
+  const watchingUserIdToNumber = Number(watchingUserId);
 
-  // 유저 정보 get api
-  const nickname_ = '장영준';
-  const grade_ = 2;
-  const field_ = 'design';
-  const likes_ = 564;
-  const scraps_ = 332;
+  const token = getCookie();
+
+  const { isLoading: isProfileLoading, data: profileData } = useQuery(
+    ['profile-user-info', watchingUserId],
+    async () => {
+      const res = await authAPI.USER_INFO({
+        accessToken: token,
+        isMember: true,
+        userId: watchingUserIdToNumber,
+      });
+      return res;
+    }
+  );
+
+  const isMyProfile = userInfo.userId === watchingUserIdToNumber;
+  console.log(isMyProfile);
 
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');
   const [posts_, setPosts_] = useState([]);
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
   const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
-
-  // const {isLoading, data} = useQuery(['get-user-post'], get)
+  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
 
   useEffect(() => {
     if (barState) {
@@ -43,151 +59,86 @@ const Profile = () => {
     }
   }, [barState]);
 
-  // const userPosts = getUserPosts(15, 5, 8);
-
-  // selectedBar이 post일 경우 내가 쓴 글 get api
-  const posts = [
-    {
-      id: 0,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-    {
-      id: 1,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: true,
-    },
-    {
-      id: 2,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-    {
-      id: 3,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-      isScrapped: false,
-    },
-  ];
-  // selectedBar이 scrap일 경우 스크랩한 글 get api
-  const scraps = [
-    {
-      id: 0,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 1,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 2,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 3,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-  ];
-
-  //
-  const filteredScraps = scraps.filter((scrap) => {
-    const scrapsTags = scrap.actTag.concat(scrap.partTag);
-    if (filteredTags.every((tag) => scrapsTags.includes(tag))) {
-      return scrap;
+  const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
+    if (watchingUserIdToNumber) {
+      return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
     }
   });
 
+  // const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
+  //   ['scrap-posts', selectedActTagList, selectedPartTagList],
+  //   async () =>
+  //     await getUserScraps(
+  //       0,
+  //       8,
+  //       selectedPartTagList.toString().toUpperCase(),
+  //       selectedActTagList.toString().toUpperCase()
+  //     )
+  // );
+
+  // selectedBar이 post일 경우 내가 쓴 글 get api
+  const posts = postData?.data.cardPosts;
+
+  // selectedBar이 scrap일 경우 스크랩한 글 get api
+  // const scraps = scrapData?.data.data.cardPosts;
+  const scraps: any = [];
+
+  // const filteredScraps = scraps.filter((scrap: any) => {
+  //   const scrapsTags = scrap.actTag.concat(scrap.partTag);
+  //   if (filteredTags.every((tag) => scrapsTags.includes(tag))) {
+  //     return scrap;
+  //   }
+  // });
+
   return (
     <Wrapper>
-      <Row
-        width='100%'
-        alignItems='flex-start'
-        justifyContent='flex-start'
-        gap='24px'
-      >
+      <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
         <ProfileCard
-          nickname={nickname_}
-          grade={grade_}
-          field={field_}
-          hits={likes_}
-          scraps={scraps_}
+          imageSrc={profileData?.profileImage}
+          nickname={profileData?.nickname}
+          grade={profileData?.grade}
+          field={profileData?.type}
+          hits={profileData?.countLike}
+          scraps={profileData?.countScrap}
           style={{ position: 'fixed', top: '180px' }}
         />
         <div style={{ width: '100%' }} />
-        <Column
-          width='calc(100% - 282px)'
-          alignItems='flex-start'
-          justifyContent='flex-start'
-          gap='46px'
-        >
-          <TabBar barState={barState} setBarState={setBarState} />
-          {selectedBar === 'scraps' && <TagArea width='100%' />}
+        <Column width="calc(100% - 282px)" alignItems="flex-start" justifyContent="flex-start" gap="46px">
+          {isMyProfile && <TabBar barState={barState} setBarState={setBarState} />}
+          {selectedBar === 'scraps' && <TagArea width="100%" />}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
-              posts.map((postInfo: any) => {
+              !isPostsLoading &&
+              posts?.map((postInfo: any, index: number) => {
                 return (
                   <PostCard
-                    key={postInfo.id}
-                    id={postInfo.id}
+                    key={index}
+                    id={postInfo.postId}
+                    thumbnail={postInfo.thumbnail}
                     scrapped={postInfo.isScrapped}
                     title={postInfo.title}
                     field={postInfo.partTag}
                     activity={postInfo.actTag}
-                    postDate={postInfo.createdAt.slice(0, 10)}
-                    hits={postInfo.hits}
+                    // postDate={scrapInfo.createdAt.slice(0, 10)}
+                    // hits={postInfo.hits}
+                    postDate={postInfo.createdAt}
+                    hits={92}
                   />
                 );
               })}
             {selectedBar === 'scraps' &&
-              filteredScraps.map((scrapInfo: any) => {
+              // !isScrapsLoading &&
+              scraps.map((scrapInfo: any) => {
                 return (
                   <PostCard
-                    key={scrapInfo.id}
-                    id={scrapInfo.id}
+                    key={scrapInfo.postId}
+                    id={scrapInfo.postId}
+                    thumbnail={scrapInfo.thumbnail}
                     scrapped={true}
                     title={scrapInfo.title}
                     field={scrapInfo.partTag}
                     activity={scrapInfo.actTag}
-                    postDate={scrapInfo.createdAt.slice(0, 10)}
+                    postDate={scrapInfo.createdAt}
                     hits={scrapInfo.hits}
                   />
                 );

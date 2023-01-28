@@ -18,10 +18,28 @@ interface IFilter {
   isClicked?: boolean;
 }
 
-export function Filter({ type, isClicked, onClick, style, hasCancelButton, onClickCancelButton }: FilterProps) {
+export function Filter({
+  type,
+  isClicked,
+  onClick,
+  style,
+  hasCancelButton,
+  onClickCancelButton,
+}: FilterProps) {
   return (
-    <FilterButton type={type} isClicked={isClicked} onClick={onClick} name={type} style={style}>
-      <Row justifyContent="center" alignItems="center" gap={hasCancelButton ? '8px' : '4px'}>
+    <FilterButton
+      type={type}
+      isClicked={isClicked}
+      onClick={onClick}
+      name={type}
+      style={style}
+    >
+      <Row
+        justifyContent='center'
+        alignItems='center'
+        gap={hasCancelButton ? '8px' : '4px'}
+        style={{ lineHeight: '34px', textAlign: 'center' }}
+      >
         {!hasCancelButton && isClicked ? <CheckIcon type={type} /> : ''}
         {type === 'dev'
           ? '개발'
@@ -49,6 +67,7 @@ const FilterButton = styled.button<IFilter>`
   border-radius: 6px;
   ${theme.typo.Body1};
   display: flex;
+
   align-items: center;
   background-color: ${(props) =>
     props.isClicked

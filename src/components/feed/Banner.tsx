@@ -23,18 +23,30 @@ export const Banner = () => {
 
 const BannerImage = styled.img`
   width: 100vw;
+  height: 444px;
   margin-left: calc(-50vw + 50%);
+
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+    margin: 0;
+  }
 `;
 
 const StyledCarousel = styled(Carousel)`
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  height: 444px;
   .MuiButtonBase-root {
     top: -40px;
     z-index: 1;
   }
   .css-1m9128y {
     display: none;
+  }
+
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+    margin: 0;
   }
 `;
 
@@ -46,7 +58,10 @@ const Section1 = styled.img`
 
   height: 777px;
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100vw;
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+  }
 
   object-fit: cover;
 `;

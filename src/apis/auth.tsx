@@ -59,6 +59,15 @@ export const authAPI = {
     });
     return response.data.data;
   },
+
+  USER_TOKEN: async (token: string): Promise<KakaoJoinResponse> => {
+    const response = await publicClient.get('/user/token', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  },
 };
 
 export default authAPI;

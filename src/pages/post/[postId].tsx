@@ -41,7 +41,8 @@ const Board = () => {
   const [content, setContent] = useState<string>(''); // 게시글 글
   const [likes, setLikes] = useState<number>(0); // 좋아요수
   const [scraps, setScraps] = useState<number>(0); // 스크랩수
-  const [userInfo, setUserInfo] = useState<IUserInfo>({
+  const [postAuthInfo, setPostAuthInfo] = useState<IUserInfo>({
+    id: 0,
     grade: 0,
     nickname: '',
     profileImage: '',
@@ -68,7 +69,7 @@ const Board = () => {
       setContent(data.post.contents);
       setLikes(data.count.likes);
       setScraps(data.count.scraps);
-      setUserInfo(data.user);
+      setPostAuthInfo(data.user);
       setIsLikedButtonClicked(data.isLiked);
       setIsScrapButtonClicked(data.isScrapped);
     }
@@ -131,10 +132,11 @@ const Board = () => {
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea
-          imageSrc={userInfo.profileImage}
-          nickname={userInfo.nickname}
-          grade={userInfo.grade}
-          field={userInfo.type.toLowerCase()}
+          userId={postAuthInfo.id}
+          imageSrc={postAuthInfo.profileImage}
+          nickname={postAuthInfo.nickname}
+          grade={postAuthInfo.grade}
+          field={postAuthInfo.type.toLowerCase()}
           style={{ marginTop: '86px' }}
         />
       </Column>
@@ -162,6 +164,9 @@ export default Board;
 
 const ThumbnailImageWrapper = styled.div`
   width: 100vw;
+  @media screen and (max-width: 1200px) {
+    width: 1200px;
+  }
   height: 560px;
   background-color: ${theme.palette.Gray15};
   display: flex;

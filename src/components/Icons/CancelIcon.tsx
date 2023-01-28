@@ -2,7 +2,15 @@ import React from 'react';
 
 export function CancelIcon({ onClick }: { onClick: React.MouseEventHandler<HTMLButtonElement> | undefined }) {
   return (
-    <button onClick={onClick}>
+    <button
+      style={{
+        padding: '0px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      onClick={onClick}
+    >
       <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_806_53)">
           <path

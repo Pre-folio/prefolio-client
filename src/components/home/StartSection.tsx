@@ -18,7 +18,6 @@ export const StartSection = () => {
   };
   return (
     <Section>
-      <Space height={190} />
       <Text typo='Heading2' color='Black'>
         대학생이라면 이용해야 하는
         <br />
@@ -36,14 +35,17 @@ export const StartSection = () => {
         color='mint'
         content='바로 시작하기'
         onClick={handleButtonClick}
+        width={271}
       />
-      <Space height={174.33} />
     </Section>
   );
 };
 
 const Section = styled.section`
-  /* background-image: url('/images/home/home1.png'); */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Text = styled.div<{

@@ -164,6 +164,7 @@ const Title = styled.span`
   height: 60px;
 
   ${theme.typo.Heading4}
+  color: ${theme.palette.Black};
 `;
 
 const TagsWrapper = styled.div`

@@ -1,18 +1,35 @@
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { isLoggedInState } from '../store/LoggedIn/loggedInState';
+import { useMutation } from 'react-query';
+import authAPI, { KakaoJoinResponse } from '../apis/auth';
 import { getCookie } from '../utils/cookie';
 import { useAuth } from './useAuth';
 
-export default function useAutoLogin() {
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+export function useAutoLogin() {
   const accessToken = getCookie();
+  const { kakaoAutoLoginMutation } = useAuth();
 
+  // const getUserId = async (accessToken: string) => {
+  //   if (accessToken) {
+  //     await authAPI.USER_TOKEN(accessToken);
+  //     return await authAPI.USER_TOKEN(accessToken);
+  //   }
+  // };
   useEffect(() => {
     if (accessToken) {
-      setIsLoggedIn(true);
-    } else if (!accessToken) {
-      setIsLoggedIn(false);
+      accessTokenMutation.mutate(accessToken);
     }
   }, [accessToken]);
+
+  const accessTokenMutation = useMutation(authAPI.USER_TOKEN, {
+    onSuccess: (data: KakaoJoinResponse) => {
+      kakaoAutoLoginMutation.mutate({
+        userId: data.userId,
+        accessToken: accessToken,
+        isMember: true,
+      });
+    },
+    onError: (error: any) => console.log(error),
+  });
+
+  return { accessTokenMutation };
 }

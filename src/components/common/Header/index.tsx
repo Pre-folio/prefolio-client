@@ -6,15 +6,16 @@ import { theme } from '../../../styles/theme';
 import { Row } from '../Wrapper';
 import { Logo } from '../../Icons/Logo';
 import { Button } from '../Button';
-import useAutoLogin from '../../../hooks/useAutoLogin';
 import { userState } from '../../../store/Auth/userState';
+import { useAutoLogin } from '../../../hooks/useAutoLogin';
 
 export function Header() {
   const router = useRouter();
   const currentUrl = router.asPath;
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  useAutoLogin();
   const user = useRecoilValue(userState);
+
+  useAutoLogin();
 
   return (
     <HeaderWrapper>
@@ -46,7 +47,7 @@ export function Header() {
               }}
             />
           ) : (
-            <Row gap='16px'>
+            <Row gap="16px">
               <Button
                 type={'medium'}
                 color={'mint'}
@@ -56,10 +57,13 @@ export function Header() {
                   // TODO 게시글 작성 페이지로 이동
                 }}
               />
-              <ProfileImageWrapper
-                alt='프로필 이미지'
-                src={user.profileImage}
-              />
+              <button
+                onClick={() => {
+                  router.push(`/profile/${user.userId}`);
+                }}
+              >
+                <ProfileImageWrapper alt="프로필 이미지" src={user.profileImage && user.profileImage} />
+              </button>
             </Row>
           )
         ) : (
@@ -79,9 +83,8 @@ export function Header() {
 }
 
 const HeaderWrapper = styled.div`
-  width: 100vw;
+  left: 0vw;
   height: 74px;
-  margin-left: calc(-50vw + 50%);
 
   background-color: ${theme.palette.Navy};
 
@@ -91,6 +94,8 @@ const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 999;
+
+  width: 100vw;
 `;
 
 const Wrapper = styled.div`
