@@ -92,9 +92,6 @@ const HeaderWrapper = styled.div`
   z-index: 999;
 
   width: 100vw;
-  @media screen and (max-width: 1200px) {
-    width: 1200px;
-  }
 `;
 
 const Wrapper = styled.div`

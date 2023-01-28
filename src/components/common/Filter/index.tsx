@@ -67,6 +67,7 @@ const FilterButton = styled.button<IFilter>`
   border-radius: 6px;
   ${theme.typo.Body1};
   display: flex;
+
   align-items: center;
   background-color: ${(props) =>
     props.isClicked

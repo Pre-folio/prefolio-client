@@ -45,8 +45,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-const Button = styled.button`
-  height: 100px;
-  background-color: pink;
-`;
