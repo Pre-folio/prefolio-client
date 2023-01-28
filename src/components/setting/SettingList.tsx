@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useJoinForm } from '../../hooks/useJoinForm';
 import { useToast } from '../../hooks/useToats';
+import { userState } from '../../store/Auth/userState';
 import { Button } from '../common/Button';
 import { Toast } from '../common/Toast';
 import { Space, Text } from '../common/Wrapper';

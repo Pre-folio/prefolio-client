@@ -1,6 +1,10 @@
+import { SearchRequestProps } from '../hooks/useFeed';
 import { setAccessToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 
+export type SortType = 'CREATED_AT' | 'LIKES' | 'HITS';
+export type PartType = 'PLAN' | 'DEV' | 'DESIGN';
+export type ActType = 'SOCIETY' | 'PROJECT' | 'INTERN';
 export interface PostResponse {
   posts: [
     {
@@ -32,17 +36,21 @@ export const postAPI = {
     return response.data.data;
   },
 
-  //   SEARCH: async (data: any): Promise<PostResponse> => {
-  //     console.log(data);
-  //     const response = await client.post('/user/join', {
-  //       nickname: data.nickname,
-  //       profileImage: data.profileImage,
-  //       grade: data.grade,
-  //       type: data.type,
-  //     });
+  SEARCH: async (data: SearchRequestProps): Promise<PostResponse> => {
+    console.log(data);
+    const keys = Object.keys(data);
+    const values = Object.values(data);
 
-  //     return response.data.data;
-  //   },
+    let param = keys.reduce((accumulator, value, index) => {
+      return { ...accumulator, [value]: values[index] };
+    }, {});
+
+    const response = await client.post('/post/search', {
+      param,
+    });
+
+    return response.data.data;
+  },
 };
 
 export default postAPI;

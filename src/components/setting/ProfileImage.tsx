@@ -28,7 +28,7 @@ export const ProfileImage = ({
   ...props
 }: ProfileImageProps) => {
   const [image, setImage] = useState<string>(
-    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15103d26e8-59ec-4e4a-a2c1-72bd6704260e?'
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
   );
   const [trashIconColor, setTrashIconColor] = useState<string>(
     `${theme.palette.Gray20}`
@@ -55,12 +55,12 @@ export const ProfileImage = ({
 
   const handleTrashIconClick = () => {
     setImage(
-      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15103d26e8-59ec-4e4a-a2c1-72bd6704260e?'
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
     );
     setTrashIconColor(`${theme.palette.Gray20}`);
     setValue(
       'profileImage',
-      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15103d26e8-59ec-4e4a-a2c1-72bd6704260e?'
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
     );
   };
 
