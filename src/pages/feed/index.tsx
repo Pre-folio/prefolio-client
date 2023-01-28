@@ -15,7 +15,6 @@ import { userState } from '../../store/Auth/userState';
 import { getCookie } from '../../utils/cookie';
 
 const Feed = () => {
-  const user = useRecoilValue(userState);
   const [posts, setPosts] = useState<SinglePostResponse[]>([]);
   const { openToast } = useToast();
 
@@ -33,7 +32,7 @@ const Feed = () => {
 
   return (
     <div>
-      <FloatSearch />
+      <FloatSearch top={413} />
       <Banner />
       <Space height={100} />
       <FeedTagArea />

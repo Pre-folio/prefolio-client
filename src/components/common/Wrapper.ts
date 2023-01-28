@@ -89,3 +89,13 @@ export const Flex = styled.div<{
     width: 100vw;
   }
 `;
+
+export const Line = styled.div<{
+  width?: number;
+  height?: number;
+}>`
+  width: ${({ width }) => (width ? `${width}px` : '0px')};
+  height: ${({ height }) => (height ? `${height}px` : '0px')};
+  background-color: ${theme.palette.Gray15};
+  border-radius: 25px;
+`;

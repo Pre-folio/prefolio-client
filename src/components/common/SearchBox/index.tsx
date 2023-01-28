@@ -3,7 +3,7 @@ import { SearchIcon } from '../../../assets/icons';
 import { theme } from '../../../styles/theme';
 import { Input, InputProps } from '../Input';
 
-export const Search = (props: InputProps) => {
+export const SearchBox = (props: InputProps) => {
   const [color, setColor] = useState(`${theme.palette.Gray40}`);
 
   const handleSearchChange = (e: any) => {

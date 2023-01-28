@@ -6,7 +6,7 @@ import { useAuth } from './useAuth';
 
 export function useAutoLogin() {
   const accessToken = getCookie();
-  const { kakaoLoginMutation } = useAuth();
+  const { kakaoAutoLoginMutation } = useAuth();
 
   // const getUserId = async (accessToken: string) => {
   //   if (accessToken) {
@@ -22,7 +22,7 @@ export function useAutoLogin() {
 
   const accessTokenMutation = useMutation(authAPI.USER_TOKEN, {
     onSuccess: (data: KakaoJoinResponse) => {
-      kakaoLoginMutation.mutate({
+      kakaoAutoLoginMutation.mutate({
         userId: data.userId,
         accessToken: accessToken,
         isMember: true,
