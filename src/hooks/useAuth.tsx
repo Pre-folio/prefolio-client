@@ -27,7 +27,7 @@ export const useAuth = () => {
         kakaoLoginMutation.mutate(data);
       } else {
         // 가입하지 않은 경우 회원가입
-        router.push('/settings');
+        router.push('/setting');
       }
     },
     onError: (error: any) => {
