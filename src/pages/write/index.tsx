@@ -10,7 +10,11 @@ import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
 import { GuideLine } from '../../components/writePage/GuideLine';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedActTagListState, selectedTagsListState } from '../../store/TagArea/tagAreaState';
+import {
+  selectedActTagListState,
+  selectedPartTagListState,
+  selectedTagsListState,
+} from '../../store/TagArea/tagAreaState';
 import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
@@ -36,7 +40,10 @@ const Write = () => {
   const task = useInput(''); // task.value가 값임
   const [toolsList, setToolsList] = useState<string[]>([]);
   // const tags = useRecoilValue(selectedTagsListState);
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
   const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+  const isError =
+    !startDate.value || !endDate.value || selectedPartTagList.length === 0 || selectedActTagList.length === 0;
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -230,6 +237,7 @@ const Write = () => {
               contribution={contribution.value}
               task={task.value}
               toolsList={toolsList}
+              isError={isError}
             />
           </div>
         </Column>

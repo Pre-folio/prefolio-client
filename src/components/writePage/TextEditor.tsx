@@ -10,14 +10,17 @@ import { useRouter } from 'next/router';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { selectedActTagListState, selectedPartTagListState } from '../../store/TagArea/tagAreaState';
 import { useRecoilState } from 'recoil';
+import { Toast } from '../common/Toast';
+import { useToast } from '../../hooks/useToats';
 
 type HookCallback = (url: string, text?: string) => void;
 
-const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contribution, task, toolsList }: any) => {
+const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contribution, task, toolsList, isError }: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
   const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
   const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
+  const { openToast } = useToast();
 
   const [imageUrl, setImageUrl] = useState('');
 
@@ -36,28 +39,32 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
   };
 
   const onClickUploadButton = async () => {
-    let postContent;
-    const text = editorRef.current?.getInstance().getHTML();
+    if (isError) {
+      openToast('필수 정보들을 기입해주세요 !');
+    } else {
+      let postContent;
+      const text = editorRef.current?.getInstance().getHTML();
 
-    postContent = {
-      thumbnail: thumbnailUploadUrl,
-      title: title,
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
-      contribution: contribution,
-      task: task,
-      tools: toolsList.toString(),
-      partTag: selectedPartTagList.toString(),
-      actTag: selectedActTagList.toString(),
-      contents: text,
-    };
+      postContent = {
+        thumbnail: thumbnailUploadUrl,
+        title: title,
+        startDate: startDate.toString(),
+        endDate: endDate.toString(),
+        contribution: contribution,
+        task: task,
+        tools: toolsList.toString(),
+        partTag: selectedPartTagList.toString(),
+        actTag: selectedActTagList.toString(),
+        contents: text,
+      };
 
-    const postId = await postPosts(postContent);
-    console.log(postId);
+      const postId = await postPosts(postContent);
+      console.log(postId);
 
-    if (postId) {
-      router.push({ pathname: `/post/${postId}` });
-      //페이지 이동
+      if (postId) {
+        router.push({ pathname: `/post/${postId}` });
+        //페이지 이동
+      }
     }
   };
 
@@ -87,6 +94,7 @@ const TextEditor = ({ thumbnailUploadUrl, title, startDate, endDate, contributio
         />
       </EditorWrapper>
       <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
+      <Toast varient="error" />
     </Column>
   );
 };

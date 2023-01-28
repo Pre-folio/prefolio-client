@@ -59,11 +59,15 @@ export async function getUserScraps(pageNum: number, limit: number, partTag: str
       },
     });
   } else {
-    return await client.get(`/posts/scraps`, {
-      params: {
-        pageNum: pageNum,
-        limit: limit,
-      },
-    });
+    return await client
+      .get(`/posts/scraps`, {
+        params: {
+          pageNum: pageNum,
+          limit: limit,
+        },
+      })
+      .then((res) => {
+        return res.data.data;
+      });
   }
 }

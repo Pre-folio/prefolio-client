@@ -13,16 +13,47 @@ import {
   selectedTagsListState,
 } from '../../store/TagArea/tagAreaState';
 import { useQuery } from 'react-query';
+import { authAPI } from '../../apis/auth';
 import { getUserPosts, getUserScraps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
 import { getScraps } from '../../apis/onClickPostContent';
+import { getCookie } from '../../utils/cookie';
 
 const Profile = () => {
   const router = useRouter();
+  const [watchingUserInfo, setWatchingUserInfo] = useState({});
   const userInfo = useRecoilValue(userState);
-  // console.log(userInfo);
-
   const watchingUserId = router.query.id;
+  const watchingUserIdToNumber = Number(watchingUserId);
+
+  const token = getCookie();
+
+  const { isLoading: isProfileLoading, data: profileData } = useQuery(
+    ['profile-user-info', watchingUserId],
+    async () => {
+      const res = await authAPI.USER_INFO({
+        accessToken: token,
+        isMember: true,
+        userId: watchingUserIdToNumber,
+      });
+      return res;
+    }
+  );
+
+  // if (watchingUserId) {
+  //   setWatchingUserInfo({
+  //     countLike: 1,
+  //     countScrap: 1,
+  //     grade: 3,
+  //     nickname: '영준장',
+  //     profileImage:
+  //       'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/1735638788-5c98-4ef8-a1bb-1edcc357eeb7',
+  //     refreshToken: null,
+  //     type: 'dev',
+  //     userId: 17,
+  //   });
+  // }
+
   const isMyProfile = true; // 로그인 작업 이후 isMyProfile = (내 userId === watchingUserId)
 
   // 유저 정보 get api
@@ -53,22 +84,23 @@ const Profile = () => {
     async () => await getUserPosts(17, 0, 8, '', '')
   );
 
-  const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
-    ['scrap-posts', selectedActTagList, selectedPartTagList],
-    async () =>
-      await getUserScraps(
-        0,
-        8,
-        selectedPartTagList.toString().toUpperCase(),
-        selectedActTagList.toString().toUpperCase()
-      )
-  );
+  // const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
+  //   ['scrap-posts', selectedActTagList, selectedPartTagList],
+  //   async () =>
+  //     await getUserScraps(
+  //       0,
+  //       8,
+  //       selectedPartTagList.toString().toUpperCase(),
+  //       selectedActTagList.toString().toUpperCase()
+  //     )
+  // );
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
-  const posts = postData?.data.cardPosts.reverse();
+  const posts = postData?.data.cardPosts;
 
   // selectedBar이 scrap일 경우 스크랩한 글 get api
-  const scraps = scrapData?.data.data.cardPosts.reverse();
+  // const scraps = scrapData?.data.data.cardPosts;
+  const scraps: any = [];
 
   // const filteredScraps = scraps.filter((scrap: any) => {
   //   const scrapsTags = scrap.actTag.concat(scrap.partTag);
@@ -81,11 +113,12 @@ const Profile = () => {
     <Wrapper>
       <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
         <ProfileCard
-          nickname={nickname_}
-          grade={grade_}
-          field={field_}
-          hits={likes_}
-          scraps={scraps_}
+          imageSrc={profileData?.profileImage}
+          nickname={profileData?.nickname}
+          grade={profileData?.grade}
+          field={profileData?.type}
+          hits={profileData?.countLike}
+          scraps={profileData?.countScrap}
           style={{ position: 'fixed', top: '180px' }}
         />
         <div style={{ width: '100%' }} />
@@ -99,7 +132,7 @@ const Profile = () => {
                 return (
                   <PostCard
                     key={index}
-                    id={postInfo.id}
+                    id={postInfo.postId}
                     thumbnail={postInfo.thumbnail}
                     scrapped={postInfo.isScrapped}
                     title={postInfo.title}
@@ -113,12 +146,12 @@ const Profile = () => {
                 );
               })}
             {selectedBar === 'scraps' &&
-              !isScrapsLoading &&
+              // !isScrapsLoading &&
               scraps.map((scrapInfo: any) => {
                 return (
                   <PostCard
                     key={scrapInfo.postId}
-                    id={scrapInfo.id}
+                    id={scrapInfo.postId}
                     thumbnail={scrapInfo.thumbnail}
                     scrapped={true}
                     title={scrapInfo.title}
