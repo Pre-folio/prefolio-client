@@ -20,8 +20,8 @@ export const SearchPosts = (props: any) => {
     } else {
       setSearched(false);
     }
-    console.log('hi', props.value);
-  }, [props.value]);
+    console.log('hi', props.target);
+  }, [props]);
 
   if (!searched) {
     return (
