@@ -2,6 +2,10 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  images: {
+    loader: 'imgix',
+    path: '/',
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

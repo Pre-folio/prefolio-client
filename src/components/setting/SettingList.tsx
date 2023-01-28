@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useJoinForm } from '../../hooks/useJoinForm';
+import { useToast } from '../../hooks/useToats';
 import { Button } from '../common/Button';
+import { Toast } from '../common/Toast';
 import { Space, Text } from '../common/Wrapper';
 import { Grade } from './Grade';
 import { Nickname } from './Nickname';
@@ -21,15 +23,18 @@ export const SettingList = () => {
     joinPrefolio,
   } = useJoinForm();
 
+  const { openToast } = useToast();
+
   const onSubmit = (data: any) => {
     joinPrefolio.mutate(data);
   };
   const onError = (error: any) => {
-    alert(`프로필 사진 제외 모든 항목을 기입해 주세요`);
+    openToast(`프로필 사진 제외 모든 항목을 기입해 주세요`);
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
+      <Toast varient='error' />
       <Text typo={'Heading1'} color={'Black'} height={40}>
         내 정보 입력하기
       </Text>

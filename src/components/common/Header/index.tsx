@@ -46,7 +46,7 @@ export function Header() {
               }}
             />
           ) : (
-            <Row gap="16px">
+            <Row gap='16px'>
               <Button
                 type={'medium'}
                 color={'mint'}
@@ -56,7 +56,10 @@ export function Header() {
                   // TODO 게시글 작성 페이지로 이동
                 }}
               />
-              <ProfileImageWrapper alt="프로필 이미지" src={user.profileImage} />
+              <ProfileImageWrapper
+                alt='프로필 이미지'
+                src={user.profileImage}
+              />
             </Row>
           )
         ) : (
@@ -76,9 +79,8 @@ export function Header() {
 }
 
 const HeaderWrapper = styled.div`
-  width: 100vw;
+  left: 0vw;
   height: 74px;
-  margin-left: calc(-50vw + 50%);
 
   background-color: ${theme.palette.Navy};
 
@@ -88,6 +90,8 @@ const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 999;
+
+  width: 100vw;
 `;
 
 const Wrapper = styled.div`

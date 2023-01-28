@@ -121,8 +121,9 @@ const Profile = () => {
               posts?.map((postInfo: any) => {
                 return (
                   <PostCard
-                    key={postInfo.postId}
-                    scrapped={false}
+                    key={postInfo.id}
+                    id={postInfo.id}
+                    scrapped={postInfo.isScrapped}
                     title={postInfo.title}
                     field={postInfo.partTag}
                     activity={postInfo.actTag}
@@ -138,6 +139,7 @@ const Profile = () => {
                 return (
                   <PostCard
                     key={scrapInfo.id}
+                    id={scrapInfo.id}
                     scrapped={true}
                     title={scrapInfo.title}
                     field={scrapInfo.partTag}

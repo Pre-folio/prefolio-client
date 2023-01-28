@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
@@ -8,6 +9,9 @@ export const LoginPage = () => {
   const KAKAO = process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL;
   console.log(KAKAO);
   console.log(process.env.NEXT_PUBLIC_REDIRECT_URI);
+  const externalLink = {
+    url: 'https://www.naver.com',
+  };
 
   return (
     <Wrapper>
@@ -26,11 +30,16 @@ export const LoginPage = () => {
       <Space height={60} />
       <Img />
       <Space height={100} />
-      <KakaoButton
-        onClick={() =>
-          router.push(`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}`)
-        }
-      />
+      {/* <Link href={process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}> */}
+      <a
+        href={`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}`}
+        rel={'noopener noreferrer'}
+      >
+        <KakaoButton />
+      </a>
+      <a href='https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code'>
+        카카오 로그인
+      </a>
     </Wrapper>
   );
 };

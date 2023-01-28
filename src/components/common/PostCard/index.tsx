@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components';
 import { theme } from '../../../styles/theme';
 import { Tag } from '../Tag';
 import { ScrappIcon } from '../../../assets/icons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
@@ -16,6 +17,7 @@ export interface PostCardProps {
   activity: string[];
   postDate: string;
   hits: number;
+  id: number;
 }
 
 /**
@@ -35,9 +37,12 @@ export interface PostCardProps {
  */
 
 export const PostCard = (props: PostCardProps) => {
+  const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
+  const [iconStrokeColor, setIconStrokeColor] = useState(
+    `${theme.palette.Gray20}`
+  );
 
   const handleIconClick = (e: any) => {
     if (e.target === ref.current?.childNodes[0]) {
@@ -58,8 +63,11 @@ export const PostCard = (props: PostCardProps) => {
   }, [props.scrapped]);
 
   return (
-    <PostCardWrapper>
+    <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
       <MockThumbnail>
+        <Thumbnail
+          src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'}
+        />
         <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
           <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
         </ScrappIconWrapper>
@@ -93,6 +101,20 @@ const PostCardWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  cursor: pointer;
+`;
+
+const Thumbnail = styled.img`
+  /* border-radius: 10px 10px 0px 0px; */
+  border-radius: 10px 10px 0px 0px;
+  width: 282px;
+  height: 158px;
+  display: flex;
+  justify-content: flex-end;
+  object-fit: cover;
+  z-index: 1;
+  position: relative;
 `;
 
 const MockThumbnail = styled.div`
@@ -104,10 +126,11 @@ const MockThumbnail = styled.div`
 
   display: flex;
   justify-content: flex-end;
+  position: relative;
 `;
 
 const ScrappIconWrapper = styled.div`
-  z-index: 1;
+  z-index: 2;
   margin: 24px 20px 0px 0px;
 
   width: 20px;
@@ -118,6 +141,7 @@ const ScrappIconWrapper = styled.div`
   align-items: center;
 
   cursor: pointer;
+  position: absolute;
 `;
 
 const ContentsWrapper = styled.div`
