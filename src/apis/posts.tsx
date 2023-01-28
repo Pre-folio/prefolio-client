@@ -16,10 +16,12 @@ export async function getPost(id: number) {
   });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number) {
+export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
   return await client
     .get(`/posts/${userId}`, {
       params: {
+        partTag: partTag && partTag,
+        actTag: actTag && actTag,
         pageNum: pageNum,
         limit: limit,
       },
@@ -28,4 +30,40 @@ export async function getUserPosts(userId: number, pageNum: number, limit: numbe
       console.log(res);
       return res.data;
     });
+}
+
+export async function getUserScraps(pageNum: number, limit: number, partTag: string, actTag: string) {
+  if (partTag && actTag) {
+    return await client.get(`/posts/scraps`, {
+      params: {
+        partTag: partTag,
+        actTag: actTag,
+        pageNum: pageNum,
+        limit: limit,
+      },
+    });
+  } else if (partTag && !actTag) {
+    return await client.get(`/posts/scraps`, {
+      params: {
+        partTag: partTag,
+        pageNum: pageNum,
+        limit: limit,
+      },
+    });
+  } else if (!partTag && actTag) {
+    return await client.get(`/posts/scraps`, {
+      params: {
+        actTag: actTag,
+        pageNum: pageNum,
+        limit: limit,
+      },
+    });
+  } else {
+    return await client.get(`/posts/scraps`, {
+      params: {
+        pageNum: pageNum,
+        limit: limit,
+      },
+    });
+  }
 }

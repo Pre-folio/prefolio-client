@@ -6,11 +6,16 @@ import { Column, Row } from '../../components/common/Wrapper';
 import { TabBar } from '../../components/common/TabBar';
 import { PostCard } from '../../components/common/PostCard';
 import { TagArea } from '../../components/common/TagArea';
-import { useRecoilValue } from 'recoil';
-import { selectedTagsListState } from '../../store/TagArea/tagAreaState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  selectedActTagListState,
+  selectedPartTagListState,
+  selectedTagsListState,
+} from '../../store/TagArea/tagAreaState';
 import { useQuery } from 'react-query';
-import { getUserPosts } from '../../apis/posts';
+import { getUserPosts, getUserScraps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
+import { getScraps } from '../../apis/onClickPostContent';
 
 const Profile = () => {
   const router = useRouter();
@@ -32,6 +37,8 @@ const Profile = () => {
   const [posts_, setPosts_] = useState([]);
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
   const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
+  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
 
   useEffect(() => {
     if (barState) {
@@ -43,62 +50,32 @@ const Profile = () => {
 
   const { isLoading: isPostsLoading, data: postData } = useQuery(
     ['user-posts'],
-    async () => await getUserPosts(17, 0, 8)
+    async () => await getUserPosts(17, 0, 8, '', '')
+  );
+
+  const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
+    ['scrap-posts', selectedActTagList, selectedPartTagList],
+    async () =>
+      await getUserScraps(
+        0,
+        8,
+        selectedPartTagList.toString().toUpperCase(),
+        selectedActTagList.toString().toUpperCase()
+      )
   );
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
-  // const posts = userPosts?.data.data.cardPosts;
-  console.log(postData);
-
-  const posts = postData?.data.cardPosts;
+  const posts = postData?.data.cardPosts.reverse();
 
   // selectedBar이 scrap일 경우 스크랩한 글 get api
-  const scraps = [
-    {
-      id: 0,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 1,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 2,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-    {
-      id: 3,
-      thumbnail: '',
-      title: '아모레퍼시픽 려 BM 디자인 인턴 근무 후기',
-      partTag: ['dev', 'design'],
-      actTag: ['intern', 'project'],
-      hits: 0,
-      createdAt: '2023-01-19T08:02:00.340Z',
-    },
-  ];
+  const scraps = scrapData?.data.data.cardPosts.reverse();
 
-  //
-  const filteredScraps = scraps.filter((scrap) => {
-    const scrapsTags = scrap.actTag.concat(scrap.partTag);
-    if (filteredTags.every((tag) => scrapsTags.includes(tag))) {
-      return scrap;
-    }
-  });
+  // const filteredScraps = scraps.filter((scrap: any) => {
+  //   const scrapsTags = scrap.actTag.concat(scrap.partTag);
+  //   if (filteredTags.every((tag) => scrapsTags.includes(tag))) {
+  //     return scrap;
+  //   }
+  // });
 
   return (
     <Wrapper>
@@ -118,33 +95,36 @@ const Profile = () => {
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
               !isPostsLoading &&
-              posts?.map((postInfo: any) => {
+              posts?.map((postInfo: any, index: number) => {
                 return (
                   <PostCard
-                    key={postInfo.id}
+                    key={index}
                     id={postInfo.id}
+                    thumbnail={postInfo.thumbnail}
                     scrapped={postInfo.isScrapped}
                     title={postInfo.title}
                     field={postInfo.partTag}
                     activity={postInfo.actTag}
                     // postDate={scrapInfo.createdAt.slice(0, 10)}
                     // hits={postInfo.hits}
-                    postDate={'2022.12.19'}
+                    postDate={postInfo.createdAt}
                     hits={92}
                   />
                 );
               })}
             {selectedBar === 'scraps' &&
-              filteredScraps.map((scrapInfo: any) => {
+              !isScrapsLoading &&
+              scraps.map((scrapInfo: any) => {
                 return (
                   <PostCard
-                    key={scrapInfo.id}
+                    key={scrapInfo.postId}
                     id={scrapInfo.id}
+                    thumbnail={scrapInfo.thumbnail}
                     scrapped={true}
                     title={scrapInfo.title}
                     field={scrapInfo.partTag}
                     activity={scrapInfo.actTag}
-                    postDate={scrapInfo.createdAt.slice(0, 10)}
+                    postDate={scrapInfo.createdAt}
                     hits={scrapInfo.hits}
                   />
                 );

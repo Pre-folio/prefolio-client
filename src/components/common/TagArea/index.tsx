@@ -2,7 +2,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { selectedTagsListState } from '../../../store/TagArea/tagAreaState';
+import {
+  selectedActTagListState,
+  selectedPartTagListState,
+  selectedTagsListState,
+} from '../../../store/TagArea/tagAreaState';
 import { theme } from '../../../styles/theme';
 import { HelpIcon } from '../../Icons/HelpIcon';
 import { Filter } from '../Filter';
@@ -18,24 +22,48 @@ interface TagAreaProps {
  */
 export function TagArea({ width }: TagAreaProps) {
   //TODO 페이지별로 아이콘 변경
-  const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
+  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
+  // const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const urlPath: string = router.asPath;
 
   const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     const tagName = e.currentTarget.name;
+    if (tagName === 'plan' || tagName === 'dev' || tagName === 'design') {
+      if (selectedPartTagList.includes(tagName)) {
+        setSelectedPartTagList(
+          selectedPartTagList.filter((tag: any) => {
+            return tag !== tagName;
+          })
+        );
+      } else {
+        setSelectedPartTagList([...selectedPartTagList, tagName]);
+      }
+    } else {
+      if (selectedActTagList.includes(tagName)) {
+        setSelectedActTagList(
+          selectedActTagList.filter((tag: any) => {
+            return tag !== tagName;
+          })
+        );
+      } else {
+        setSelectedActTagList([...selectedActTagList, tagName]);
+      }
+    }
 
-    if (selectedTagsList.includes(tagName)) {
-      setSelectedTagsList(
-        selectedTagsList.filter((tags) => {
-          return tags !== tagName;
-        })
-      );
-    } else setSelectedTagsList([...selectedTagsList, tagName]);
+    // if (selectedActTagList.includes(tagName)) {
+    //   setSelectedActTagList(
+    //     selectedActTagList.filter((tags) => {
+    //       return tags !== tagName;
+    //     })
+    //   );
+    // } else setSelectedTagsList([...selectedActTagList, tagName]);
   };
 
   const isClicked = (type: any) => {
+    const selectedTagsList = selectedActTagList.concat(selectedPartTagList);
     if (selectedTagsList.includes(type)) {
       return true;
     }
