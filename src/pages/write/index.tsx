@@ -295,6 +295,7 @@ const ThumbnailImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-left: calc(-50vw + 50%);
+  position: relative;
 `;
 
 const ImageUploadArea = styled.div`
