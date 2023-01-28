@@ -40,28 +40,8 @@ const Profile = () => {
     }
   );
 
-  // if (watchingUserId) {
-  //   setWatchingUserInfo({
-  //     countLike: 1,
-  //     countScrap: 1,
-  //     grade: 3,
-  //     nickname: '영준장',
-  //     profileImage:
-  //       'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/1735638788-5c98-4ef8-a1bb-1edcc357eeb7',
-  //     refreshToken: null,
-  //     type: 'dev',
-  //     userId: 17,
-  //   });
-  // }
-
-  const isMyProfile = true; // 로그인 작업 이후 isMyProfile = (내 userId === watchingUserId)
-
-  // 유저 정보 get api
-  const nickname_ = '장영준';
-  const grade_ = 2;
-  const field_ = 'design';
-  const likes_ = 564;
-  const scraps_ = 332;
+  const isMyProfile = userInfo.userId === watchingUserIdToNumber;
+  console.log(isMyProfile);
 
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');
@@ -79,10 +59,11 @@ const Profile = () => {
     }
   }, [barState]);
 
-  const { isLoading: isPostsLoading, data: postData } = useQuery(
-    ['user-posts'],
-    async () => await getUserPosts(17, 0, 8, '', '')
-  );
+  const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
+    if (watchingUserIdToNumber) {
+      return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
+    }
+  });
 
   // const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
   //   ['scrap-posts', selectedActTagList, selectedPartTagList],
@@ -123,7 +104,7 @@ const Profile = () => {
         />
         <div style={{ width: '100%' }} />
         <Column width="calc(100% - 282px)" alignItems="flex-start" justifyContent="flex-start" gap="46px">
-          <TabBar barState={barState} setBarState={setBarState} />
+          {isMyProfile && <TabBar barState={barState} setBarState={setBarState} />}
           {selectedBar === 'scraps' && <TagArea width="100%" />}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&

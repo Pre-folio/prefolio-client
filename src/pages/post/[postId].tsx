@@ -26,7 +26,6 @@ const Board = () => {
     ['post-data', postIdToNumber],
     async () => await getPost(postIdToNumber)
   );
-  console.log('되겠지?', postData);
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url
@@ -42,7 +41,8 @@ const Board = () => {
   const [content, setContent] = useState<string>(''); // 게시글 글
   const [likes, setLikes] = useState<number>(0); // 좋아요수
   const [scraps, setScraps] = useState<number>(0); // 스크랩수
-  const [userInfo, setUserInfo] = useState<IUserInfo>({
+  const [postAuthInfo, setPostAuthInfo] = useState<IUserInfo>({
+    id: 0,
     grade: 0,
     nickname: '',
     profileImage: '',
@@ -69,7 +69,7 @@ const Board = () => {
       setContent(data.post.contents);
       setLikes(data.count.likes);
       setScraps(data.count.scraps);
-      setUserInfo(data.user);
+      setPostAuthInfo(data.user);
       setIsLikedButtonClicked(data.isLiked);
       setIsScrapButtonClicked(data.isScrapped);
     }
@@ -132,11 +132,11 @@ const Board = () => {
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea
-          userId={17}
-          imageSrc={userInfo.profileImage}
-          nickname={userInfo.nickname}
-          grade={userInfo.grade}
-          field={userInfo.type.toLowerCase()}
+          userId={postAuthInfo.id}
+          imageSrc={postAuthInfo.profileImage}
+          nickname={postAuthInfo.nickname}
+          grade={postAuthInfo.grade}
+          field={postAuthInfo.type.toLowerCase()}
           style={{ marginTop: '86px' }}
         />
       </Column>

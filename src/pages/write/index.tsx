@@ -21,6 +21,7 @@ import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { formatDate } from '../../hooks/formatDate';
+import { useFilter } from '../../hooks/useFilter';
 
 const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
 
@@ -40,8 +41,11 @@ const Write = () => {
   const task = useInput(''); // task.value가 값임
   const [toolsList, setToolsList] = useState<string[]>([]);
   // const tags = useRecoilValue(selectedTagsListState);
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+  const { selectedActTagList, selectedPartTagList } = useFilter();
+  console.log('selectedActTagList', selectedActTagList, 'selectedPartTagList', selectedPartTagList);
+
+  // const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
+  // const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
   const isError =
     !startDate.value || !endDate.value || selectedPartTagList.length === 0 || selectedActTagList.length === 0;
 
