@@ -48,8 +48,12 @@ const Profile = () => {
   const [posts_, setPosts_] = useState([]);
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
   const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
+  const [selectedActTagList, setSelectedActTagList] = useRecoilState(
+    selectedActTagListState
+  );
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(
+    selectedPartTagListState
+  );
 
   useEffect(() => {
     if (barState) {
@@ -59,11 +63,14 @@ const Profile = () => {
     }
   }, [barState]);
 
-  const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
-    if (watchingUserIdToNumber) {
-      return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
+  const { isLoading: isPostsLoading, data: postData } = useQuery(
+    ['user-posts', watchingUserIdToNumber],
+    async () => {
+      if (watchingUserIdToNumber) {
+        return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
+      }
     }
-  });
+  );
 
   // const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
   //   ['scrap-posts', selectedActTagList, selectedPartTagList],
@@ -92,7 +99,12 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
+      <Row
+        width='100%'
+        alignItems='flex-start'
+        justifyContent='flex-start'
+        gap='24px'
+      >
         <ProfileCard
           imageSrc={profileData?.profileImage}
           nickname={profileData?.nickname}
@@ -103,9 +115,16 @@ const Profile = () => {
           style={{ position: 'fixed', top: '180px' }}
         />
         <div style={{ width: '100%' }} />
-        <Column width="calc(100% - 282px)" alignItems="flex-start" justifyContent="flex-start" gap="46px">
-          {isMyProfile && <TabBar barState={barState} setBarState={setBarState} />}
-          {selectedBar === 'scraps' && <TagArea width="100%" />}
+        <Column
+          width='calc(100% - 282px)'
+          alignItems='flex-start'
+          justifyContent='flex-start'
+          gap='46px'
+        >
+          {isMyProfile && (
+            <TabBar barState={barState} setBarState={setBarState} />
+          )}
+          {selectedBar === 'scraps' && <TagArea width='100%' />}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
               !isPostsLoading &&
