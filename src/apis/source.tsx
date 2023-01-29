@@ -2,7 +2,9 @@ import { client } from './client';
 
 export const sourceAPI = {
   PRESIGNED_URL: async (path: string, userId: number): Promise<string> => {
-    const response = await client.get(`/source/url?userId=46&path=${path}`);
+    const response = await client.get(
+      `/source/url?userId=${userId}&path=${path}`
+    );
 
     return response.data.data.url;
   },
