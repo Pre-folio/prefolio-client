@@ -12,10 +12,11 @@ export const Grade = (props: any) => {
   };
 
   return (
-    <Flex direction='column' align='flex-start' gap={36}>
+    <Flex direction='column' align='flex-start' width={588} gap={36}>
       <Text typo={'Heading5'} color={'Black'} height={22}>
         학년을 선택해 주세요.
       </Text>
+
       <Controller
         rules={{ required: true }}
         control={props.control}

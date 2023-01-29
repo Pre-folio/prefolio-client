@@ -34,6 +34,8 @@ export const ProfileImage = ({
     `${theme.palette.Gray20}`
   );
 
+  const { url, setSource } = usePresignedURL();
+
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const url = await getPresignedUrl('PROFILE');
@@ -52,6 +54,10 @@ export const ProfileImage = ({
       }
     }
   };
+
+  useEffect(() => {
+    console.log(url);
+  }, [url]);
 
   const handleTrashIconClick = () => {
     setImage(

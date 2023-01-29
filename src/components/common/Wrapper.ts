@@ -83,11 +83,6 @@ export const Flex = styled.div<{
 
   width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? `${height}px` : '100%')};
-
-  @media screen and (max-width: 1200px) {
-    /* width: 1200px; */
-    width: 100vw;
-  }
 `;
 
 export const Line = styled.div<{
