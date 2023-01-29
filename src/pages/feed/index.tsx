@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import postAPI, { PostResponse } from '../../apis/post';
 import { Toast } from '../../components/common/Toast';
-import { Space } from '../../components/common/Wrapper';
+import { Space, Text } from '../../components/common/Wrapper';
 import { Banner } from '../../components/feed/Banner';
 import { FeedTagArea } from '../../components/feed/FeedTagArea';
 import { FloatSearch } from '../../components/feed/FloatSearh';
@@ -17,7 +17,7 @@ import { getCookie } from '../../utils/cookie';
 
 const Feed = () => {
   const { openToast } = useToast();
-  const { posts } = useFeed();
+  const { feed } = useFeed();
 
   return (
     <div>
@@ -26,9 +26,20 @@ const Feed = () => {
       <Space height={100} />
       <FeedTagArea />
       <Space height={60} />
-      <Posts posts={posts} />
+      <Posts posts={feed} />
       <Space height={96} />
-      <NoPost />
+      <NoPost
+        text={
+          <>
+            <Text typo={'Heading3'} color={'Gray30'} height={34}>
+              더 이상 볼 수 있는 게시글이 없어요!
+            </Text>
+            <Text typo={'Heading3'} color={'Gray30'} height={34}>
+              더 많은 글을 작성해보세요 :)
+            </Text>
+          </>
+        }
+      />
       <Space height={478} />
     </div>
   );
