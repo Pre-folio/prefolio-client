@@ -14,13 +14,13 @@ export const SearchPosts = (props: any) => {
   } = useFeed();
 
   useEffect(() => {
-    if (props.values) {
-      getSearch(props.values);
+    if (props.value) {
+      getSearch(props.value);
       setSearched(true);
     } else {
       setSearched(false);
     }
-    console.log('hi', props.target);
+    console.log('hi', props);
   }, [props]);
 
   if (!searched) {

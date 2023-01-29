@@ -32,7 +32,7 @@ export const useFeed = () => {
   const getSearch = async (searchWord: string) => {
     const feed: PostResponse = await postAPI.SEARCH({
       sortBy: 'CREATED_AT',
-      pageNum: 1,
+      pageNum: 0,
       limit: 24,
       searchWord: searchWord,
     });

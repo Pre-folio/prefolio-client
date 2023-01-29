@@ -44,10 +44,13 @@ export const postAPI = {
     let param = keys.reduce((accumulator, value, index) => {
       return { ...accumulator, [value]: values[index] };
     }, {});
+    console.log('hihiasdf', param);
 
-    const response = await client.post('/post/search', {
-      param,
+    const response = await client.get('/posts/search', {
+      params: { ...param },
     });
+
+    console.log('response', response.data.data);
 
     return response.data.data;
   },
