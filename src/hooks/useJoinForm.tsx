@@ -2,8 +2,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import authAPI from '../apis/auth';
 import sourceAPI from '../apis/source';
+import { userState } from '../store/Auth/userState';
 import { useAuth } from './useAuth';
 
 export interface JoinFormValues {
@@ -33,9 +35,10 @@ export const useJoinForm = () => {
     },
   });
   const { kakaoJoinMutation } = useAuth();
+  const [user, setUser] = useRecoilState(userState);
 
   const { data } = useQuery('presignedURL', () =>
-    sourceAPI.PRESIGNED_URL('PROFILE')
+    sourceAPI.PRESIGNED_URL('PROFILE', user.userId)
   );
   const [profile, setProfile] = useState<string>('');
 
