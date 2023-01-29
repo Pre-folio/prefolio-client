@@ -37,7 +37,7 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
   const [open, setOpen] = useRecoilState(toastState);
   const [content, setContent] = useRecoilState(toastContentState);
   return (
-    <ToastContainer display={open}>
+    <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
         <Image
           src={TOAST_SRC.icon[varient]}
@@ -54,7 +54,7 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
 };
 
 const ToastContainer = styled.div<{
-  display: boolean;
+  isOpen: boolean;
 }>`
   width: 1200px;
 
@@ -65,7 +65,7 @@ const ToastContainer = styled.div<{
   z-index: 10000;
   position: fixed;
 
-  display: ${({ display }) => (display ? 'visible' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? 'visible' : 'none')};
 `;
 
 const Wrapper = styled.div<{

@@ -28,6 +28,7 @@ export interface PostsProps {
 
 export const Posts = (props: PostsProps) => {
   const [scrapped, setScrapped] = useRecoilState(scrappedState);
+
   return (
     <Wrapper>
       {props.posts.map((post: any) => {

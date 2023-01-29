@@ -5,14 +5,6 @@ import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 import { KakaoButton } from './KakaoButton';
 
 export const LoginPage = () => {
-  const router = useRouter();
-  const KAKAO = process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL;
-  console.log(KAKAO);
-  console.log(process.env.NEXT_PUBLIC_REDIRECT_URI);
-  const externalLink = {
-    url: 'https://www.naver.com',
-  };
-
   return (
     <Wrapper>
       <Space height={106} />
@@ -37,9 +29,9 @@ export const LoginPage = () => {
       >
         <KakaoButton />
       </a>
-      {/* <a href='https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code'>
+      <a href='https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code'>
         카카오 로그인
-      </a> */}
+      </a>
     </Wrapper>
   );
 };

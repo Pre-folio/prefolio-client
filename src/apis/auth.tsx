@@ -4,7 +4,7 @@ import { client, publicClient } from './client';
 export interface KakaoValidationResponse {
   accessToken: string;
   isMember: boolean;
-  userId?: number;
+  userId: number;
 }
 
 export interface KakaoJoinResponse {

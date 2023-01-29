@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { client } from './client';
+import { client, publicClient } from './client';
 
 interface getPresignedUrlProps {
+  userId: number;
   path: string;
 }
 /**
@@ -9,11 +10,13 @@ interface getPresignedUrlProps {
  * @param path PROFILE, IMAGE, THUMBNAIL 중 택1 **반드시 대문자**
  * @returns presigned url
  */
-export function getPresignedUrl(path: any) {
-  return client
+export function getPresignedUrl(prop: getPresignedUrlProps) {
+  console.log('get', prop.userId);
+  return publicClient
     .get(`/source/url`, {
       params: {
-        path: path,
+        userId: prop.userId,
+        path: prop.path,
       },
     })
     .then((res) => {
