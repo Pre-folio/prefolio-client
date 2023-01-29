@@ -47,7 +47,7 @@ export function Header() {
               }}
             />
           ) : (
-            <Row gap="16px">
+            <Row gap='16px'>
               <Button
                 type={'medium'}
                 color={'mint'}
@@ -62,7 +62,10 @@ export function Header() {
                   router.push(`/profile/${user.userId}`);
                 }}
               >
-                <ProfileImageWrapper alt="프로필 이미지" src={user.profileImage && user.profileImage} />
+                <ProfileImageWrapper
+                  alt='프로필 이미지'
+                  src={user.profileImage}
+                />
               </button>
             </Row>
           )

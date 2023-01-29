@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { atom, selector, useRecoilState } from 'recoil';
-import { GetUserInfoResponse } from '../../apis/auth';
+import { GetUserInfoResponse, KakaoValidationResponse } from '../../apis/auth';
 import { getCookie } from '../../utils/cookie';
 
 export const userState = atom<GetUserInfoResponse>({

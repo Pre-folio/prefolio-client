@@ -2,12 +2,14 @@ import { toFormData } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import sourceAPI from '../../apis/source';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { SearchIcon, TrashIcon, UploadIcon } from '../../assets/icons';
 import { JoinFormValues, useJoinForm } from '../../hooks/useJoinForm';
 import { usePresignedURL } from '../../hooks/usePresignedURL';
+import { userState } from '../../store/Auth/userState';
 import { theme } from '../../styles/theme';
 import { onSelectFiles } from '../../utils/getBase64';
 import { Flex, Space, Text } from '../common/Wrapper';
@@ -28,17 +30,20 @@ export const ProfileImage = ({
   ...props
 }: ProfileImageProps) => {
   const [image, setImage] = useState<string>(
-    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
   );
   const [trashIconColor, setTrashIconColor] = useState<string>(
     `${theme.palette.Gray20}`
   );
 
   const { url, setSource } = usePresignedURL();
-
+  const [user, setUser] = useRecoilState(userState);
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const url = await getPresignedUrl('PROFILE');
+      const url = await getPresignedUrl({
+        userId: user.userId,
+        path: 'PROFILE',
+      });
       const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
 
       if (url) {
@@ -61,12 +66,12 @@ export const ProfileImage = ({
 
   const handleTrashIconClick = () => {
     setImage(
-      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
     );
     setTrashIconColor(`${theme.palette.Gray20}`);
     setValue(
       'profileImage',
-      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/15aed84e00-7989-4203-af13-446de04762cd'
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
     );
   };
 
