@@ -16,7 +16,13 @@ export async function getPost(id: number) {
   });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
+export async function getUserPosts(
+  userId: number,
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
   return await client
     .get(`/posts/${userId}`, {
       params: {
@@ -32,7 +38,12 @@ export async function getUserPosts(userId: number, pageNum: number, limit: numbe
     });
 }
 
-export async function getUserScraps(pageNum: number, limit: number, partTag: string, actTag: string) {
+export async function getUserScraps(
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
   if (partTag && actTag) {
     return await client.get(`/posts/scraps`, {
       params: {

@@ -24,7 +24,6 @@ export const useJoinForm = () => {
     getValues,
     setValue,
     control,
-
     formState: { errors },
   } = useForm<JoinFormValues>({
     mode: 'onChange',

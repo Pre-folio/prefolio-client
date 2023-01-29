@@ -9,7 +9,6 @@ import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
 import { PostTagArea } from '../../components/postPage/PostTagArea';
 import ProfileArea from '../../components/postPage/ProfileArea';
-import TextViewer from '../../components/postPage/TextViewer';
 import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 
@@ -48,8 +47,10 @@ const Board = () => {
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] =
+    useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (!isPostLoading) {
@@ -105,12 +106,20 @@ const Board = () => {
       }}
     >
       <ThumbnailImageWrapper>
-        <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+        <ImageUploadArea
+          alt='썸네일 이미지'
+          src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+        />
       </ThumbnailImageWrapper>
-      <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+      <Column
+        width='996px'
+        justifyContent='center'
+        alignItems='flex-start'
+        marginTop='60px'
+      >
         <TitleArea>{title || '게시글 제목'}</TitleArea>
         <DetailInfoArea>
-          <Column justifyContent="space-between" alignItems="flex-start">
+          <Column justifyContent='space-between' alignItems='flex-start'>
             <div>
               활동 기간 : {startDate || '2022.08.29'}~{endDate || '2022.09.30'}
             </div>
@@ -127,8 +136,18 @@ const Board = () => {
         />
         <Viewer style={{ marginTop: '72px' }} data={content} />
         <PostButtonWrapper>
-          <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
-          <PostButton type={'scrap'} isClicked={isScrapButtonClicked} onClick={onClickScrapButton} counts={scraps} />
+          <PostButton
+            type={'hit'}
+            isClicked={isLikedButtonClicked}
+            onClick={onClickLikeButton}
+            counts={likes}
+          />
+          <PostButton
+            type={'scrap'}
+            isClicked={isScrapButtonClicked}
+            onClick={onClickScrapButton}
+            counts={scraps}
+          />
         </PostButtonWrapper>
         <DivisionLine />
         <ProfileArea

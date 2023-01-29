@@ -17,44 +17,51 @@ export interface SearchRequestProps {
   searchWord: string;
 }
 
+export type SearchStateType = 'wait' | 'result' | 'none';
+
 export const useFeed = () => {
-  const [posts, setPosts] = useState<SinglePostResponse[]>([]);
-  const [searched, setSearched] = useState<boolean>(false);
+  const [feed, setFeed] = useState<SinglePostResponse[]>([]);
+  const [search, setSearch] = useState<SinglePostResponse[]>([]);
+  const [searchType, setSearchType] = useState<SearchStateType>('wait');
 
   const getFeed = async () => {
-    const feed: PostResponse = await postAPI.ALL(getCookie());
-    if (feed && getCookie()) {
-      console.log(feed);
+    const res: PostResponse = await postAPI.ALL(getCookie());
+
+    if (res && getCookie()) {
+      console.log(res);
     }
-    setPosts(feed.posts);
+
+    setFeed(res.posts);
   };
 
   const getSearch = async (searchWord: string) => {
+    if (searchWord === '') {
+      getFeed();
+      return;
+    }
+
     const feed: PostResponse = await postAPI.SEARCH({
       sortBy: 'CREATED_AT',
-      pageNum: 1,
+      pageNum: 0,
       limit: 24,
       searchWord: searchWord,
     });
-    if (feed && getCookie()) {
-      console.log(feed);
-    }
-    setPosts(feed.posts);
+
+    feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
+    setSearch(feed.posts);
   };
 
   useEffect(() => {
     getFeed();
   }, []);
 
-  const nowRead = posts.slice(0, 4);
-
   return {
-    posts,
-    setPosts,
+    search,
+    setSearch,
     getFeed,
     getSearch,
-    nowRead,
-    searched,
-    setSearched,
+    feed,
+    searchType,
+    setSearchType,
   };
 };
