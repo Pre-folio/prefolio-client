@@ -7,6 +7,7 @@ import postAPI, {
 } from '../apis/post';
 import { SinglePostResponse } from '../components/feed/Posts';
 import { getCookie } from '../utils/cookie';
+import { useTagArea } from './useTagArea';
 
 export interface SearchRequestProps {
   sortBy: SortType;
@@ -23,6 +24,7 @@ export const useFeed = () => {
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
   const [searchType, setSearchType] = useState<SearchStateType>('wait');
+  const { type, setType, act, setAct, sort, setSort } = useTagArea();
 
   const getFeed = async () => {
     const res: PostResponse = await postAPI.ALL(getCookie());

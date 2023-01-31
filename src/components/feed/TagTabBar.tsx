@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Dot } from '../../assets/icons';
+import { useTagArea } from '../../hooks/useTagArea';
 import { theme } from '../../styles/theme';
 import { Text } from '../common/Wrapper';
 
@@ -28,27 +29,23 @@ export const TagTabBar = ({
   leftTab = '최신순',
   rightTab = '추천순',
 }: TabBarProps) => {
-  const ref = useRef<HTMLDivElement[] | null[]>([]);
-
-  const HandleTabClick = (e: any) => {
-    setBarState(e.target.parentNode.id === 'new' ? true : false);
-  };
+  const { sort, handleTabClick } = useTagArea();
 
   return (
     <TabBarWrapper>
-      <Button id='new' onClick={HandleTabClick} barState={barState}>
+      <Button id='new' onClick={handleTabClick} barState={sort}>
         <Dot
-          fill={barState ? `${theme.palette.Black}` : `${theme.palette.Gray20}`}
+          fill={sort ? `${theme.palette.Black}` : `${theme.palette.Gray20}`}
         />
-        <Text typo='Body2' color={barState ? 'Black' : 'Gray20'} height={16}>
+        <Text typo='Body2' color={sort ? 'Black' : 'Gray20'} height={16}>
           {leftTab}
         </Text>
       </Button>
-      <Button id='like' onClick={HandleTabClick} barState={barState}>
+      <Button id='like' onClick={handleTabClick} barState={sort}>
         <Dot
-          fill={barState ? `${theme.palette.Gray20}` : `${theme.palette.Black}`}
+          fill={sort ? `${theme.palette.Gray20}` : `${theme.palette.Black}`}
         />
-        <Text typo='Body2' color={barState ? 'Gray20' : 'Black'} height={16}>
+        <Text typo='Body2' color={sort ? 'Gray20' : 'Black'} height={16}>
           {rightTab}
         </Text>
       </Button>
@@ -65,9 +62,7 @@ const TabBarWrapper = styled.div`
   width: 128px;
 `;
 
-const Button = styled.button<{
-  barState: boolean;
-}>`
+const Button = styled.button<{ barState: boolean }>`
   width: 58px;
   height: 16px;
   padding: 0;

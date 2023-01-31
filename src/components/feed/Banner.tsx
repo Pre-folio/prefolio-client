@@ -23,7 +23,7 @@ export const Banner = () => {
 
 const BannerImage = styled.img`
   width: 100vw;
-  height: 444px;
+  /* height: 444px; */
   margin-left: calc(-50vw + 50%);
 
   @media screen and (max-width: 1200px) {

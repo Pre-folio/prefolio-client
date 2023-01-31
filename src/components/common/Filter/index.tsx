@@ -3,18 +3,19 @@ import { shadow, theme } from '../../../styles/theme';
 import { Row } from '../Wrapper';
 import { CheckIcon } from '../../Icons/CheckIcon';
 import { CancelIcon } from '../../Icons/CancelIcon';
+import { MouseEventHandler } from 'react';
 
 interface FilterProps {
-  type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
-  isClicked?: boolean | any;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
+  isClicked?: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   style?: CSSProperties;
   hasCancelButton?: boolean;
   onClickCancelButton?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 interface IFilter {
-  type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
+  type: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
   isClicked?: boolean;
 }
 
@@ -26,8 +27,10 @@ export function Filter({
   hasCancelButton,
   onClickCancelButton,
 }: FilterProps) {
+  console.log(type, isClicked);
   return (
     <FilterButton
+      id={type}
       type={type}
       isClicked={isClicked}
       onClick={onClick}
@@ -35,26 +38,33 @@ export function Filter({
       style={style}
     >
       <Row
+        id={type}
         justifyContent='center'
         alignItems='center'
         gap={hasCancelButton ? '8px' : '4px'}
         style={{ lineHeight: '34px', textAlign: 'center' }}
       >
-        {!hasCancelButton && isClicked ? <CheckIcon type={type} /> : ''}
-        {type === 'dev'
+        {!hasCancelButton && isClicked ? (
+          <CheckIcon id={type} type={type} />
+        ) : (
+          ''
+        )}
+        {type === 'DEV'
           ? '개발'
-          : type === 'design'
+          : type === 'DESIGN'
           ? '디자인'
-          : type === 'plan'
+          : type === 'PLAN'
           ? '기획'
-          : type === 'society'
+          : type === 'SOCIETY'
           ? '동아리/학회'
-          : type === 'intern'
+          : type === 'INTERN'
           ? '인턴'
-          : type === 'project'
+          : type === 'PROJECT'
           ? '프로젝트'
           : type}
-        {hasCancelButton && <CancelIcon onClick={onClickCancelButton} />}
+        {hasCancelButton && (
+          <CancelIcon id={type} onClick={onClickCancelButton} />
+        )}
       </Row>
     </FilterButton>
   );
@@ -71,31 +81,31 @@ const FilterButton = styled.button<IFilter>`
   align-items: center;
   background-color: ${(props) =>
     props.isClicked
-      ? props.type === 'plan'
+      ? props.type === 'PLAN'
         ? theme.palette.Mint10
-        : props.type === 'dev'
+        : props.type === 'DEV'
         ? theme.palette.Blue10
-        : props.type === 'design'
+        : props.type === 'DESIGN'
         ? theme.palette.Purple10
         : theme.palette.White
       : theme.palette.White};
   color: ${(props) =>
     props.isClicked
-      ? props.type === 'plan'
+      ? props.type === 'PLAN'
         ? theme.palette.Minttext
-        : props.type === 'dev'
+        : props.type === 'DEV'
         ? theme.palette.Blue100
-        : props.type === 'design'
+        : props.type === 'DESIGN'
         ? theme.palette.Purple100
         : theme.palette.Black
       : theme.palette.Gray40};
   box-shadow: ${(props) =>
     props.isClicked
-      ? props.type === 'plan'
+      ? props.type === 'PLAN'
         ? shadow.Button.Green
-        : props.type === 'dev'
+        : props.type === 'DEV'
         ? shadow.Button.Blue
-        : props.type === 'design'
+        : props.type === 'DESIGN'
         ? shadow.Button.Purple
         : shadow.Button.Black
       : ''};

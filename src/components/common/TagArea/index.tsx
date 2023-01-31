@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { ActType, PartType } from '../../../apis/post';
+import { useTagArea } from '../../../hooks/useTagArea';
 import {
   selectedActTagListState,
   selectedPartTagListState,
@@ -22,49 +24,21 @@ interface TagAreaProps {
  */
 export function TagArea({ width }: TagAreaProps) {
   //TODO 페이지별로 아이콘 변경
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
+  const [selectedActTagList, setSelectedActTagList] = useRecoilState(
+    selectedActTagListState
+  );
+  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(
+    selectedPartTagListState
+  );
+  const { type, setType, act, setAct, handleTagClick } = useTagArea();
   // const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const urlPath: string = router.asPath;
 
-  const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const tagName = e.currentTarget.name;
-    if (tagName === 'plan' || tagName === 'dev' || tagName === 'design') {
-      if (selectedPartTagList.includes(tagName)) {
-        setSelectedPartTagList(
-          selectedPartTagList.filter((tag: any) => {
-            return tag !== tagName;
-          })
-        );
-      } else {
-        setSelectedPartTagList([...selectedPartTagList, tagName]);
-      }
-    } else {
-      if (selectedActTagList.includes(tagName)) {
-        setSelectedActTagList(
-          selectedActTagList.filter((tag: any) => {
-            return tag !== tagName;
-          })
-        );
-      } else {
-        setSelectedActTagList([...selectedActTagList, tagName]);
-      }
-    }
-
-    // if (selectedActTagList.includes(tagName)) {
-    //   setSelectedActTagList(
-    //     selectedActTagList.filter((tags) => {
-    //       return tags !== tagName;
-    //     })
-    //   );
-    // } else setSelectedTagsList([...selectedActTagList, tagName]);
-  };
-
-  const isClicked = (type: any) => {
-    const selectedTagsList = selectedActTagList.concat(selectedPartTagList);
-    if (selectedTagsList.includes(type)) {
+  const isClicked = (hi: any) => {
+    const List: (PartType | ActType)[] = [...act, ...type];
+    if (List.includes(hi)) {
       return true;
     }
     return false;
@@ -72,31 +46,63 @@ export function TagArea({ width }: TagAreaProps) {
 
   return (
     <Wrapper width={width}>
-      <Column gap="18px" alignItems="flex-start">
-        <Row width="100%" justifyContent={'space-between'}>
-          <Row gap="12px">
+      <Column gap='18px' alignItems='flex-start'>
+        <Row width='100%' justifyContent={'space-between'}>
+          <Row gap='12px'>
             <CategoryTextArea>분야별</CategoryTextArea>
-            <Filter onClick={onClickButton} isClicked={isClicked('plan')} type="plan" />
-            <Filter onClick={onClickButton} isClicked={isClicked('dev')} type="dev" />
-            <Filter onClick={onClickButton} isClicked={isClicked('design')} type="design" />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('PLAN')}
+              type='PLAN'
+            />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('DEV')}
+              type='DEV'
+            />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('DESIGN')}
+              type='DESIGN'
+            />
           </Row>
           {urlPath.includes('write') ? (
-            <HelpIconArea className="help-area">
-              <HelpIcon className="help-icon" />
-              <img className="hover-img" alt="호버 이미지" src="/src/writePage/TagHoverImage.png" />
+            <HelpIconArea className='help-area'>
+              <HelpIcon className='help-icon' />
+              <img
+                className='hover-img'
+                alt='호버 이미지'
+                src='/src/writePage/TagHoverImage.png'
+              />
             </HelpIconArea>
           ) : (
             <></>
           )}
         </Row>
-        <Row alignItems="flex-end" justifyContent="space-between" width="100%">
-          <Row gap="12px">
+        <Row alignItems='flex-end' justifyContent='space-between' width='100%'>
+          <Row gap='12px'>
             <CategoryTextArea>활동별</CategoryTextArea>
-            <Filter onClick={onClickButton} isClicked={isClicked('society')} type="society" />
-            <Filter onClick={onClickButton} isClicked={isClicked('intern')} type="intern" />
-            <Filter onClick={onClickButton} isClicked={isClicked('project')} type="project" />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('SOCIETY')}
+              type='SOCIETY'
+            />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('INTERN')}
+              type='INTERN'
+            />
+            <Filter
+              onClick={handleTagClick}
+              isClicked={isClicked('PROJECT')}
+              type='PROJECT'
+            />
           </Row>
-          {urlPath.includes('write') ? <></> : <TextArea>* 태그를 선택해 분류해볼 수 있어요</TextArea>}
+          {urlPath.includes('write') ? (
+            <></>
+          ) : (
+            <TextArea>* 태그를 선택해 분류해볼 수 있어요</TextArea>
+          )}
         </Row>
       </Column>
     </Wrapper>

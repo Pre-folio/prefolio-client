@@ -177,7 +177,7 @@ const TagsWrapper = styled.div`
   row-gap: 12px;
   column-gap: 8px;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const PostInfoWrapper = styled.div`
