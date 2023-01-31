@@ -28,12 +28,14 @@ const Profile = () => {
   const { isLoading: isProfileLoading, data: profileData } = useQuery(
     ['profile-user-info', watchingUserId],
     async () => {
-      const res = await authAPI.USER_INFO({
-        accessToken: token,
-        isMember: true,
-        userId: watchingUserIdToNumber,
-      });
-      return res;
+      if (typeof watchingUserIdToNumber === 'number') {
+        const res = await authAPI.USER_INFO({
+          accessToken: token,
+          isMember: true,
+          userId: watchingUserIdToNumber,
+        });
+        return res;
+      }
     }
   );
 
