@@ -23,21 +23,21 @@ interface ITag {
 export function Tag({ type, sort, style }: TagProps) {
   return type === 'activity' ? (
     <ActivityTag id={sort} style={style}>
-      {sort === 'SOCIETY'
+      {sort === 'society'
         ? '동아리/학회'
-        : sort === 'INTERN'
+        : sort === 'intern'
         ? '인턴'
-        : sort === 'PROJECT'
+        : sort === 'project'
         ? '프로젝트'
         : sort}
     </ActivityTag>
   ) : type === 'field' ? (
     <FieldTag id={sort} field={sort} style={style}>
-      {sort === 'PLAN'
+      {sort === 'plan'
         ? '기획'
-        : sort === 'DEV'
+        : sort === 'dev'
         ? '개발'
-        : sort === 'DESIGN'
+        : sort === 'design'
         ? '디자인'
         : sort}
     </FieldTag>

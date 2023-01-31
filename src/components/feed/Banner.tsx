@@ -22,14 +22,14 @@ export const Banner = () => {
 };
 
 const BannerImage = styled.img`
-  width: 100vw;
-  /* height: 444px; */
+  height: 444px;
   margin-left: calc(-50vw + 50%);
 
   @media screen and (max-width: 1200px) {
     width: 1200px;
     margin: 0;
   }
+  object-fit: cover;
 `;
 
 const StyledCarousel = styled(Carousel)`
