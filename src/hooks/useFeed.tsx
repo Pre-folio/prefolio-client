@@ -9,6 +9,14 @@ import { SinglePostResponse } from '../components/feed/Posts';
 import { getCookie } from '../utils/cookie';
 import { useTagArea } from './useTagArea';
 
+export interface FeedRequestProps {
+  sortBy: SortType;
+  partTag?: PartType[];
+  actTag?: ActType;
+  pageNum: number;
+  limit: number;
+}
+
 export interface SearchRequestProps {
   sortBy: SortType;
   partTag?: PartType;
@@ -28,6 +36,7 @@ export const useFeed = () => {
 
   const getFeed = async () => {
     const res: PostResponse = await postAPI.ALL(getCookie());
+    const keys = Object.keys(type);
 
     if (res && getCookie()) {
       console.log(res);

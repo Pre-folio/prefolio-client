@@ -2,39 +2,38 @@ import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import styled, { css } from 'styled-components';
 import { theme } from '../../../styles/theme';
 import { darken } from 'polished';
+import { PartType } from '../../../apis/post';
 
 export interface PartCardProps {
   graphic?: string;
-  varient: PartCardVarient;
+  varient: PartType;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   selected?: boolean;
 }
 
-export type PartCardVarient = 'plan' | 'dev' | 'design';
-
 const CARD_COLOR = {
   active: {
-    plan: `${darken(0.03, theme.palette.Mint10)}`,
-    dev: `${darken(0.03, theme.palette.Blue10)}`,
-    design: `${darken(0.03, theme.palette.Purple10)}`,
+    PLAN: `${darken(0.03, theme.palette.Mint10)}`,
+    DEV: `${darken(0.03, theme.palette.Blue10)}`,
+    DESIGN: `${darken(0.03, theme.palette.Purple10)}`,
   },
   selected: {
-    plan: `${theme.palette.Mint30}`,
-    dev: `${theme.palette.Blue30}`,
-    design: `${theme.palette.Purple30}`,
+    PLAN: `${theme.palette.Mint30}`,
+    DEV: `${theme.palette.Blue30}`,
+    DESIGN: `${theme.palette.Purple30}`,
   },
 };
 
 const CARD_FIELD = {
-  plan: '기획',
-  dev: '개발',
-  design: '디자인',
+  PLAN: '기획',
+  DEV: '개발',
+  DESIGN: '디자인',
 };
 
 const CARD_GRAPHIC = {
-  plan: 'images/common/part/plan.png',
-  dev: 'images/common/part/dev.png',
-  design: 'images/common/part/design.png',
+  PLAN: 'images/common/part/plan.png',
+  DEV: 'images/common/part/dev.png',
+  DESIGN: 'images/common/part/design.png',
 };
 
 /**
@@ -42,7 +41,7 @@ const CARD_GRAPHIC = {
  * @param varient: string
  * @param onClick: MouseEventHandler<HTMLButtonElement>
  * -------------------------------------
- * 카드 종류: 'plan' | 'dev' | 'design'
+ * 카드 종류: 'PLAN' | 'DEV' | 'DESIGN'
  */
 
 export const PartCard = (props: PartCardProps) => {
@@ -59,7 +58,7 @@ export const PartCard = (props: PartCardProps) => {
 };
 
 const PartCardWrapper = styled.button<{
-  varient: PartCardVarient;
+  varient: PartType;
   selected?: boolean;
 }>`
   width: 180px;
