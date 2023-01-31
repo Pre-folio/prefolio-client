@@ -5,7 +5,7 @@ import { Tag } from '../common/Tag';
 import { Column, Row } from '../common/Wrapper';
 
 export interface GuideLineProps {
-  type: 'society' | 'project' | 'intern' | any;
+  type: 'SOCIETY' | 'PROJECT' | 'INTERN' | any;
   style?: CSSProperties;
 }
 
@@ -14,7 +14,7 @@ export function GuideLine({ type, style }: GuideLineProps) {
   useEffect(() => {
     console.log(tagsList);
 
-    if (type === 'society') {
+    if (type === 'SOCIETY') {
       setTagsList([
         '커리큘럼 관련 내용',
         '동아리/학회에서 배운 점',
@@ -22,7 +22,7 @@ export function GuideLine({ type, style }: GuideLineProps) {
         '구성원들의 성격이나 특성',
         '활동 중 어려웠던 점',
       ]);
-    } else if (type === 'intern') {
+    } else if (type === 'INTERN') {
       setTagsList([
         '회사 소개',
         '직무 소개',
@@ -32,7 +32,7 @@ export function GuideLine({ type, style }: GuideLineProps) {
         '인턴 노하우, 꿀팁',
         '실무 관련해서 배운 점',
       ]);
-    } else if (type === 'project') {
+    } else if (type === 'PROJECT') {
       setTagsList([
         '진행 기간',
         '커뮤니케이션 방식',
@@ -54,14 +54,14 @@ export function GuideLine({ type, style }: GuideLineProps) {
       >
         <Row gap='20px' justifyContent='flex-start'>
           <BigTextArea>
-            {type === 'society'
+            {type === 'SOCIETY'
               ? '동아리/학회, 이런 내용을 작성해보세요!'
-              : type === 'project'
+              : type === 'PROJECT'
               ? '프로젝트, 이런 내용을 작성해보세요!'
-              : type === 'intern' && '인턴, 이런 내용을 작성해보세요!'}
+              : type === 'INTERN' && '인턴, 이런 내용을 작성해보세요!'}
           </BigTextArea>
           <SmallTextArea>
-            {type === 'society' ? '어느 정도의 홍보도 가능해요 :)' : ''}
+            {type === 'SOCIETY' ? '어느 정도의 홍보도 가능해요 :)' : ''}
           </SmallTextArea>
         </Row>
         <Row width='100%' justifyContent='flex-start' gap='12px'>

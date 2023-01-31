@@ -7,17 +7,14 @@ import { TabBar } from '../../components/common/TabBar';
 import { PostCard } from '../../components/common/PostCard';
 import { TagArea } from '../../components/common/TagArea';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  selectedActTagListState,
-  selectedPartTagListState,
-  selectedTagsListState,
-} from '../../store/TagArea/tagAreaState';
+
 import { useQuery } from 'react-query';
 import { authAPI } from '../../apis/auth';
 import { getUserPosts, getUserScraps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
 import { getScraps } from '../../apis/onClickPostContent';
 import { getCookie } from '../../utils/cookie';
+import { useTagArea } from '../../hooks/useTagArea';
 
 const Profile = () => {
   const router = useRouter();
@@ -47,13 +44,17 @@ const Profile = () => {
   const [selectedBar, setSelectedBar] = useState<string>('');
   const [posts_, setPosts_] = useState([]);
   const [isScrapped, setIsScrapped] = useState<boolean>(false);
-  const filteredTags = useRecoilValue<string[]>(selectedTagsListState);
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(
-    selectedActTagListState
-  );
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(
-    selectedPartTagListState
-  );
+
+  const {
+    type,
+    setType,
+    act,
+    setAct,
+    sort,
+    setSort,
+    handleTagClick,
+    handleTabClick,
+  } = useTagArea();
 
   useEffect(() => {
     if (barState) {

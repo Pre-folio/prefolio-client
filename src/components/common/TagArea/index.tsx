@@ -4,11 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { ActType, PartType } from '../../../apis/post';
 import { useTagArea } from '../../../hooks/useTagArea';
-import {
-  selectedActTagListState,
-  selectedPartTagListState,
-  selectedTagsListState,
-} from '../../../store/TagArea/tagAreaState';
+
 import { theme } from '../../../styles/theme';
 import { HelpIcon } from '../../Icons/HelpIcon';
 import { Filter } from '../Filter';
@@ -24,12 +20,7 @@ interface TagAreaProps {
  */
 export function TagArea({ width }: TagAreaProps) {
   //TODO 페이지별로 아이콘 변경
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(
-    selectedActTagListState
-  );
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(
-    selectedPartTagListState
-  );
+
   const { type, setType, act, setAct, handleTagClick } = useTagArea();
   // const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
   const [isHover, setIsHover] = useState(false);

@@ -10,19 +10,15 @@ import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
 import { GuideLine } from '../../components/writePage/GuideLine';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  selectedActTagListState,
-  selectedPartTagListState,
-  selectedTagsListState,
-} from '../../store/TagArea/tagAreaState';
+
 import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { formatDate } from '../../hooks/formatDate';
-import { useFilter } from '../../hooks/useFilter';
 import { userState } from '../../store/Auth/userState';
+import { useTagArea } from '../../hooks/useTagArea';
 
 const TextEditor = dynamic(
   () => import('../../components/writePage/TextEditor'),
@@ -46,22 +42,22 @@ const Write = () => {
   const task = useInput(''); // task.value가 값임
   const [toolsList, setToolsList] = useState<string[]>([]);
   // const tags = useRecoilValue(selectedTagsListState);
-  const { selectedActTagList, selectedPartTagList } = useFilter();
-  console.log(
-    'selectedActTagList',
-    selectedActTagList,
-    'selectedPartTagList',
-    selectedPartTagList
-  );
-  const [user, setUser] = useRecoilState(userState);
 
+  const [user, setUser] = useRecoilState(userState);
+  const {
+    type,
+    setType,
+    act,
+    setAct,
+    sort,
+    setSort,
+    handleTagClick,
+    handleTabClick,
+  } = useTagArea();
   // const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
   // const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
   const isError =
-    !startDate.value ||
-    !endDate.value ||
-    selectedPartTagList.length === 0 ||
-    selectedActTagList.length === 0;
+    !startDate.value || !endDate.value || type.length === 0 || act.length === 0;
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -237,6 +233,7 @@ const Write = () => {
                   {toolsList.map((tool) => {
                     return (
                       <Filter
+                        onClick={() => <></>}
                         key={tool}
                         type={tool}
                         hasCancelButton
@@ -281,7 +278,7 @@ const Write = () => {
               />
               {isGuideLineButtonClicked && (
                 <Column marginTop='20px' gap='14px'>
-                  {selectedActTagList.map((tag) => {
+                  {act.map((tag: any) => {
                     return <GuideLine type={tag} key={tag} />;
                   })}
                 </Column>

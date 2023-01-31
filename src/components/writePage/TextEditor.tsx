@@ -8,14 +8,12 @@ import { Button } from '../common/Button';
 import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
-import {
-  selectedActTagListState,
-  selectedPartTagListState,
-} from '../../store/TagArea/tagAreaState';
+
 import { useRecoilState } from 'recoil';
 import { Toast } from '../common/Toast';
 import { useToast } from '../../hooks/useToats';
 import { userState } from '../../store/Auth/userState';
+import { useTagArea } from '../../hooks/useTagArea';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -31,16 +29,21 @@ const TextEditor = ({
 }: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
-  const [selectedActTagList, setSelectedActTagList] = useRecoilState(
-    selectedActTagListState
-  );
-  const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(
-    selectedPartTagListState
-  );
+
   const { openToast } = useToast();
   const [user, setUser] = useRecoilState(userState);
 
   const [imageUrl, setImageUrl] = useState('');
+  const {
+    type,
+    setType,
+    act,
+    setAct,
+    sort,
+    setSort,
+    handleTagClick,
+    handleTabClick,
+  } = useTagArea();
 
   const onUploadImage = async (file: any, callback: HookCallback) => {
     const url = await getPresignedUrl({
@@ -74,8 +77,8 @@ const TextEditor = ({
         contribution: contribution,
         task: task,
         tools: toolsList.toString(),
-        partTag: selectedPartTagList.toString(),
-        actTag: selectedActTagList.toString(),
+        partTag: type.toString(),
+        actTag: act.toString(),
         contents: text,
       };
 
