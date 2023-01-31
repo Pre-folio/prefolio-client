@@ -14,15 +14,15 @@ const Template: ComponentStory<typeof PartCard> = (args) => {
 
 export const Plan = Template.bind({});
 Plan.args = {
-  varient: 'plan',
+  varient: 'PLAN',
 };
 
 export const Dev = Template.bind({});
 Dev.args = {
-  varient: 'dev',
+  varient: 'DEV',
 };
 
 export const Design = Template.bind({});
 Design.args = {
-  varient: 'design',
+  varient: 'DESIGN',
 };

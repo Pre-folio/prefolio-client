@@ -2,7 +2,6 @@ import { SearchBox } from '../../components/common/SearchBox';
 import { Line, Space, Text } from '../../components/common/Wrapper';
 import { SearchPosts } from '../../components/search/SearchPosts';
 import useInput from '../../hooks/useInput';
-import { theme } from '../../styles/theme';
 
 const Search = () => {
   const input = useInput('');

@@ -5,13 +5,14 @@ import { Tag } from '../Tag';
 import { ScrappIcon } from '../../../assets/icons';
 import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import postAPI from '../../../apis/post';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
   // scrap post 위해서는 id도 props로 받아야 할 것임
   thumbnail?: string;
   scrapped: boolean;
-  setScrapped?: SetterOrUpdater<boolean>;
+  // setScrapped?: SetterOrUpdater<boolean>;
   title: string;
   field: string[];
   activity: string[];
@@ -43,24 +44,27 @@ export const PostCard = (props: PostCardProps) => {
   const [iconStrokeColor, setIconStrokeColor] = useState(
     `${theme.palette.Gray20}`
   );
+  const [scrap, setScrap] = useState<boolean>(props.scrapped);
 
-  const handleIconClick = (e: any) => {
+  const handleIconClick = async (e: any) => {
+    e.stopPropagation();
+    const res = await postAPI.SCRAP(props.id);
     if (e.target === ref.current?.childNodes[0]) {
-      props.setScrapped && props.setScrapped(!props.scrapped);
+      setScrap(res.isScrapped);
     } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
-      props.setScrapped && props.setScrapped(!props.scrapped);
+      setScrap(res.isScrapped);
     }
   };
 
   useEffect(() => {
-    if (props.scrapped) {
+    if (scrap) {
       setIconFillColor(`${theme.palette.Mint100}`);
       setIconStrokeColor(`${theme.palette.Mint100}`);
     } else {
       setIconFillColor('none');
       setIconStrokeColor(`${theme.palette.Gray20}`);
     }
-  }, [props.scrapped]);
+  }, [scrap]);
 
   return (
     <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
@@ -177,7 +181,7 @@ const TagsWrapper = styled.div`
   row-gap: 12px;
   column-gap: 8px;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const PostInfoWrapper = styled.div`

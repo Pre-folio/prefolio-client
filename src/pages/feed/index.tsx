@@ -11,6 +11,7 @@ import { FloatSearch } from '../../components/feed/FloatSearh';
 import { NoPost } from '../../components/feed/NoPost';
 import { Posts, SinglePostResponse } from '../../components/feed/Posts';
 import { useFeed } from '../../hooks/useFeed';
+import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToats';
 import { userState } from '../../store/Auth/userState';
 import { getCookie } from '../../utils/cookie';
@@ -18,6 +19,7 @@ import { getCookie } from '../../utils/cookie';
 const Feed = () => {
   const { openToast } = useToast();
   const { feed } = useFeed();
+  const { type, act } = useTagArea();
 
   return (
     <div>

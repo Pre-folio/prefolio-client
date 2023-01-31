@@ -21,6 +21,11 @@ export interface PostResponse {
   totalResults: number;
 }
 
+export interface ScrapResponse {
+  scraps: number;
+  isScrapped: boolean;
+}
+
 export const postAPI = {
   ALL: async (token: string): Promise<PostResponse> => {
     const response = await publicClient.get(`/posts/all?`, {
@@ -52,6 +57,12 @@ export const postAPI = {
 
     console.log('response', response.data.data);
 
+    return response.data.data;
+  },
+
+  SCRAP: async (postId: number): Promise<ScrapResponse> => {
+    const response = await client.get(`/posts/scraps/${postId}`);
+    console.log(postId);
     return response.data.data;
   },
 };

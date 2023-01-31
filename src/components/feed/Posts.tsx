@@ -27,8 +27,6 @@ export interface PostsProps {
 }
 
 export const Posts = (props: PostsProps) => {
-  const [scrapped, setScrapped] = useRecoilState(scrappedState);
-
   return (
     <Wrapper>
       {props.posts.map((post: any) => {
@@ -36,8 +34,7 @@ export const Posts = (props: PostsProps) => {
           <PostCard
             key={post.id}
             thumbnail={post.thumbnail}
-            scrapped={scrapped}
-            setScrapped={setScrapped}
+            scrapped={post.scrapped}
             title={post.title}
             field={post.partTag}
             activity={post.actTag}

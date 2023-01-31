@@ -3,13 +3,13 @@ import { shadow, theme } from '../../../styles/theme';
 
 interface TagProps {
   type: 'activity' | 'field' | undefined;
-  sort?: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
+  sort?: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
   content?: string;
   style?: CSSProperties;
 }
 
 interface ITag {
-  field: 'plan' | 'dev' | 'design' | any;
+  field: 'PLAN' | 'DEV' | 'DESIGN' | any;
   // color?: 'mint' | 'blue' | 'purple' | any;
 }
 
@@ -22,12 +22,24 @@ interface ITag {
 
 export function Tag({ type, sort, style }: TagProps) {
   return type === 'activity' ? (
-    <ActivityTag style={style}>
-      {sort === 'society' ? '동아리/학회' : sort === 'intern' ? '인턴' : sort === 'project' ? '프로젝트' : sort}
+    <ActivityTag id={sort} style={style}>
+      {sort === 'society'
+        ? '동아리/학회'
+        : sort === 'intern'
+        ? '인턴'
+        : sort === 'project'
+        ? '프로젝트'
+        : sort}
     </ActivityTag>
   ) : type === 'field' ? (
-    <FieldTag field={sort} style={style}>
-      {sort === 'plan' ? '기획' : sort === 'dev' ? '개발' : sort === 'design' ? '디자인' : sort}
+    <FieldTag id={sort} field={sort} style={style}>
+      {sort === 'plan'
+        ? '기획'
+        : sort === 'dev'
+        ? '개발'
+        : sort === 'design'
+        ? '디자인'
+        : sort}
     </FieldTag>
   ) : (
     <></>
