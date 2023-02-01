@@ -299,6 +299,8 @@ const Write = () => {
               task={task.value}
               toolsList={toolsList}
               isError={isError}
+              type={type}
+              act={act}
             />
           </div>
         </Column>

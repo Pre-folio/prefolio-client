@@ -49,14 +49,14 @@ export function TagArea({ width, type, act, onClick }: TagAreaProps) {
             <CategoryTextArea>분야별</CategoryTextArea>
             <Filter
               onClick={onClick}
-              isClicked={isClicked('PLAN')}
-              type='PLAN'
+              isClicked={isClicked('plan')}
+              type='plan'
             />
-            <Filter onClick={onClick} isClicked={isClicked('DEV')} type='DEV' />
+            <Filter onClick={onClick} isClicked={isClicked('dev')} type='dev' />
             <Filter
               onClick={onClick}
-              isClicked={isClicked('DESIGN')}
-              type='DESIGN'
+              isClicked={isClicked('design')}
+              type='design'
             />
           </Row>
           {urlPath.includes('write') ? (
@@ -77,18 +77,18 @@ export function TagArea({ width, type, act, onClick }: TagAreaProps) {
             <CategoryTextArea>활동별</CategoryTextArea>
             <Filter
               onClick={onClick}
-              isClicked={isClicked('SOCIETY')}
-              type='SOCIETY'
+              isClicked={isClicked('society')}
+              type='society'
             />
             <Filter
               onClick={onClick}
-              isClicked={isClicked('INTERN')}
-              type='INTERN'
+              isClicked={isClicked('intern')}
+              type='intern'
             />
             <Filter
               onClick={onClick}
-              isClicked={isClicked('PROJECT')}
-              type='PROJECT'
+              isClicked={isClicked('project')}
+              type='project'
             />
           </Row>
           {urlPath.includes('write') ? (

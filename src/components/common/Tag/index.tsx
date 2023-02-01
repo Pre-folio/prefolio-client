@@ -3,13 +3,13 @@ import { shadow, theme } from '../../../styles/theme';
 
 interface TagProps {
   type: 'activity' | 'field' | undefined;
-  sort?: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
+  sort?: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
   content?: string;
   style?: CSSProperties;
 }
 
 interface ITag {
-  field: 'PLAN' | 'DEV' | 'DESIGN' | any;
+  field: 'plan' | 'dev' | 'design' | any;
   // color?: 'mint' | 'blue' | 'purple' | any;
 }
 

@@ -6,7 +6,7 @@ import { Flex, Text } from '../common/Wrapper';
 
 export const Part = (props: any) => {
   const [selectedPart, setSelectedPart] = useState<string>('');
-  const parts: PartType[] = ['PLAN', 'DEV', 'DESIGN'];
+  const parts: PartType[] = ['plan', 'dev', 'design'];
 
   // 선택된 PartCard 색상, active 색상
   const handleButtonClick = (part: string) => {

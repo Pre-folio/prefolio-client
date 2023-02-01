@@ -3,8 +3,8 @@ import { setAccessToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 
 export type SortType = 'CREATED_AT' | 'LIKES' | 'HITS';
-export type PartType = 'PLAN' | 'DEV' | 'DESIGN';
-export type ActType = 'SOCIETY' | 'PROJECT' | 'INTERN';
+export type PartType = 'plan' | 'dev' | 'design';
+export type ActType = 'society' | 'project' | 'intern';
 export interface PostResponse {
   posts: [
     {

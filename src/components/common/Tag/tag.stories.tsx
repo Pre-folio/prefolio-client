@@ -13,23 +13,23 @@ const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   type: 'activity',
-  sort: 'SOCIETY',
+  sort: 'society',
 };
 
 export const Plan = Template.bind({});
 Plan.args = {
   type: 'field',
-  sort: 'PLAN',
+  sort: 'plan',
 };
 
 export const Dev = Template.bind({});
 Dev.args = {
   type: 'field',
-  sort: 'DEV',
+  sort: 'dev',
 };
 
 export const Design = Template.bind({});
 Design.args = {
   type: 'field',
-  sort: 'DESIGN',
+  sort: 'design',
 };

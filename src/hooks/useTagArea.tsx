@@ -10,16 +10,16 @@ export const useTagArea = () => {
    * 타입 가드
    */
   const isType = (arg: PartType | ActType): arg is PartType => {
-    if (arg === 'PLAN') return true;
-    else if (arg === 'DEV') return true;
-    else if (arg === 'DESIGN') return true;
+    if (arg === 'plan') return true;
+    else if (arg === 'dev') return true;
+    else if (arg === 'design') return true;
     else return false;
   };
 
   const isAct = (arg: PartType | ActType): arg is ActType => {
-    if (arg === 'SOCIETY') return true;
-    else if (arg === 'PROJECT') return true;
-    else if (arg === 'INTERN') return true;
+    if (arg === 'society') return true;
+    else if (arg === 'project') return true;
+    else if (arg === 'intern') return true;
     else return false;
   };
 
