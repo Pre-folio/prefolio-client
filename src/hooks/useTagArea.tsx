@@ -1,32 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActType, PartType, SortType } from '../apis/post';
 
 export const useTagArea = () => {
-  const [type, setType] = useState<PartType[] | []>([] as any);
-  const [act, setAct] = useState<ActType[] | []>([] as any);
+  const [type, setType] = useState<PartType[] | []>([]);
+  const [act, setAct] = useState<ActType[] | []>([]);
   const [sort, setSort] = useState<boolean>(true);
-
-  //   const CARD_FIELD = {
-  //     기획: 'PLAN',
-  //     개발: 'DEV',
-  //       디자인: 'DESIGN',
-  //     동아리/학회: 'SOCIETY',
-  //   };
 
   /**
    * 타입 가드
    */
-  const isType = (arg: any): arg is PartType => {
-    return arg !== undefined;
+  const isType = (arg: PartType | ActType): arg is PartType => {
+    if (arg === 'plan') return true;
+    else if (arg === 'dev') return true;
+    else if (arg === 'design') return true;
+    else return false;
   };
 
-  const isAct = (arg: any): arg is ActType => {
-    return arg !== undefined;
+  const isAct = (arg: PartType | ActType): arg is ActType => {
+    if (arg === 'society') return true;
+    else if (arg === 'project') return true;
+    else if (arg === 'intern') return true;
+    else return false;
   };
 
   const handleTagClick = (e: any) => {
-    console.log('dd', e.target.id);
     const tag = e.target.id as PartType | ActType;
+
     if (isType(tag)) {
       if (type.find((v) => v === tag)) {
         setType(
@@ -51,7 +50,6 @@ export const useTagArea = () => {
   };
 
   const handleTabClick = (e: any) => {
-    console.log(e.target.parentNode.id);
     setSort(e.target.parentNode.id === 'new' ? true : false);
   };
 

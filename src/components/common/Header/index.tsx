@@ -64,7 +64,10 @@ export function Header() {
               >
                 <ProfileImageWrapper
                   alt='프로필 이미지'
-                  src={user.profileImage}
+                  src={
+                    user.profileImage ||
+                    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
+                  }
                 />
               </button>
             </Row>

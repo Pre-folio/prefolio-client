@@ -26,6 +26,8 @@ const TextEditor = ({
   task,
   toolsList,
   isError,
+  type,
+  act,
 }: any) => {
   const router = useRouter();
   const editorRef = useRef<Editor>(null);
@@ -34,16 +36,6 @@ const TextEditor = ({
   const [user, setUser] = useRecoilState(userState);
 
   const [imageUrl, setImageUrl] = useState('');
-  const {
-    type,
-    setType,
-    act,
-    setAct,
-    sort,
-    setSort,
-    handleTagClick,
-    handleTabClick,
-  } = useTagArea();
 
   const onUploadImage = async (file: any, callback: HookCallback) => {
     const url = await getPresignedUrl({

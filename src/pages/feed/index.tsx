@@ -18,15 +18,19 @@ import { getCookie } from '../../utils/cookie';
 
 const Feed = () => {
   const { openToast } = useToast();
-  const { feed } = useFeed();
-  const { type, act } = useTagArea();
+  const { feed, getFeed } = useFeed();
+  const { type, act, handleTagClick } = useTagArea();
+
+  useEffect(() => {
+    console.log(act);
+  }, [act]);
 
   return (
     <div>
       <FloatSearch top={413} />
       <Banner />
       <Space height={100} />
-      <FeedTagArea />
+      <FeedTagArea type={type} act={act} onClick={handleTagClick} />
       <Space height={60} />
       <Posts posts={feed} />
       <Space height={96} />

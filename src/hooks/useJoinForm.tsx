@@ -47,7 +47,6 @@ export const useJoinForm = () => {
   const nicknameValidation = async (value: string) => {
     const isUsed: boolean = await authAPI.CHECK_NICKNAME(watch('nickname'));
     if (isUsed === true) {
-      console.log('중복');
       return '*중복된 닉네임입니다.';
     }
     return true;

@@ -12,27 +12,33 @@ import { Column, Row } from '../Wrapper';
 
 interface TagAreaProps {
   width?: string;
+  type: PartType[];
+  act: ActType[];
+  onClick?: any;
 }
 
 /**
  *
  * @returns recoil의 selectedTagsListState로 상태관리 가능
  */
-export function TagArea({ width }: TagAreaProps) {
+export function TagArea({ width, type, act, onClick }: TagAreaProps) {
   //TODO 페이지별로 아이콘 변경
 
-  const { type, setType, act, setAct, handleTagClick } = useTagArea();
   // const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const urlPath: string = router.asPath;
 
-  const isClicked = (hi: any) => {
-    const List: (PartType | ActType)[] = [...act, ...type];
-    if (List.includes(hi)) {
-      return true;
+  const isClicked = (arg: any) => {
+    if (act === undefined && type === undefined) {
+      return false;
+    } else {
+      const List: (PartType | ActType)[] = [...act, ...type];
+      if (List.includes(arg)) {
+        return true;
+      }
+      return false;
     }
-    return false;
   };
 
   return (
@@ -42,19 +48,15 @@ export function TagArea({ width }: TagAreaProps) {
           <Row gap='12px'>
             <CategoryTextArea>분야별</CategoryTextArea>
             <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('PLAN')}
-              type='PLAN'
+              onClick={onClick}
+              isClicked={isClicked('plan')}
+              type='plan'
             />
+            <Filter onClick={onClick} isClicked={isClicked('dev')} type='dev' />
             <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('DEV')}
-              type='DEV'
-            />
-            <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('DESIGN')}
-              type='DESIGN'
+              onClick={onClick}
+              isClicked={isClicked('design')}
+              type='design'
             />
           </Row>
           {urlPath.includes('write') ? (
@@ -74,19 +76,19 @@ export function TagArea({ width }: TagAreaProps) {
           <Row gap='12px'>
             <CategoryTextArea>활동별</CategoryTextArea>
             <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('SOCIETY')}
-              type='SOCIETY'
+              onClick={onClick}
+              isClicked={isClicked('society')}
+              type='society'
             />
             <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('INTERN')}
-              type='INTERN'
+              onClick={onClick}
+              isClicked={isClicked('intern')}
+              type='intern'
             />
             <Filter
-              onClick={handleTagClick}
-              isClicked={isClicked('PROJECT')}
-              type='PROJECT'
+              onClick={onClick}
+              isClicked={isClicked('project')}
+              type='project'
             />
           </Row>
           {urlPath.includes('write') ? (
@@ -100,8 +102,8 @@ export function TagArea({ width }: TagAreaProps) {
   );
 }
 
-const Wrapper = styled.div<TagAreaProps>`
-  width: ${(props) => props.width};
+const Wrapper = styled.div<{ width?: string }>`
+  width: ${(width) => width?.width};
   padding: 24px 30px;
   background-color: ${theme.palette.Gray10};
   border: 8px;

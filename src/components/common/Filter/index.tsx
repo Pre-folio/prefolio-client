@@ -6,7 +6,7 @@ import { CancelIcon } from '../../Icons/CancelIcon';
 import { MouseEventHandler } from 'react';
 
 interface FilterProps {
-  type: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
+  type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
   isClicked?: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   style?: CSSProperties;
@@ -15,7 +15,7 @@ interface FilterProps {
 }
 
 interface IFilter {
-  type: 'PLAN' | 'DEV' | 'DESIGN' | 'SOCIETY' | 'INTERN' | 'PROJECT' | any;
+  type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
   isClicked?: boolean;
 }
 
@@ -27,7 +27,6 @@ export function Filter({
   hasCancelButton,
   onClickCancelButton,
 }: FilterProps) {
-  console.log(type, isClicked);
   return (
     <FilterButton
       id={type}
@@ -49,17 +48,17 @@ export function Filter({
         ) : (
           ''
         )}
-        {type === 'DEV'
+        {type === 'dev'
           ? '개발'
-          : type === 'DESIGN'
+          : type === 'design'
           ? '디자인'
-          : type === 'PLAN'
+          : type === 'plan'
           ? '기획'
-          : type === 'SOCIETY'
+          : type === 'society'
           ? '동아리/학회'
-          : type === 'INTERN'
+          : type === 'intern'
           ? '인턴'
-          : type === 'PROJECT'
+          : type === 'project'
           ? '프로젝트'
           : type}
         {hasCancelButton && (
@@ -81,31 +80,31 @@ const FilterButton = styled.button<IFilter>`
   align-items: center;
   background-color: ${(props) =>
     props.isClicked
-      ? props.type === 'PLAN'
+      ? props.type === 'plan'
         ? theme.palette.Mint10
-        : props.type === 'DEV'
+        : props.type === 'dev'
         ? theme.palette.Blue10
-        : props.type === 'DESIGN'
+        : props.type === 'design'
         ? theme.palette.Purple10
         : theme.palette.White
       : theme.palette.White};
   color: ${(props) =>
     props.isClicked
-      ? props.type === 'PLAN'
+      ? props.type === 'plan'
         ? theme.palette.Minttext
-        : props.type === 'DEV'
+        : props.type === 'dev'
         ? theme.palette.Blue100
-        : props.type === 'DESIGN'
+        : props.type === 'design'
         ? theme.palette.Purple100
         : theme.palette.Black
       : theme.palette.Gray40};
   box-shadow: ${(props) =>
     props.isClicked
-      ? props.type === 'PLAN'
+      ? props.type === 'plan'
         ? shadow.Button.Green
-        : props.type === 'DEV'
+        : props.type === 'dev'
         ? shadow.Button.Blue
-        : props.type === 'DESIGN'
+        : props.type === 'design'
         ? shadow.Button.Purple
         : shadow.Button.Black
       : ''};

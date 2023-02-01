@@ -13,27 +13,27 @@ export interface PartCardProps {
 
 const CARD_COLOR = {
   active: {
-    PLAN: `${darken(0.03, theme.palette.Mint10)}`,
-    DEV: `${darken(0.03, theme.palette.Blue10)}`,
-    DESIGN: `${darken(0.03, theme.palette.Purple10)}`,
+    plan: `${darken(0.03, theme.palette.Mint10)}`,
+    dev: `${darken(0.03, theme.palette.Blue10)}`,
+    design: `${darken(0.03, theme.palette.Purple10)}`,
   },
   selected: {
-    PLAN: `${theme.palette.Mint30}`,
-    DEV: `${theme.palette.Blue30}`,
-    DESIGN: `${theme.palette.Purple30}`,
+    plan: `${theme.palette.Mint30}`,
+    dev: `${theme.palette.Blue30}`,
+    design: `${theme.palette.Purple30}`,
   },
 };
 
 const CARD_FIELD = {
-  PLAN: '기획',
-  DEV: '개발',
-  DESIGN: '디자인',
+  plan: '기획',
+  dev: '개발',
+  design: '디자인',
 };
 
 const CARD_GRAPHIC = {
-  PLAN: 'images/common/part/plan.png',
-  DEV: 'images/common/part/dev.png',
-  DESIGN: 'images/common/part/design.png',
+  plan: 'images/common/part/plan.png',
+  dev: 'images/common/part/dev.png',
+  design: 'images/common/part/design.png',
 };
 
 /**
@@ -41,7 +41,7 @@ const CARD_GRAPHIC = {
  * @param varient: string
  * @param onClick: MouseEventHandler<HTMLButtonElement>
  * -------------------------------------
- * 카드 종류: 'PLAN' | 'DEV' | 'DESIGN'
+ * 카드 종류: 'plan' | 'dev' | 'design'
  */
 
 export const PartCard = (props: PartCardProps) => {

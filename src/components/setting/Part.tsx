@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { Button } from '../common/Button';
-import { PartCard, PartCardVarient } from '../common/PartCard';
+import { PartType } from '../../apis/post';
+import { PartCard } from '../common/PartCard';
 import { Flex, Text } from '../common/Wrapper';
 
 export const Part = (props: any) => {
   const [selectedPart, setSelectedPart] = useState<string>('');
-  const parts: PartCardVarient[] = ['plan', 'dev', 'design'];
+  const parts: PartType[] = ['plan', 'dev', 'design'];
 
   // 선택된 PartCard 색상, active 색상
   const handleButtonClick = (part: string) => {
@@ -24,7 +24,7 @@ export const Part = (props: any) => {
         name='type'
         render={({ field: { onChange } }) => (
           <Flex justify='space-between' width={588}>
-            {parts.map((part: PartCardVarient) => (
+            {parts.map((part: PartType) => (
               <PartCard
                 key={part}
                 varient={part}
