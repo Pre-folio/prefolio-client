@@ -10,7 +10,7 @@ import { getCookie } from '../utils/cookie';
 import { useTagArea } from './useTagArea';
 
 export interface FeedRequestProps {
-  sortBy: SortType;
+  sortBy: string;
   partTag?: PartType[];
   actTag?: ActType;
   pageNum: number;
@@ -32,10 +32,16 @@ export const useFeed = () => {
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
   const [searchType, setSearchType] = useState<SearchStateType>('wait');
+  const [searchWord, setSearchWord] = useState<string>('');
   const { type, setType, act, setAct, sort, setSort } = useTagArea();
 
   const getFeed = async () => {
-    const res: PostResponse = await postAPI.ALL(getCookie());
+    const param = {
+      sortBy: sort ? 'CREATED_AT' : 'LIKES',
+      pageNum: 0,
+      limit: 16,
+    };
+    const res: PostResponse = await postAPI.ALL(getCookie(), param);
     const keys = Object.keys(type);
 
     if (res && getCookie()) {
@@ -64,7 +70,11 @@ export const useFeed = () => {
 
   useEffect(() => {
     getFeed();
-  }, []);
+  }, [type, act]);
+
+  useEffect(() => {
+    getSearch(searchWord);
+  }, [type, act, searchWord]);
 
   return {
     search,
@@ -74,5 +84,7 @@ export const useFeed = () => {
     feed,
     searchType,
     setSearchType,
+    searchWord,
+    setSearchWord,
   };
 };

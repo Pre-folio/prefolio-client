@@ -24,6 +24,7 @@ export const useJoinForm = () => {
     getValues,
     setValue,
     control,
+    trigger,
     formState: { errors },
   } = useForm<JoinFormValues>({
     mode: 'onChange',
@@ -86,5 +87,6 @@ export const useJoinForm = () => {
     nicknameValidation,
     profileImageUpload,
     joinPrefolio,
+    trigger,
   };
 };

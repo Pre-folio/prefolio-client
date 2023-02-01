@@ -23,6 +23,8 @@ export const SettingList = () => {
     getValues,
     setValue,
     joinPrefolio,
+    trigger,
+    setError,
   } = useJoinForm();
 
   const { openToast } = useToast();
@@ -46,7 +48,9 @@ export const SettingList = () => {
       <Nickname
         register={register}
         errors={errors}
+        setError={setError}
         nicknameValidation={nicknameValidation}
+        trigger={trigger}
       />
       <Space height={80} />
       <ProfileImage

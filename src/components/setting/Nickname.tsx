@@ -1,3 +1,4 @@
+import { CurtainsTwoTone } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import {
   UseFormGetValues,
@@ -14,7 +15,9 @@ import { Input } from '../common/Input';
 export interface NicknameProps {
   register: UseFormRegister<JoinFormValues>;
   errors: any;
+  setError: any;
   nicknameValidation: any;
+  trigger: any;
 }
 
 /**
@@ -27,7 +30,16 @@ export const Nickname = ({
   errors,
   register,
   nicknameValidation,
+  setError,
+  trigger,
 }: NicknameProps) => {
+  const [message, setMessage] = useState<string>('*2byte 이상 입력해 주세요.');
+  const [messageColor, setMessageColor] = useState<KeyOfPalette>('Red');
+
+  useEffect(() => {
+    trigger();
+  }, []);
+
   return (
     <Wrapper>
       <Text typo={'Heading5'} color={'Black'} height={22}>
@@ -39,7 +51,7 @@ export const Nickname = ({
         height={46}
         placeholder={'최대 24byte'}
         errorMessage={
-          errors.nickname
+          errors.nickname?.message
             ? errors.nickname?.message
             : '*사용 가능한 닉네임입니다.'
         }
@@ -49,6 +61,10 @@ export const Nickname = ({
           maxLength: {
             value: 12,
             message: '*24byte를 초과하였습니다.',
+          },
+          minLength: {
+            value: 1,
+            message: '*2byte 이상 입력해 주세요.',
           },
           validate: { nicknameValidation },
         })}
