@@ -1,4 +1,4 @@
-import { setAccessToken } from '../utils/cookie';
+import { setAccessToken, setRefreshToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 
 export interface KakaoValidationResponse {
@@ -17,7 +17,7 @@ export interface GetUserInfoResponse {
   nickname: string;
   profileImage: string;
   grade: number;
-  refreshToken: null;
+  refreshToken: string;
   countScrap: number;
   countLike: number;
 }
@@ -26,7 +26,9 @@ export const authAPI = {
   KAKAO_VALIDATION: async (code: string): Promise<KakaoValidationResponse> => {
     const response = await publicClient.get(`/kakao/login?code=${code}`);
     const accessToken = response.data.data.accessToken;
+    const refreshToken = response.data.data.refreshToken;
     setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
     return response.data.data;
   },
 

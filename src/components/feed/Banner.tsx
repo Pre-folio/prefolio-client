@@ -34,12 +34,27 @@ const BannerImage = styled.img`
 
 const StyledCarousel = styled(Carousel)`
   height: 444px;
+
   .MuiButtonBase-root {
     top: -40px;
     z-index: 1;
+    background-color: transparent !important;
+    display: block !important;
   }
-  .css-1m9128y {
-    display: none;
+
+  .MuiSvgIcon-root {
+    fill: black;
+    display: display-inside !important;
+  }
+
+  .css-1abc02a {
+    display: block !important;
+  }
+
+  .MuiTouchRipple-root {
+    background-color: none;
+    width: 24px;
+    height: 18px;
   }
 
   width: 100vw;
