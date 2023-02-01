@@ -16,7 +16,7 @@ import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
 import { TrashCanIcon } from '../../components/Icons/TrashCanIcon';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
-import { formatDate } from '../../hooks/formatDate';
+import { formatDate } from '../../utils/formatDate';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 
@@ -54,8 +54,7 @@ const Write = () => {
     handleTagClick,
     handleTabClick,
   } = useTagArea();
-  // const [selectedPartTagList, setSelectedPartTagList] = useRecoilState(selectedPartTagListState);
-  // const [selectedActTagList, setSelectedActTagList] = useRecoilState(selectedActTagListState);
+
   const isError =
     !startDate.value || !endDate.value || type.length === 0 || act.length === 0;
 
@@ -256,7 +255,12 @@ const Write = () => {
               태그 선택
               <span>*</span>
             </CategoryTextArea>
-            <TagArea width='1098px' />
+            <TagArea
+              width='1098px'
+              type={type}
+              act={act}
+              onClick={handleTagClick}
+            />
           </Row>
           <Row justifyContent='flex-start' alignItems='flex-start'>
             <CategoryTextArea>
