@@ -27,9 +27,11 @@ export const SettingList = () => {
 
   const { openToast } = useToast();
 
+  // 새로고침 시 submit 이벤트 발생
   const onSubmit = (data: any) => {
     joinPrefolio.mutate(data);
   };
+
   const onError = (error: any) => {
     openToast(`프로필 사진 제외 모든 항목을 기입해 주세요`);
   };

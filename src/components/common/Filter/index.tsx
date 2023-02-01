@@ -27,7 +27,6 @@ export function Filter({
   hasCancelButton,
   onClickCancelButton,
 }: FilterProps) {
-  console.log(type, isClicked);
   return (
     <FilterButton
       id={type}
