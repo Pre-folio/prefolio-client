@@ -74,8 +74,9 @@ export function Header() {
                         onMouseMove={() => setIsOpen(true)}
                         alt='프로필 이미지'
                         src={
-                          user.profileImage ||
-                          'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
+                          user.profileImage
+                            ? user.profileImage
+                            : 'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
                         }
                       />
                     </ProfileContainer>
