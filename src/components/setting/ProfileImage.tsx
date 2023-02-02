@@ -62,6 +62,10 @@ export const ProfileImage = ({
 
   useEffect(() => {
     console.log(url);
+    setValue(
+      'profileImage',
+      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
+    );
   }, [url]);
 
   const handleTrashIconClick = () => {
