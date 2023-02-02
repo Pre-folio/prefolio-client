@@ -34,7 +34,7 @@ export const useJoinForm = () => {
         'https://s3.ap-northeast-2.amazonaws.com/prefolio.net/profile/156116406a-2730-4365-8ce4-68d627952462?',
     },
   });
-  const { kakaoJoinMutation } = useAuth();
+  const { kakaoJoinMutation, modifyProfileMutation } = useAuth();
   const [user, setUser] = useRecoilState(userState);
 
   const { data } = useQuery('presignedURL', () =>
@@ -75,6 +75,14 @@ export const useJoinForm = () => {
     }
   });
 
+  const modifyProfile = useMutation(async () => {
+    try {
+      modifyProfileMutation.mutate(getValues());
+    } catch (error: unknown) {
+      await console.log('error...', error);
+    }
+  });
+
   return {
     register,
     handleSubmit,
@@ -87,6 +95,7 @@ export const useJoinForm = () => {
     nicknameValidation,
     profileImageUpload,
     joinPrefolio,
+    modifyProfile,
     trigger,
   };
 };

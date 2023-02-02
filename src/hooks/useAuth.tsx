@@ -71,10 +71,25 @@ export const useAuth = () => {
     onError: (error: any) => console.log(error),
   });
 
+  // 회원 정보 수정
+  const modifyProfileMutation = useMutation(authAPI.MODIFY_PROFILE, {
+    onSuccess: (data: KakaoJoinResponse) => {
+      queryClient.setQueryData(['user_id'], data);
+      console.log('수정 완료, user_id:', data);
+      kakaoLoginMutation.mutate({
+        userId: data.userId,
+        accessToken: getCookie(),
+        isMember: true,
+      });
+    },
+    onError: (error: any) => console.log(error),
+  });
+
   return {
     kakaoValidationMutation,
     kakaoJoinMutation,
     kakaoLoginMutation,
     kakaoAutoLoginMutation,
+    modifyProfileMutation,
   };
 };

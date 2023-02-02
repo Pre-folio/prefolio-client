@@ -36,7 +36,12 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
           style={{ cursor: 'pointer', top: '0px' }}
         >
           <Flex direction='column' style={{ cursor: 'default' }}>
-            <MockImage src={user.profileImage} />
+            <MockImage
+              src={user.profileImage}
+              onClick={() => {
+                router.push(`/profile/${user.userId}`);
+              }}
+            />
             <Space height={20} />
             <Text typo={'Heading4'} color={'Black'} height={22}>
               {user.nickname}
@@ -44,7 +49,7 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
             <Space height={20} />
             <div
               onClick={() => {
-                router.push(`/setting`);
+                router.push(`/setting/${user.userId}`);
               }}
             >
               <Tag

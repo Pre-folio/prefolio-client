@@ -39,6 +39,18 @@ export const authAPI = {
     return response.data.data.is_used;
   },
 
+  MODIFY_PROFILE: async (data: any): Promise<KakaoJoinResponse> => {
+    console.log(data);
+    const response = await client.put('/user/join', {
+      nickname: data.nickname,
+      profileImage: data.profileImage,
+      grade: data.grade,
+      type: data.type,
+    });
+
+    return response.data.data;
+  },
+
   JOIN: async (data: any): Promise<KakaoJoinResponse> => {
     console.log(data);
     const response = await client.post('/user/join', {
