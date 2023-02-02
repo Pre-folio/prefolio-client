@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { userState } from '../../../store/Auth/userState';
 import { theme } from '../../../styles/theme';
+import { removeCookie } from '../../../utils/cookie';
 import { Button } from '../Button';
 import { Tag } from '../Tag';
 import { Flex, Space, Text } from '../Wrapper';
@@ -63,7 +64,11 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
               typo={'Label2'}
               color={'Gray40'}
               height={22}
-              style={{ textDecorationLine: 'underline' }}
+              style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+              onClick={() => {
+                removeCookie();
+                window.location.reload();
+              }}
             >
               로그아웃
             </Text>
