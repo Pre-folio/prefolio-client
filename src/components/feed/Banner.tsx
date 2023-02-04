@@ -22,6 +22,7 @@ export const Banner = () => {
 };
 
 const BannerImage = styled.img`
+  width: 100vw;
   height: 444px;
   margin-left: calc(-50vw + 50%);
 
@@ -34,6 +35,7 @@ const BannerImage = styled.img`
 
 const StyledCarousel = styled(Carousel)`
   height: 444px;
+  width: 1200px;
 
   .MuiButtonBase-root {
     top: -40px;

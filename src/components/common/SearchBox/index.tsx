@@ -12,9 +12,15 @@ export const SearchBox = (props: InputProps) => {
       : setColor(`${theme.palette.Gray40}`);
   };
 
+  useEffect(() => {
+    props.value
+      ? setColor(`${theme.palette.Minttext}`)
+      : setColor(`${theme.palette.Gray40}`);
+  }, [props.value]);
+
   return (
     <Input
-      onChange={handleSearchChange}
+      onChange={props.onChange}
       placeholder='내용을 입력하세요'
       leftIcon={<SearchIcon fill={color} />}
       {...props}
