@@ -1,11 +1,13 @@
 import { MouseEventHandler } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import { theme } from '../../../styles/theme';
 import { Button } from '../Button';
 
 export interface ConfirmationPopUpProps {
   handleCancelButtonClick?: MouseEventHandler<HTMLButtonElement>;
   handleUploadButtonClick?: MouseEventHandler<HTMLButtonElement>;
+  style?: CSSProperties;
+  type?: string;
 }
 
 /**
@@ -16,24 +18,22 @@ export interface ConfirmationPopUpProps {
 
 export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
   return (
-    <PopUpContainer>
+    <PopUpContainer style={props.style}>
       <ConfirmationPopUpWrapper>
         <MockImage />
-        <ConfirmText>업로드하시겠습니까?</ConfirmText>
-        <CautionText>
-          업로드 후 글 수정이 어려우니 한번 더 확인해주세요!
-        </CautionText>
+        <ConfirmText>{props.type === 'delete' ? '게시물을 삭제하시겠습니까?' : '업로드하시겠습니까?'}</ConfirmText>
+        <CautionText>업로드 후 글 수정이 어려우니 한번 더 확인해주세요!</CautionText>
         <ButtonWrapper>
           <Button
             type={'popup'}
             color={'gray'}
-            content={'취소'}
+            content={props.type === 'delete' ? '취소하기' : '취소'}
             onClick={props.handleCancelButtonClick}
           />
           <Button
             type={'popup'}
             color={'navy'}
-            content={'업로드하기'}
+            content={props.type === 'delete' ? '삭제하기' : '업로드하기'}
             onClick={props.handleUploadButtonClick}
           />
         </ButtonWrapper>
@@ -44,7 +44,9 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
 };
 
 const PopUpContainer = styled.div`
-  width: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 0;
 
   display: flex;
   align-items: center;
@@ -59,6 +61,7 @@ const BackDrop = styled.div`
 
   position: fixed;
   top: 0;
+  left: 0;
 
   background-color: rgba(14, 14, 14, 0.5);
 `;
