@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useJoinForm } from '../../hooks/useJoinForm';
@@ -12,7 +12,11 @@ import { Nickname } from './Nickname';
 import { Part } from './Part';
 import { ProfileImage } from './ProfileImage';
 
-export const SettingList = () => {
+export interface SettingListProps {
+  isModify: boolean;
+}
+
+export const SettingList = (props: SettingListProps) => {
   const {
     register,
     handleSubmit,
@@ -23,13 +27,21 @@ export const SettingList = () => {
     getValues,
     setValue,
     joinPrefolio,
+    modifyProfile,
+    trigger,
+    setError,
   } = useJoinForm();
 
   const { openToast } = useToast();
+  const [user, setUser] = useRecoilState(userState);
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   // 새로고침 시 submit 이벤트 발생
   const onSubmit = (data: any) => {
-    joinPrefolio.mutate(data);
+    props.isModify ? modifyProfile.mutate(data) : joinPrefolio.mutate(data);
   };
 
   const onError = (error: any) => {
@@ -46,7 +58,9 @@ export const SettingList = () => {
       <Nickname
         register={register}
         errors={errors}
+        setError={setError}
         nicknameValidation={nicknameValidation}
+        trigger={trigger}
       />
       <Space height={80} />
       <ProfileImage
@@ -64,7 +78,7 @@ export const SettingList = () => {
       <Button
         type={'big'}
         color={'mint'}
-        content={'시작하기'}
+        content={props.isModify ? '저장하기' : '시작하기'}
         onClick={handleSubmit(onSubmit, onError)}
       />
     </Form>

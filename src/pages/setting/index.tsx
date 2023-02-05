@@ -4,7 +4,7 @@ import { SettingList } from '../../components/setting/SettingList';
 const Setting = () => {
   return (
     <Wrapper>
-      <SettingList />
+      <SettingList isModify={false} />
     </Wrapper>
   );
 };

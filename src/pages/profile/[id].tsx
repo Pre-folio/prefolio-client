@@ -127,7 +127,9 @@ const Profile = () => {
           {isMyProfile && (
             <TabBar barState={barState} setBarState={setBarState} />
           )}
-          {selectedBar === 'scraps' && <TagArea width='100%' />}
+          {selectedBar === 'scraps' && (
+            <TagArea type={type} act={act} width='100%' />
+          )}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
               !isPostsLoading &&

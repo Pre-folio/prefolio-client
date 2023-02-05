@@ -4,9 +4,20 @@ const cookies = new Cookies();
 
 export const setAccessToken = (accessToken: string) => {
   const today = new Date();
-  const expireDate = today.setDate(today.getDate() + 1);
+  const expireDate = today.setDate(today.getTime() + 15 * 60 * 1000);
 
   return cookies.set('accessToken', accessToken, {
+    sameSite: 'strict',
+    path: '/',
+    expires: new Date(expireDate),
+  });
+};
+
+export const setRefreshToken = (refreshToken: string) => {
+  const today = new Date();
+  const expireDate = today.setDate(today.getDate() + 14);
+
+  return cookies.set('refreshToken', refreshToken, {
     sameSite: 'strict',
     path: '/',
     expires: new Date(expireDate),

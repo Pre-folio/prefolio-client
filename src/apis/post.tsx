@@ -1,4 +1,4 @@
-import { SearchRequestProps } from '../hooks/useFeed';
+import { FeedRequestProps, SearchRequestProps } from '../hooks/useFeed';
 import { setAccessToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 
@@ -27,12 +27,13 @@ export interface ScrapResponse {
 }
 
 export const postAPI = {
-  ALL: async (token: string): Promise<PostResponse> => {
+  ALL: async (
+    token: string,
+    param: FeedRequestProps
+  ): Promise<PostResponse> => {
     const response = await publicClient.get(`/posts/all?`, {
       params: {
-        sortBy: 'CREATED_AT',
-        pageNum: 0,
-        limit: 16,
+        ...param,
       },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,7 +43,6 @@ export const postAPI = {
   },
 
   SEARCH: async (data: SearchRequestProps): Promise<PostResponse> => {
-    console.log(data);
     const keys = Object.keys(data);
     const values = Object.values(data);
 
