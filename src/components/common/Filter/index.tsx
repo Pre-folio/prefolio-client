@@ -8,7 +8,7 @@ import { MouseEventHandler } from 'react';
 interface FilterProps {
   type: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
   isClicked?: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   style?: CSSProperties;
   hasCancelButton?: boolean;
   onClickCancelButton?: React.MouseEventHandler<HTMLButtonElement>;
@@ -19,35 +19,17 @@ interface IFilter {
   isClicked?: boolean;
 }
 
-export function Filter({
-  type,
-  isClicked,
-  onClick,
-  style,
-  hasCancelButton,
-  onClickCancelButton,
-}: FilterProps) {
+export function Filter({ type, isClicked, onClick, style, hasCancelButton, onClickCancelButton }: FilterProps) {
   return (
-    <FilterButton
-      id={type}
-      type={type}
-      isClicked={isClicked}
-      onClick={onClick}
-      name={type}
-      style={style}
-    >
+    <FilterButton id={type} type={type} isClicked={isClicked} onClick={onClick} name={type} style={style}>
       <Row
         id={type}
-        justifyContent='center'
-        alignItems='center'
+        justifyContent="center"
+        alignItems="center"
         gap={hasCancelButton ? '8px' : '4px'}
         style={{ lineHeight: '34px', textAlign: 'center' }}
       >
-        {!hasCancelButton && isClicked ? (
-          <CheckIcon id={type} type={type} />
-        ) : (
-          ''
-        )}
+        {!hasCancelButton && isClicked ? <CheckIcon id={type} type={type} /> : ''}
         {type === 'dev'
           ? '개발'
           : type === 'design'
@@ -61,9 +43,7 @@ export function Filter({
           : type === 'project'
           ? '프로젝트'
           : type}
-        {hasCancelButton && (
-          <CancelIcon id={type} onClick={onClickCancelButton} />
-        )}
+        {hasCancelButton && <CancelIcon id={type} onClick={onClickCancelButton} />}
       </Row>
     </FilterButton>
   );

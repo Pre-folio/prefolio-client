@@ -2,15 +2,18 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { getLikes, getScraps } from '../../apis/onClickPostContent';
+import { getLikes, getScraps } from '../../apis/postContent';
 import { getPost } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
+import { FloatingButton } from '../../components/postPage/FloatingButton';
 import { PostTagArea } from '../../components/postPage/PostTagArea';
 import ProfileArea from '../../components/postPage/ProfileArea';
 import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
+import { userState } from '../../store/Auth/userState';
 
 const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
   ssr: false,
@@ -20,6 +23,7 @@ const Board = () => {
   const router = useRouter();
   const { postId } = router.query;
   const postIdToNumber = Number(postId);
+  const userInfo = useRecoilValue(userState);
 
   const { isLoading: isPostLoading, data: postData } = useQuery(
     ['post-data', postIdToNumber],
@@ -47,10 +51,9 @@ const Board = () => {
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] =
-    useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] =
-    useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
+  const isAuth = postAuthInfo.id === userInfo.userId;
 
   useEffect(() => {
     if (!isPostLoading) {
@@ -76,90 +79,87 @@ const Board = () => {
     }
   }, [isPostLoading]);
 
-  // 스크랩 버튼 클릭 함수
-  const onClickScrapButton = async () => {
-    const { data, message } = await getScraps(postIdToNumber);
-    if (message === 'SUCCESS') {
-      setIsScrapButtonClicked(!isScrapButtonClicked);
-      setScraps(data.scraps);
-    }
-  };
-
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
-    const { data, message } = await getLikes(postIdToNumber);
-    if (message === 'SUCCESS') {
-      setIsLikedButtonClicked(!isLikedButtonClicked);
-      setLikes(data.likes);
+    if (isAuth) {
+      alert('자신의 글에 좋아요 버튼을 누를 수 없습니다.');
+      return;
+    } else {
+      const { data, message } = await getLikes(postIdToNumber);
+      if (message === 'SUCCESS') {
+        setIsLikedButtonClicked(!isLikedButtonClicked);
+        setLikes(data.likes);
+      }
     }
   };
 
-  // TODO 게시글 작성자가 현재 보고 있는 유저일 경우 버튼 누르는거 막기 등
+  // 스크랩 버튼 클릭 함수
+  const onClickScrapButton = async () => {
+    if (isAuth) {
+      alert('자신의 글을 스크랩할 수 없습니다.');
+      return;
+    } else {
+      const { data, message } = await getScraps(postIdToNumber);
+      if (message === 'SUCCESS') {
+        setIsScrapButtonClicked(!isScrapButtonClicked);
+        setScraps(data.scraps);
+      }
+    }
+  };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingBottom: '100px',
-      }}
-    >
-      <ThumbnailImageWrapper>
-        <ImageUploadArea
-          alt='썸네일 이미지'
-          src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-        />
-      </ThumbnailImageWrapper>
-      <Column
-        width='996px'
-        justifyContent='center'
-        alignItems='flex-start'
-        marginTop='60px'
+    <>
+      {isAuth && (
+        <FloatingButtonWrapper>
+          <FloatingButton postId={postIdToNumber} />
+        </FloatingButtonWrapper>
+      )}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          paddingBottom: '100px',
+        }}
       >
-        <TitleArea>{title || '게시글 제목'}</TitleArea>
-        <DetailInfoArea>
-          <Column justifyContent='space-between' alignItems='flex-start'>
-            <div>
-              활동 기간 : {startDate || '2022.08.29'}~{endDate || '2022.09.30'}
-            </div>
-            <div>작성일 : {createdAt || '2022.12.17'}</div>
-          </Column>
-          <div>조회수 {hits || '100'}</div>
-        </DetailInfoArea>
-        <PostTagArea
-          style={{ marginTop: '56px' }}
-          tags={tags.length !== 0 ? tags : ['']}
-          tools={tools.length !== 0 ? tools : ['']}
-          contribution={contribution || 80}
-          role={task || 'UI 디자인, 그래픽'}
-        />
-        <Viewer style={{ marginTop: '72px' }} data={content} />
-        <PostButtonWrapper>
-          <PostButton
-            type={'hit'}
-            isClicked={isLikedButtonClicked}
-            onClick={onClickLikeButton}
-            counts={likes}
+        <ThumbnailImageWrapper>
+          <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+        </ThumbnailImageWrapper>
+        <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+          <TitleArea>{title || '게시글 제목'}</TitleArea>
+          <DetailInfoArea>
+            <Column justifyContent="space-between" alignItems="flex-start">
+              <div>
+                활동 기간 : {startDate || '2022.08.29'}~{endDate || '2022.09.30'}
+              </div>
+              <div>작성일 : {createdAt || '2022.12.17'}</div>
+            </Column>
+            <div>조회수 {hits || '100'}</div>
+          </DetailInfoArea>
+          <PostTagArea
+            style={{ marginTop: '56px' }}
+            tags={tags.length !== 0 ? tags : ['']}
+            tools={tools.length !== 0 ? tools : ['']}
+            contribution={contribution || 80}
+            role={task || 'UI 디자인, 그래픽'}
           />
-          <PostButton
-            type={'scrap'}
-            isClicked={isScrapButtonClicked}
-            onClick={onClickScrapButton}
-            counts={scraps}
+          <Viewer style={{ marginTop: '72px' }} data={content} />
+          <PostButtonWrapper>
+            <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+            <PostButton type={'scrap'} isClicked={isScrapButtonClicked} onClick={onClickScrapButton} counts={scraps} />
+          </PostButtonWrapper>
+          <DivisionLine />
+          <ProfileArea
+            userId={postAuthInfo.id}
+            imageSrc={postAuthInfo.profileImage}
+            nickname={postAuthInfo.nickname}
+            grade={postAuthInfo.grade}
+            field={postAuthInfo.type.toLowerCase()}
+            style={{ marginTop: '86px' }}
           />
-        </PostButtonWrapper>
-        <DivisionLine />
-        <ProfileArea
-          userId={postAuthInfo.id}
-          imageSrc={postAuthInfo.profileImage}
-          nickname={postAuthInfo.nickname}
-          grade={postAuthInfo.grade}
-          field={postAuthInfo.type.toLowerCase()}
-          style={{ marginTop: '86px' }}
-        />
-      </Column>
-    </div>
+        </Column>
+      </div>
+    </>
   );
 };
 
@@ -180,6 +180,12 @@ export default Board;
 //     },
 //   };
 // }
+
+const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  top: 100px;
+  right: 10%;
+`;
 
 const ThumbnailImageWrapper = styled.div`
   width: 100vw;

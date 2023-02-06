@@ -11,3 +11,9 @@ export function getLikes(postId: number) {
     return res.data;
   });
 }
+
+export function deletePost(postId: number) {
+  return client.delete(`/posts/post/${postId}`).then((res) => {
+    console.log(res);
+  });
+}
