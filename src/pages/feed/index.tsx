@@ -20,16 +20,7 @@ import { getCookie } from '../../utils/cookie';
 const Feed = () => {
   const { openToast } = useToast();
   const { feed, getFeed } = usePosts();
-  const {
-    type,
-    setType,
-    act,
-    setAct,
-    sort,
-    setSort,
-    handleTagClick,
-    handleTabClick,
-  } = useTagArea();
+  const { type, act, sort, handleTagClick, handleTabClick } = useTagArea();
   const user = useRecoilValue(userState);
   const [feedParam, setFeedParam] = useState<FeedRequestProps>({
     sortBy: sort ? 'CREATED_AT' : 'LIKES',
@@ -40,7 +31,6 @@ const Feed = () => {
   });
 
   useEffect(() => {
-    console.log('dddf');
     setFeedParam({
       sortBy: sort ? 'CREATED_AT' : 'LIKES',
       pageNum: 0,

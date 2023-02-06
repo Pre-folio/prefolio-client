@@ -19,9 +19,9 @@ export interface FeedRequestProps {
 }
 
 export interface SearchRequestProps {
-  sortBy: SortType;
-  partTag?: PartType;
-  actTag?: ActType;
+  sortBy: string;
+  partTagList?: string;
+  actTagList?: string;
   pageNum: number;
   limit: number;
   searchWord: string;
@@ -41,47 +41,32 @@ export const usePosts = () => {
   const getFeed = async (param: FeedRequestProps) => {
     const res: PostResponse = await postAPI.ALL(getCookie(), param);
 
-    console.log('param', param);
-
     if (res && getCookie()) {
       console.log(res);
     }
 
-    console.log(res.posts);
-
     setFeed(res.posts);
   };
 
-  // 로그인
-  // const feedMutation = useMutation(postAPI.ALL, {
-  //   onSuccess: (data: PostResponse) => {},
-  //   onError: (error: any) => console.log(error),
-  // });
-
-  const getSearch = async (searchWord: string) => {
+  const getSearch = async (param: SearchRequestProps) => {
+    // 현재 많은 프리폴리오 유저들이 읽고 있어요
     if (searchWord === '') {
-      //getFeed();
+      getFeed({
+        sortBy: 'LIKES',
+        pageNum: 0,
+        limit: 4,
+        partTagList: type.join(','),
+        actTagList: act.join(','),
+      });
       return;
     }
 
-    const feed: PostResponse = await postAPI.SEARCH({
-      sortBy: 'CREATED_AT',
-      pageNum: 0,
-      limit: 24,
-      searchWord: searchWord,
-    });
+    console.log('param', param);
+    const feed: PostResponse = await postAPI.SEARCH(param);
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
     setSearch(feed.posts);
   };
-
-  useEffect(() => {
-    console.log('실행');
-  }, [type, act]);
-
-  useEffect(() => {
-    getSearch(searchWord);
-  }, [type, act, searchWord]);
 
   return {
     search,
