@@ -40,7 +40,7 @@ const Profile = () => {
     }
   );
 
-  const { type, act, handleTagClick, handleTabClick } = useTagArea();
+  const { type, act, handleTagClick } = useTagArea();
 
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');

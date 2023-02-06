@@ -25,10 +25,9 @@ const Board = () => {
   const postIdToNumber = Number(postId);
   const userInfo = useRecoilValue(userState);
 
-  const { isLoading: isPostLoading, data: postData } = useQuery(
-    ['post-data', postIdToNumber],
-    async () => await getPost(postIdToNumber)
-  );
+  const { isLoading: isPostLoading, data: postData } = useQuery(['post-data', postIdToNumber], async () => {
+    return await getPost(postIdToNumber);
+  });
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url

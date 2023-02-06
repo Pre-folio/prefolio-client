@@ -21,8 +21,8 @@ export async function getUserPosts(userId: number, pageNum: number, limit: numbe
   return await client
     .get(`/posts/${userId}`, {
       params: {
-        partTag: partTag && partTag,
-        actTag: actTag && actTag,
+        partTagList: partTag && partTag,
+        actTagList: actTag && actTag,
         pageNum: pageNum,
         limit: limit,
       },
