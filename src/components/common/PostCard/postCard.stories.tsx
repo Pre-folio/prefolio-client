@@ -13,7 +13,7 @@ export default {
 const Template: ComponentStory<typeof PostCard> = (args) => {
   const [scrapped, setScrapped] = useRecoilState(scrappedState);
 
-  return <PostCard {...args} scrapped={scrapped} setScrapped={setScrapped} />;
+  return <PostCard {...args} />;
 };
 
 export const Default = Template.bind({});

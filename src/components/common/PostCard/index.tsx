@@ -11,7 +11,7 @@ import postAPI from '../../../apis/post';
 export interface PostCardProps {
   // scrap post 위해서는 id도 props로 받아야 할 것임
   thumbnail?: string;
-  scrapped: boolean;
+  isScrapped: boolean;
   // setScrapped?: SetterOrUpdater<boolean>;
   title: string;
   field: string[];
@@ -44,7 +44,7 @@ export const PostCard = (props: PostCardProps) => {
   const [iconStrokeColor, setIconStrokeColor] = useState(
     `${theme.palette.Gray20}`
   );
-  const [scrap, setScrap] = useState<boolean>(props.scrapped);
+  const [scrap, setScrap] = useState<boolean>(props.isScrapped);
 
   const handleIconClick = async (e: any) => {
     e.stopPropagation();
@@ -57,6 +57,7 @@ export const PostCard = (props: PostCardProps) => {
   };
 
   useEffect(() => {
+    console.log('hihi,', props.isScrapped);
     if (scrap) {
       setIconFillColor(`${theme.palette.Mint100}`);
       setIconStrokeColor(`${theme.palette.Mint100}`);

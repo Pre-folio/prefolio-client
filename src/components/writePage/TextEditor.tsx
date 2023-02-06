@@ -11,7 +11,7 @@ import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
 import { useRecoilState } from 'recoil';
 import { Toast } from '../common/Toast';
-import { useToast } from '../../hooks/useToats';
+import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 

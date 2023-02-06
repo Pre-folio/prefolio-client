@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { useRecoilState } from 'recoil';
 import { Toast } from '.';
-import { useToast } from '../../../hooks/useToats';
+import { useToast } from '../../../hooks/useToasts';
 import { toastContentState, toastState } from '../../../store/Toast/toastState';
 import { Button } from '../Button';
 

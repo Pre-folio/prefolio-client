@@ -8,6 +8,6 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof TagArea>;
 
-const Template: ComponentStory<typeof TagArea> = () => <TagArea />;
+// const Template: ComponentStory<typeof TagArea> = () => <TagArea />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});

@@ -20,6 +20,7 @@ export interface SinglePostResponse {
   partTag: string[];
   thumbnail: string;
   title: string;
+  isScrapped: boolean;
 }
 
 export interface PostsProps {
@@ -34,7 +35,7 @@ export const Posts = (props: PostsProps) => {
           <PostCard
             key={post.id}
             thumbnail={post.thumbnail}
-            scrapped={post.scrapped}
+            isScrapped={post.isScrapped}
             title={post.title}
             field={post.partTag}
             activity={post.actTag}
