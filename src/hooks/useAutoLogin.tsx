@@ -16,8 +16,8 @@ export function useAutoLogin() {
     pathname.includes('write') ||
     pathname.includes('post') ||
     pathname.includes('search') ||
-    pathname.includes('setting') ||
-    pathname.includes('oauth') ||
+    // pathname.includes('setting') ||
+    // pathname.includes('oauth') ||
     pathname.includes('profile');
 
   // const getUserId = async (accessToken: string) => {

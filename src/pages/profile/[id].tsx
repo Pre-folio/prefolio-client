@@ -19,7 +19,6 @@ import { NoPost } from '../../components/feed/NoPost';
 
 const Profile = () => {
   const router = useRouter();
-  const [watchingUserInfo, setWatchingUserInfo] = useState({});
   const userInfo = useRecoilValue(userState);
   const watchingUserId = router.query.id;
   const watchingUserIdToNumber = Number(watchingUserId);
@@ -72,9 +71,9 @@ const Profile = () => {
   }, [act, type]);
 
   const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
-    if (watchingUserIdToNumber) {
-      return await getUserPosts(watchingUserIdToNumber, 0, 24, '', '');
-    }
+    // if (watchingUserIdToNumber && userInfo.userId) {
+    return await getUserPosts(watchingUserIdToNumber, 0, 24, '', '');
+    // }
   });
 
   const { isLoading: isScrapsLoading, data: scrapData } = useQuery(['scrap-posts', feedParam], async () => {
