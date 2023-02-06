@@ -11,14 +11,14 @@ export function useAutoLogin() {
   const { kakaoAutoLoginMutation } = useAuth();
   const { pathname } = router;
 
-  const privatePage =
-    pathname.includes('feed') ||
-    pathname.includes('write') ||
-    pathname.includes('post') ||
-    pathname.includes('search') ||
-    // pathname.includes('setting') ||
-    // pathname.includes('oauth') ||
-    pathname.includes('profile');
+  const privatePage = '';
+  // pathname.includes('feed') ||
+  // pathname.includes('write') ||
+  // pathname.includes('post') ||
+  // pathname.includes('search') ||
+  // pathname.includes('setting') ||
+  // pathname.includes('oauth') ||
+  // pathname.includes('profile');
 
   // const getUserId = async (accessToken: string) => {
   //   if (accessToken) {
