@@ -7,14 +7,15 @@ import { TabBar } from '../../components/common/TabBar';
 import { PostCard } from '../../components/common/PostCard';
 import { TagArea } from '../../components/common/TagArea';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
 import { useQuery } from 'react-query';
 import { authAPI } from '../../apis/auth';
-import { getUserPosts, getUserScraps } from '../../apis/posts';
+import { getUserPosts, getUserScraps, ScrapRequestProps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
-import { getScraps } from '../../apis/onClickPostContent';
+import { getScraps } from '../../apis/postContent';
 import { getCookie } from '../../utils/cookie';
 import { useTagArea } from '../../hooks/useTagArea';
+import { FeedRequestProps } from '../../hooks/usePosts';
+import { NoPost } from '../../components/feed/NoPost';
 
 const Profile = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const Profile = () => {
   const userInfo = useRecoilValue(userState);
   const watchingUserId = router.query.id;
   const watchingUserIdToNumber = Number(watchingUserId);
+  const isMyProfile = userInfo.userId === watchingUserIdToNumber;
 
   const token = getCookie();
 
@@ -39,25 +41,18 @@ const Profile = () => {
     }
   );
 
-  const isMyProfile = userInfo.userId === watchingUserIdToNumber;
-  console.log(isMyProfile);
+  const { type, act, handleTagClick, handleTabClick } = useTagArea();
 
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');
-  const [posts_, setPosts_] = useState([]);
-  const [isScrapped, setIsScrapped] = useState<boolean>(false);
+  const [feedParam, setFeedParam] = useState<ScrapRequestProps>({
+    pageNum: 0,
+    limit: 24,
+    partTagList: type.join(','),
+    actTagList: act.join(','),
+  });
 
-  const {
-    type,
-    setType,
-    act,
-    setAct,
-    sort,
-    setSort,
-    handleTagClick,
-    handleTabClick,
-  } = useTagArea();
-
+  // bar 상태 관리
   useEffect(() => {
     if (barState) {
       setSelectedBar('posts');
@@ -66,48 +61,36 @@ const Profile = () => {
     }
   }, [barState]);
 
-  const { isLoading: isPostsLoading, data: postData } = useQuery(
-    ['user-posts', watchingUserIdToNumber],
-    async () => {
-      if (watchingUserIdToNumber) {
-        return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
-      }
-    }
-  );
+  // 스크랩한 게시물 param 결정
+  useEffect(() => {
+    setFeedParam({
+      pageNum: 0,
+      limit: 24,
+      partTagList: type.join(','),
+      actTagList: act.join(','),
+    });
+  }, [act, type]);
 
-  // const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
-  //   ['scrap-posts', selectedActTagList, selectedPartTagList],
-  //   async () =>
-  //     await getUserScraps(
-  //       0,
-  //       8,
-  //       selectedPartTagList.toString().toUpperCase(),
-  //       selectedActTagList.toString().toUpperCase()
-  //     )
-  // );
+  const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
+    if (watchingUserIdToNumber) {
+      return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
+    }
+  });
+
+  const { isLoading: isScrapsLoading, data: scrapData } = useQuery(['scrap-posts', feedParam], async () => {
+    return await getUserScraps(feedParam);
+  });
+  console.log(scrapData);
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
   const posts = postData?.data.cardPosts;
 
   // selectedBar이 scrap일 경우 스크랩한 글 get api
-  // const scraps = scrapData?.data.data.cardPosts;
-  const scraps: any = [];
-
-  // const filteredScraps = scraps.filter((scrap: any) => {
-  //   const scrapsTags = scrap.actTag.concat(scrap.partTag);
-  //   if (filteredTags.every((tag) => scrapsTags.includes(tag))) {
-  //     return scrap;
-  //   }
-  // });
+  const scraps = scrapData?.cardPosts;
 
   return (
     <Wrapper>
-      <Row
-        width='100%'
-        alignItems='flex-start'
-        justifyContent='flex-start'
-        gap='24px'
-      >
+      <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
         <ProfileCard
           imageSrc={profileData?.profileImage}
           nickname={profileData?.nickname}
@@ -118,17 +101,10 @@ const Profile = () => {
           style={{ position: 'fixed', top: '180px' }}
         />
         <div style={{ width: '100%' }} />
-        <Column
-          width='calc(100% - 282px)'
-          alignItems='flex-start'
-          justifyContent='flex-start'
-          gap='46px'
-        >
-          {isMyProfile && (
-            <TabBar barState={barState} setBarState={setBarState} />
-          )}
+        <Column width="calc(100% - 282px)" alignItems="flex-start" justifyContent="flex-start" gap="46px">
+          {isMyProfile && <TabBar barState={barState} setBarState={setBarState} />}
           {selectedBar === 'scraps' && (
-            <TagArea type={type} act={act} width='100%' />
+            <TagArea type={type} act={act} handleTagAreaClick={handleTagClick} width="100%" />
           )}
           <PostCardsWrapper>
             {selectedBar === 'posts' &&
@@ -151,7 +127,8 @@ const Profile = () => {
                 );
               })}
             {selectedBar === 'scraps' &&
-              // !isScrapsLoading &&
+              !isScrapsLoading &&
+              scraps &&
               scraps.map((scrapInfo: any) => {
                 return (
                   <PostCard
