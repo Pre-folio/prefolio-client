@@ -75,7 +75,7 @@ const FieldTag = styled.button<ITag>`
       : props.field === 'design' && theme.palette.Purple10};
   color: ${(props) =>
     props.field === 'plan'
-      ? theme.palette.Mint100
+      ? theme.palette.Minttext
       : props.field === 'dev'
       ? theme.palette.Blue100
       : props.field === 'design' && theme.palette.Purple100};
