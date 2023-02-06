@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import postAPI, {
   ActType,
   PartType,
@@ -11,8 +12,8 @@ import { useTagArea } from './useTagArea';
 
 export interface FeedRequestProps {
   sortBy: string;
-  partTag?: PartType[];
-  actTag?: ActType;
+  partTagList?: string;
+  actTagList?: string;
   pageNum: number;
   limit: number;
 }
@@ -28,32 +29,38 @@ export interface SearchRequestProps {
 
 export type SearchStateType = 'wait' | 'result' | 'none';
 
-export const useFeed = () => {
+export const usePosts = () => {
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
+
   const [searchType, setSearchType] = useState<SearchStateType>('wait');
   const [searchWord, setSearchWord] = useState<string>('');
   const { type, setType, act, setAct, sort, setSort } = useTagArea();
 
-  const getFeed = async () => {
-    const param = {
-      sortBy: sort ? 'CREATED_AT' : 'LIKES',
-      pageNum: 0,
-      limit: 16,
-    };
+  // 피드
+  const getFeed = async (param: FeedRequestProps) => {
     const res: PostResponse = await postAPI.ALL(getCookie(), param);
-    const keys = Object.keys(type);
+
+    console.log('param', param);
 
     if (res && getCookie()) {
       console.log(res);
     }
 
+    console.log(res.posts);
+
     setFeed(res.posts);
   };
 
+  // 로그인
+  // const feedMutation = useMutation(postAPI.ALL, {
+  //   onSuccess: (data: PostResponse) => {},
+  //   onError: (error: any) => console.log(error),
+  // });
+
   const getSearch = async (searchWord: string) => {
     if (searchWord === '') {
-      getFeed();
+      //getFeed();
       return;
     }
 
@@ -69,7 +76,7 @@ export const useFeed = () => {
   };
 
   useEffect(() => {
-    getFeed();
+    console.log('실행');
   }, [type, act]);
 
   useEffect(() => {

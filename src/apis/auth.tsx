@@ -1,5 +1,6 @@
 import { setAccessToken, setRefreshToken } from '../utils/cookie';
 import { client, publicClient } from './client';
+import { PartType } from './post';
 
 export interface KakaoValidationResponse {
   accessToken: string;
@@ -13,11 +14,11 @@ export interface KakaoJoinResponse {
 
 export interface GetUserInfoResponse {
   userId: number;
-  type: string;
+  type: PartType | string;
   nickname: string;
   profileImage: string;
   grade: number;
-  refreshToken: string;
+  refreshToken: string | null;
   countScrap: number;
   countLike: number;
 }

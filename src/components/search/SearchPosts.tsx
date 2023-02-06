@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { SearchStateType, useFeed } from '../../hooks/useFeed';
+import { SearchStateType, usePosts } from '../../hooks/usePosts';
+import { useTagArea } from '../../hooks/useTagArea';
 import { Space, Text } from '../common/Wrapper';
 import { FeedTagArea } from '../feed/FeedTagArea';
 import { NoPost } from '../feed/NoPost';
@@ -15,7 +16,8 @@ export const SearchPosts = (props: any) => {
     feed,
     searchType,
     setSearchType,
-  } = useFeed();
+  } = usePosts();
+  const { type, act } = useTagArea();
 
   useEffect(() => {
     if (props.value) {
@@ -40,7 +42,7 @@ export const SearchPosts = (props: any) => {
     case 'result':
       return (
         <div>
-          <FeedTagArea />
+          <FeedTagArea type={type} act={act} />
           <Space height={60} />
           <Posts posts={search} />
         </div>

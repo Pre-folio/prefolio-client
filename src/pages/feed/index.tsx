@@ -11,7 +11,7 @@ import { FeedTagArea } from '../../components/feed/FeedTagArea';
 import { FloatSearch } from '../../components/feed/FloatSearh';
 import { NoPost } from '../../components/feed/NoPost';
 import { Posts, SinglePostResponse } from '../../components/feed/Posts';
-import { useFeed } from '../../hooks/useFeed';
+import { FeedRequestProps, usePosts } from '../../hooks/usePosts';
 import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToats';
 import { userState } from '../../store/Auth/userState';
@@ -19,19 +19,53 @@ import { getCookie } from '../../utils/cookie';
 
 const Feed = () => {
   const { openToast } = useToast();
-  const { feed, getFeed } = useFeed();
-  const { type, act, handleTagClick } = useTagArea();
+  const { feed, getFeed } = usePosts();
+  const {
+    type,
+    setType,
+    act,
+    setAct,
+    sort,
+    setSort,
+    handleTagClick,
+    handleTabClick,
+  } = useTagArea();
+  const user = useRecoilValue(userState);
+  const [feedParam, setFeedParam] = useState<FeedRequestProps>({
+    sortBy: sort ? 'CREATED_AT' : 'LIKES',
+    pageNum: 0,
+    limit: 24,
+    partTagList: type.join(','),
+    actTagList: act.join(','),
+  });
 
   useEffect(() => {
-    console.log(act);
-  }, [act]);
+    console.log('dddf');
+    setFeedParam({
+      sortBy: sort ? 'CREATED_AT' : 'LIKES',
+      pageNum: 0,
+      limit: 24,
+      partTagList: type.join(','),
+      actTagList: act.join(','),
+    });
+  }, [act, type, sort]);
+
+  useEffect(() => {
+    getFeed(feedParam);
+  }, [feedParam]);
 
   return (
     <div>
       <FloatSearch top={413} />
       <Banner />
       <Space height={100} />
-      <FeedTagArea type={type} act={act} onClick={handleTagClick} />
+      <FeedTagArea
+        type={type}
+        act={act}
+        sort={sort}
+        handleTagAreaClick={handleTagClick}
+        handleTabBarClick={handleTabClick}
+      />
       <Space height={60} />
       <Posts posts={feed} />
       <Space height={96} />
