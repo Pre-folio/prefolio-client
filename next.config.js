@@ -2,6 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  trailingSlash: true,
   images: {
     loader: 'imgix',
     path: '/',
