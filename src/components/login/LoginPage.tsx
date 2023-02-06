@@ -7,7 +7,7 @@ import { KakaoButton } from './KakaoButton';
 export const LoginPage = () => {
   return (
     <Wrapper>
-      <Space height={106} />
+      <Space height={104} />
       <Text typo={'Body1'} color={'Black'} height={18}>
         친구들의 스펙 활동 구경하고 싶으세요?
       </Text>
@@ -20,7 +20,7 @@ export const LoginPage = () => {
         프리폴리오 이용하기
       </Text>
       <Space height={60} />
-      <Img />
+      <Img src='/images/login.png' alt='' />
       <Space height={100} />
       {/* <Link href={process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}> */}
       <a
@@ -64,9 +64,9 @@ const Space = styled.div<{
   height: ${({ height }) => `${height}px`};
 `;
 
-const Img = styled.div`
-  background-color: ${theme.palette.Gray20};
+const Img = styled.img`
+  background-color: transparent;
 
-  height: 306px;
-  width: 488px;
+  height: 321px;
+  width: 588px;
 `;
