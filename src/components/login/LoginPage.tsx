@@ -20,18 +20,15 @@ export const LoginPage = () => {
         프리폴리오 이용하기
       </Text>
       <Space height={60} />
-      <Img src='/images/login.png' alt='' />
+      <Img src="/images/login.png" alt="" />
       <Space height={100} />
       {/* <Link href={process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}> */}
-      <a
-        href={`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}`}
-        rel={'noopener noreferrer'}
-      >
+      <a href={`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}`} rel={'noopener noreferrer'}>
         <KakaoButton />
       </a>
-      <a href='https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code'>
+      {/* <a href='https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code'>
         카카오 로그인
-      </a>
+      </a> */}
     </Wrapper>
   );
 };

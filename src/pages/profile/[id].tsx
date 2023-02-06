@@ -73,7 +73,7 @@ const Profile = () => {
 
   const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
     if (watchingUserIdToNumber) {
-      return await getUserPosts(watchingUserIdToNumber, 0, 8, '', '');
+      return await getUserPosts(watchingUserIdToNumber, 0, 24, '', '');
     }
   });
 
