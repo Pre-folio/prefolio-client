@@ -13,7 +13,7 @@ import { NoPost } from '../../components/feed/NoPost';
 import { Posts, SinglePostResponse } from '../../components/feed/Posts';
 import { FeedRequestProps, usePosts } from '../../hooks/usePosts';
 import { useTagArea } from '../../hooks/useTagArea';
-import { useToast } from '../../hooks/useToats';
+import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
 import { getCookie } from '../../utils/cookie';
 

@@ -139,7 +139,7 @@ const Profile = () => {
                     key={index}
                     id={postInfo.postId}
                     thumbnail={postInfo.thumbnail}
-                    scrapped={postInfo.isScrapped}
+                    isScrapped={postInfo.isScrapped}
                     title={postInfo.title}
                     field={postInfo.partTag}
                     activity={postInfo.actTag}
@@ -158,7 +158,7 @@ const Profile = () => {
                     key={scrapInfo.postId}
                     id={scrapInfo.postId}
                     thumbnail={scrapInfo.thumbnail}
-                    scrapped={true}
+                    isScrapped={true}
                     title={scrapInfo.title}
                     field={scrapInfo.partTag}
                     activity={scrapInfo.actTag}
