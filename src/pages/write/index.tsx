@@ -259,7 +259,7 @@ const Write = () => {
               width='1098px'
               type={type}
               act={act}
-              onClick={handleTagClick}
+              handleTagAreaClick={handleTagClick}
             />
           </Row>
           <Row justifyContent='flex-start' alignItems='flex-start'>
