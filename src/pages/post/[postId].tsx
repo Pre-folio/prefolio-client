@@ -24,10 +24,23 @@ const Board = () => {
   const { postId } = router.query;
   const postIdToNumber = Number(postId);
   const userInfo = useRecoilValue(userState);
+  const [postData, setPostData] = useState<any>();
 
-  const { isLoading: isPostLoading, data: postData } = useQuery(['post-data', postIdToNumber], async () => {
-    return await getPost(postIdToNumber);
-  });
+  // const { isLoading: isPostLoading, data: postData } = useQuery(['post-data', postIdToNumber], async () => {
+  //   return await getPost(postIdToNumber);
+  // });
+
+  useEffect(() => {
+    async function fetchData() {
+      if (postIdToNumber) {
+        const res: any = await getPost(postIdToNumber);
+        setPostData(res);
+      }
+    }
+    fetchData();
+  }, [postIdToNumber]);
+
+  // const postData = getPost(postIdToNumber);
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url
@@ -55,9 +68,9 @@ const Board = () => {
   const isAuth = postAuthInfo.id === userInfo.userId;
 
   useEffect(() => {
-    if (!isPostLoading) {
-      const data = postData?.data.data;
-      console.log(data);
+    if (postData) {
+      const data = postData.data.data;
+      console.log(postData);
 
       setThumbnailImgUrl(data.post.thumbnail);
       setTitle(data.post.title);
@@ -76,7 +89,7 @@ const Board = () => {
       setIsLikedButtonClicked(data.isLiked);
       setIsScrapButtonClicked(data.isScrapped);
     }
-  }, [isPostLoading]);
+  }, [postData]);
 
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
@@ -164,21 +177,19 @@ const Board = () => {
 
 export default Board;
 
-// export async function getServerSideProps(context: any) {
+// export const getServerSideProps = async ({ query: { id } }: any) => {
 //   // const router = useRouter();
-//   const { postId } = context.query;
-//   const postIdToNumber = Number(postId);
+//   const postIdToNumber = Number(id);
 //   // const queryClient = new QueryClient();
 //   // queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
 //   const res = await getPost(postIdToNumber);
 //   const result = res.data;
-//   // const result = await res.json();
 //   return {
 //     props: {
 //       result,
 //     },
 //   };
-// }
+// };
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;
