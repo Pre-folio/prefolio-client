@@ -119,14 +119,7 @@ function Home() {
         {/* prop으로 배경색, 높이 받도록 수정 */}
       </Wrapper>
       <ImgWrapper>
-        <motion.div
-          variants={imageVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, amount: 0.8 }}
-        >
-          <Section1 src='/images/home/home1.png' alt='' />
-        </motion.div>
+        <Section1 src='/images/home/home1.png' alt='' />
 
         <motion.div
           variants={imageVariants}
