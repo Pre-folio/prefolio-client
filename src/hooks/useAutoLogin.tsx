@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useMutation } from 'react-query';
 import authAPI, { KakaoJoinResponse } from '../apis/auth';
@@ -5,8 +6,19 @@ import { getCookie } from '../utils/cookie';
 import { useAuth } from './useAuth';
 
 export function useAutoLogin() {
+  const router = useRouter();
   const accessToken = getCookie();
   const { kakaoAutoLoginMutation } = useAuth();
+  const { pathname } = router;
+
+  const privatePage =
+    pathname.includes('feed') ||
+    pathname.includes('write') ||
+    pathname.includes('post') ||
+    pathname.includes('search') ||
+    pathname.includes('setting') ||
+    pathname.includes('oauth') ||
+    pathname.includes('profile');
 
   // const getUserId = async (accessToken: string) => {
   //   if (accessToken) {
@@ -17,8 +29,10 @@ export function useAutoLogin() {
   useEffect(() => {
     if (accessToken) {
       accessTokenMutation.mutate(accessToken);
+    } else if (!accessToken && privatePage) {
+      router.push('/');
     }
-  }, [accessToken]);
+  }, [pathname, accessToken]);
 
   const accessTokenMutation = useMutation(authAPI.USER_TOKEN, {
     onSuccess: (data: KakaoJoinResponse) => {

@@ -48,7 +48,7 @@ export async function getUserScraps(param: ScrapRequestProps) {
   } else if (param.partTagList && !param.actTagList) {
     const res = await client.get(`/posts/scraps`, {
       params: {
-        partTag: param.partTagList,
+        partTagList: param.partTagList,
         pageNum: param.pageNum,
         limit: param.limit,
       },
@@ -57,7 +57,7 @@ export async function getUserScraps(param: ScrapRequestProps) {
   } else if (!param.partTagList && param.actTagList) {
     const res = await client.get(`/posts/scraps`, {
       params: {
-        actTag: param.actTagList,
+        actTagList: param.actTagList,
         pageNum: param.pageNum,
         limit: param.limit,
       },
