@@ -1,3 +1,4 @@
+import { FeedRequestProps } from '../hooks/usePosts';
 import { client } from './client';
 
 export function postPosts(post: object) {
@@ -16,13 +17,7 @@ export async function getPost(id: number) {
   });
 }
 
-export async function getUserPosts(
-  userId: number,
-  pageNum: number,
-  limit: number,
-  partTag: string,
-  actTag: string
-) {
+export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
   return await client
     .get(`/posts/${userId}`, {
       params: {
@@ -38,43 +33,42 @@ export async function getUserPosts(
     });
 }
 
-export async function getUserScraps(
-  pageNum: number,
-  limit: number,
-  partTag: string,
-  actTag: string
-) {
-  if (partTag && actTag) {
-    return await client.get(`/posts/scraps`, {
+export interface ScrapRequestProps {
+  partTagList?: string;
+  actTagList?: string;
+  pageNum: number;
+  limit: number;
+}
+export async function getUserScraps(param: ScrapRequestProps) {
+  if (param.partTagList && param.actTagList) {
+    const res = await client.get(`/posts/scraps`, {
+      params: param,
+    });
+    return res.data.data;
+  } else if (param.partTagList && !param.actTagList) {
+    const res = await client.get(`/posts/scraps`, {
       params: {
-        partTag: partTag,
-        actTag: actTag,
-        pageNum: pageNum,
-        limit: limit,
+        partTag: param.partTagList,
+        pageNum: param.pageNum,
+        limit: param.limit,
       },
     });
-  } else if (partTag && !actTag) {
-    return await client.get(`/posts/scraps`, {
+    return res.data.data;
+  } else if (!param.partTagList && param.actTagList) {
+    const res = await client.get(`/posts/scraps`, {
       params: {
-        partTag: partTag,
-        pageNum: pageNum,
-        limit: limit,
+        actTag: param.actTagList,
+        pageNum: param.pageNum,
+        limit: param.limit,
       },
     });
-  } else if (!partTag && actTag) {
-    return await client.get(`/posts/scraps`, {
-      params: {
-        actTag: actTag,
-        pageNum: pageNum,
-        limit: limit,
-      },
-    });
+    return res.data.data;
   } else {
     return await client
       .get(`/posts/scraps`, {
         params: {
-          pageNum: pageNum,
-          limit: limit,
+          pageNum: param.pageNum,
+          limit: param.limit,
         },
       })
       .then((res) => {

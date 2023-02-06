@@ -15,6 +15,11 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
   const router = useRouter();
   const [isTrashCanIconClicked, setIsTrashCanIconClicked] = useState(false);
 
+  const onClickModifyIcon = () => {
+    alert('기능 준비중입니다.');
+    return;
+  };
+
   const onClickTrashCanIcon = () => {
     setIsTrashCanIconClicked(true);
   };
@@ -22,7 +27,7 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
   return (
     <>
       <Wrapper>
-        <ModifyIcon />
+        <ModifyIcon onClick={onClickModifyIcon} />
         <TrashCanIcon onClick={onClickTrashCanIcon} />
       </Wrapper>
       {isTrashCanIconClicked && (
@@ -50,9 +55,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  position: fixed;
+  /* position: fixed;
   bottom: 10%;
-  right: 100px;
+  right: 100px; */
   border-radius: 8px;
   background-color: ${palette.Gray10};
 `;

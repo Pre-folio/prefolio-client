@@ -109,7 +109,11 @@ const Board = () => {
 
   return (
     <>
-      {isAuth && <FloatingButton postId={postIdToNumber} />}
+      {isAuth && (
+        <FloatingButtonWrapper>
+          <FloatingButton postId={postIdToNumber} />
+        </FloatingButtonWrapper>
+      )}
       <div
         style={{
           display: 'flex',
@@ -176,6 +180,12 @@ export default Board;
 //     },
 //   };
 // }
+
+const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  top: 100px;
+  right: 10%;
+`;
 
 const ThumbnailImageWrapper = styled.div`
   width: 100vw;

@@ -199,7 +199,7 @@ const Write = () => {
               태그 선택
               <span>*</span>
             </CategoryTextArea>
-            <TagArea width="1098px" type={type} act={act} onClick={handleTagClick} />
+            <TagArea width="1098px" type={type} act={act} handleTagAreaClick={handleTagClick} />
           </Row>
           <Row justifyContent="flex-start" alignItems="flex-start">
             <CategoryTextArea>
