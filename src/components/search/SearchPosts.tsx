@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { SearchStateType, useFeed } from '../../hooks/useFeed';
+import {
+  SearchRequestProps,
+  SearchStateType,
+  usePosts,
+} from '../../hooks/usePosts';
+import { useTagArea } from '../../hooks/useTagArea';
 import { Space, Text } from '../common/Wrapper';
 import { FeedTagArea } from '../feed/FeedTagArea';
 import { NoPost } from '../feed/NoPost';
@@ -15,16 +20,38 @@ export const SearchPosts = (props: any) => {
     feed,
     searchType,
     setSearchType,
-  } = useFeed();
+    searchWord,
+    setSearchWord,
+  } = usePosts();
+  const { type, act, sort, handleTagClick, handleTabClick } = useTagArea();
+  const [searchParam, setSearchParam] = useState<SearchRequestProps>({
+    sortBy: sort ? 'CREATED_AT' : 'LIKES',
+    pageNum: 0,
+    limit: 24,
+    partTagList: type.join(','),
+    actTagList: act.join(','),
+    searchWord: '',
+  });
+
+  useEffect(() => {
+    getSearch(searchParam);
+  }, [searchParam]);
 
   useEffect(() => {
     if (props.value) {
-      getSearch(props.value);
+      setSearchWord(props.value);
+      setSearchParam({
+        sortBy: sort ? 'CREATED_AT' : 'LIKES',
+        pageNum: 0,
+        limit: 24,
+        partTagList: type.join(','),
+        actTagList: act.join(','),
+        searchWord: props.value,
+      });
     } else {
       setSearchType('wait');
     }
-    console.log(search);
-  }, [props]);
+  }, [props, act, type, sort, searchWord]);
 
   switch (searchType) {
     case 'wait':
@@ -40,7 +67,13 @@ export const SearchPosts = (props: any) => {
     case 'result':
       return (
         <div>
-          <FeedTagArea />
+          <FeedTagArea
+            type={type}
+            act={act}
+            sort={sort}
+            handleTagAreaClick={handleTagClick}
+            handleTabBarClick={handleTabClick}
+          />
           <Space height={60} />
           <Posts posts={search} />
         </div>
@@ -48,6 +81,13 @@ export const SearchPosts = (props: any) => {
     case 'none':
       return (
         <div>
+          <FeedTagArea
+            type={type}
+            act={act}
+            sort={sort}
+            handleTagAreaClick={handleTagClick}
+            handleTabBarClick={handleTabClick}
+          />
           <Space height={60} />
           <Posts posts={search} />
           <Space height={60} />

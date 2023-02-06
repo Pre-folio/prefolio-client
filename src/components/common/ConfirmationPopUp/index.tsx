@@ -18,7 +18,7 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
   return (
     <PopUpContainer>
       <ConfirmationPopUpWrapper>
-        <MockImage />
+        <Img src='/images/popup.png' alt='' />
         <ConfirmText>업로드하시겠습니까?</ConfirmText>
         <CautionText>
           업로드 후 글 수정이 어려우니 한번 더 확인해주세요!
@@ -81,10 +81,10 @@ const ConfirmationPopUpWrapper = styled.div`
   height: 758px;
 `;
 
-const MockImage = styled.div`
+const Img = styled.img`
   width: 587px;
   height: 368px;
-  background-color: ${theme.palette.Gray20};
+  background-color: transparent;
 `;
 
 const ConfirmText = styled.div`

@@ -7,10 +7,10 @@ import { theme } from '../../styles/theme';
 import { Text } from '../common/Wrapper';
 
 export interface TabBarProps {
-  barState: boolean;
-  setBarState: Dispatch<SetStateAction<boolean>>;
+  sort: boolean;
   leftTab?: string;
   rightTab?: string;
+  onClick?: any;
 }
 
 /**
@@ -24,16 +24,14 @@ export interface TabBarProps {
  */
 
 export const TagTabBar = ({
-  barState,
-  setBarState,
+  sort,
   leftTab = '최신순',
   rightTab = '추천순',
+  onClick,
 }: TabBarProps) => {
-  const { sort, handleTabClick } = useTagArea();
-
   return (
     <TabBarWrapper>
-      <Button id='new' onClick={handleTabClick} barState={sort}>
+      <Button id='new' barState={sort} onClick={onClick}>
         <Dot
           fill={sort ? `${theme.palette.Black}` : `${theme.palette.Gray20}`}
         />
@@ -41,7 +39,7 @@ export const TagTabBar = ({
           {leftTab}
         </Text>
       </Button>
-      <Button id='like' onClick={handleTabClick} barState={sort}>
+      <Button id='like' onClick={onClick} barState={sort}>
         <Dot
           fill={sort ? `${theme.palette.Gray20}` : `${theme.palette.Black}`}
         />
