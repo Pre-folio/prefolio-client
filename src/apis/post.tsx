@@ -15,6 +15,7 @@ export interface PostResponse {
       actTag: string[];
       hits: number;
       createdAt: string;
+      isScrapped: boolean;
     }
   ];
   totalPages: number;

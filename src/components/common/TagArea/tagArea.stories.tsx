@@ -9,5 +9,6 @@ export default {
 } as ComponentMeta<typeof TagArea>;
 
 const Template: ComponentStory<typeof TagArea> = () => <TagArea type={['plan']} act={['society']} />;
+// const Template: ComponentStory<typeof TagArea> = () => <TagArea />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
