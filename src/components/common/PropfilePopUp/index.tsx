@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { MouseEventHandler } from 'react';
 import { useRecoilState } from 'recoil';
@@ -27,6 +28,7 @@ export interface ProfilePopUpProps {
 export const ProfilePopUp = (props: ProfilePopUpProps) => {
   const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
+
   return (
     <PopUpContainer>
       <Flex width={1200} height={392} justify='flex-end'>

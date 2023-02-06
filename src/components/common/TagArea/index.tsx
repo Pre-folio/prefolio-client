@@ -14,14 +14,19 @@ interface TagAreaProps {
   width?: string;
   type: PartType[];
   act: ActType[];
-  onClick?: any;
+  handleTagAreaClick?: any;
 }
 
 /**
  *
  * @returns recoil의 selectedTagsListState로 상태관리 가능
  */
-export function TagArea({ width, type, act, onClick }: TagAreaProps) {
+export function TagArea({
+  width,
+  type,
+  act,
+  handleTagAreaClick,
+}: TagAreaProps) {
   //TODO 페이지별로 아이콘 변경
 
   // const [selectedTagsList, setSelectedTagsList] = useRecoilState(selectedTagsListState);
@@ -48,13 +53,17 @@ export function TagArea({ width, type, act, onClick }: TagAreaProps) {
           <Row gap='12px'>
             <CategoryTextArea>분야별</CategoryTextArea>
             <Filter
-              onClick={onClick}
+              onClick={handleTagAreaClick}
               isClicked={isClicked('plan')}
               type='plan'
             />
-            <Filter onClick={onClick} isClicked={isClicked('dev')} type='dev' />
             <Filter
-              onClick={onClick}
+              onClick={handleTagAreaClick}
+              isClicked={isClicked('dev')}
+              type='dev'
+            />
+            <Filter
+              onClick={handleTagAreaClick}
               isClicked={isClicked('design')}
               type='design'
             />
@@ -76,17 +85,17 @@ export function TagArea({ width, type, act, onClick }: TagAreaProps) {
           <Row gap='12px'>
             <CategoryTextArea>활동별</CategoryTextArea>
             <Filter
-              onClick={onClick}
+              onClick={handleTagAreaClick}
               isClicked={isClicked('society')}
               type='society'
             />
             <Filter
-              onClick={onClick}
+              onClick={handleTagAreaClick}
               isClicked={isClicked('intern')}
               type='intern'
             />
             <Filter
-              onClick={onClick}
+              onClick={handleTagAreaClick}
               isClicked={isClicked('project')}
               type='project'
             />

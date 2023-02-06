@@ -1,4 +1,4 @@
-import { FeedRequestProps, SearchRequestProps } from '../hooks/useFeed';
+import { FeedRequestProps, SearchRequestProps } from '../hooks/usePosts';
 import { setAccessToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 

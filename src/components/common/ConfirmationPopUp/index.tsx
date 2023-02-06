@@ -20,8 +20,9 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
   return (
     <PopUpContainer style={props.style}>
       <ConfirmationPopUpWrapper>
-        <MockImage />
         <ConfirmText>{props.type === 'delete' ? '게시물을 삭제하시겠습니까?' : '업로드하시겠습니까?'}</ConfirmText>
+        <Img src="/images/popup.png" alt="" />
+        <ConfirmText>업로드하시겠습니까?</ConfirmText>
         <CautionText>
           {props.type === 'delete'
             ? '삭제한 게시물은 되돌리기 어려우니한번 더 확인해주세요!'
@@ -89,10 +90,10 @@ const ConfirmationPopUpWrapper = styled.div`
   height: 758px;
 `;
 
-const MockImage = styled.div`
+const Img = styled.img`
   width: 587px;
   height: 368px;
-  background-color: ${theme.palette.Gray20};
+  background-color: transparent;
 `;
 
 const ConfirmText = styled.div`
