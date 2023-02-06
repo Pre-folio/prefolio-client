@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Pre:folio</title>
+        <link rel='shortcut icon' href='/favicon.png' />
       </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
