@@ -1,6 +1,7 @@
 import { Paper } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import styled from 'styled-components';
+import { theme } from '../../styles/theme';
 import { BannerImage } from './BannerImage';
 
 // 반응이 너무 느림... 바꿀 예정
@@ -48,31 +49,37 @@ const StyledCarousel = styled(Carousel)`
   height: 444px;
   width: 1200px;
 
-  .MuiButtonBase-root {
-    top: -40px;
-    z-index: 1;
-    background-color: transparent !important;
-    display: block !important;
-  }
-
   .MuiSvgIcon-root {
-    fill: black;
-    display: display-inside !important;
+    background-color: transparent !important;
   }
 
   .css-hn784z {
     display: block !important;
-    right: calc(50% + 576px) !important;
-    display: visible !important;
+    left: calc(50% - 576px) !important;
   }
   .css-1abc02a {
     display: block !important;
     left: calc(50% + 576px) !important;
-    display: visible !important;
+  }
+
+  .css-1m9128y {
+    margin: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    position: absolute;
+    top: 370px;
+    z-index: 3;
+  }
+  .MuiButtonBase-root {
+    background-color: transparent !important;
+    color: ${theme.palette.Gray50};
   }
 
   .MuiTouchRipple-root {
-    background-color: none;
+    background-color: transparent;
     width: 24px;
     height: 18px;
   }
