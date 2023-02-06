@@ -14,6 +14,7 @@ import { Toast } from '../common/Toast';
 import { useToast } from '../../hooks/useToats';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
+import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -36,6 +37,7 @@ const TextEditor = ({
   const [user, setUser] = useRecoilState(userState);
 
   const [imageUrl, setImageUrl] = useState('');
+  const [isUploadButtonClicked, setIsUploadButtonClicked] = useState(false);
 
   const onUploadImage = async (file: any, callback: HookCallback) => {
     const url = await getPresignedUrl({
@@ -58,65 +60,74 @@ const TextEditor = ({
     if (isError) {
       openToast('필수 정보들을 기입해주세요 !');
     } else {
-      let postContent;
-      const text = editorRef.current?.getInstance().getHTML();
+      setIsUploadButtonClicked(true);
+    }
+  };
 
-      postContent = {
-        thumbnail: thumbnailUploadUrl,
-        title: title,
-        startDate: startDate.toString(),
-        endDate: endDate.toString(),
-        contribution: contribution,
-        task: task,
-        tools: toolsList.toString(),
-        partTag: type.toString(),
-        actTag: act.toString(),
-        contents: text,
-      };
+  const onClickPopupUploadButton = async () => {
+    let postContent;
+    const text = editorRef.current?.getInstance().getHTML();
 
-      const postId = await postPosts(postContent);
-      console.log(postId);
+    postContent = {
+      thumbnail: thumbnailUploadUrl,
+      title: title,
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
+      contribution: contribution,
+      task: task,
+      tools: toolsList.toString(),
+      partTag: type.toString(),
+      actTag: act.toString(),
+      contents: text,
+    };
 
-      if (postId) {
-        router.push({ pathname: `/post/${postId}` });
-        //페이지 이동
-      }
+    const postId = await postPosts(postContent);
+    console.log(postId);
+
+    if (postId) {
+      router.push({ pathname: `/post/${postId}` });
+      //페이지 이동
     }
   };
 
   return (
-    <Column gap='20px' alignItems='flex-end'>
-      <EditorWrapper>
-        <Editor
-          ref={editorRef}
-          placeholder='내용을 입력해주세요.'
-          previewStyle='vertical' // 미리보기 스타일 지정
-          height='520px' // 에디터 창 높이
-          // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
-          toolbarItems={[
-            ['heading', 'bold', 'italic', 'strike'],
-            ['hr', 'quote'],
-            ['ul', 'ol', 'task', 'indent', 'outdent'],
-            ['table', 'image', 'link'],
-            ['code', 'codeblock'],
-            ['scrollSync'],
-          ]}
-          autofocus
-          theme={''}
-          hideModeSwitch={true}
-          hooks={{
-            addImageBlobHook: onUploadImage,
+    <>
+      {isUploadButtonClicked && (
+        <ConfirmationPopUp
+          handleUploadButtonClick={onClickPopupUploadButton}
+          handleCancelButtonClick={() => {
+            setIsUploadButtonClicked(false);
           }}
         />
-      </EditorWrapper>
-      <Button
-        type='medium'
-        color='mint'
-        content='업로드하기'
-        onClick={onClickUploadButton}
-      />
-      <Toast varient='error' />
-    </Column>
+      )}
+      <Column gap="20px" alignItems="flex-end" style={{ paddingBottom: '60px' }}>
+        <EditorWrapper>
+          <Editor
+            ref={editorRef}
+            placeholder="내용을 입력해주세요."
+            previewStyle="vertical" // 미리보기 스타일 지정
+            height="520px" // 에디터 창 높이
+            // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+            toolbarItems={[
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+              ['ul', 'ol', 'task', 'indent', 'outdent'],
+              ['table', 'image', 'link'],
+              ['code', 'codeblock'],
+              ['scrollSync'],
+            ]}
+            autofocus
+            theme={''}
+            hideModeSwitch={true}
+            hooks={{
+              addImageBlobHook: onUploadImage,
+            }}
+          />
+        </EditorWrapper>
+        <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
+        <Toast varient="error" />
+      </Column>
+    </>
   );
 };
 

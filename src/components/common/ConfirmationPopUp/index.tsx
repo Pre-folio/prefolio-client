@@ -22,7 +22,11 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
       <ConfirmationPopUpWrapper>
         <MockImage />
         <ConfirmText>{props.type === 'delete' ? '게시물을 삭제하시겠습니까?' : '업로드하시겠습니까?'}</ConfirmText>
-        <CautionText>업로드 후 글 수정이 어려우니 한번 더 확인해주세요!</CautionText>
+        <CautionText>
+          {props.type === 'delete'
+            ? '삭제한 게시물은 되돌리기 어려우니한번 더 확인해주세요!'
+            : '업로드 후 글 수정이 어려우니 한번 더 확인해주세요!'}
+        </CautionText>
         <ButtonWrapper>
           <Button
             type={'popup'}
@@ -45,8 +49,9 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
 
 const PopUpContainer = styled.div`
   width: 100vw;
-  position: fixed;
+  position: absolute;
   left: 0;
+  top: 20%;
 
   display: flex;
   align-items: center;
