@@ -39,7 +39,7 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
           style={{ cursor: 'pointer', top: '0px' }}
         >
           <Flex direction='column' style={{ cursor: 'default' }}>
-            <MockImage
+            <Img
               src={user.profileImage}
               onClick={() => {
                 router.push(`/profile/${user.userId}`);
@@ -129,11 +129,13 @@ const PopUpWrapper = styled.div`
   height: 300px;
 `;
 
-const MockImage = styled.img`
+const Img = styled.img`
   width: 90px;
   height: 90px;
   background-color: ${theme.palette.Gray20};
+
   border-radius: 100%;
+  object-fit: cover;
 
   cursor: pointer;
 `;

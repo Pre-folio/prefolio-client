@@ -23,15 +23,15 @@ export const Banner = () => {
           src={src[0]}
         ></BannerImage>
         <BannerImage
-          title='IT 개발 분야 스펙 고민된다면?'
-          description1='개발 분야 사람들의'
-          description2='스펙 활동을 둘러보세요!'
-          src={src[1]}
-        ></BannerImage>
-        <BannerImage
           title='IT 기획 분야 스펙 고민된다면?'
           description1='기획 분야 사람들의 활동 게시글을'
           description2='구경해보세요!'
+          src={src[1]}
+        ></BannerImage>
+        <BannerImage
+          title='IT 개발 분야 스펙 고민된다면?'
+          description1='개발 분야 사람들의'
+          description2='스펙 활동을 둘러보세요!'
           src={src[2]}
         ></BannerImage>
         <BannerImage
