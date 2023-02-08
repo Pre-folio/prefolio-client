@@ -10,7 +10,7 @@ interface TextViewerProps {
 export default function TextViewer({ style, data }: TextViewerProps) {
   return (
     <Wrapper style={style}>
-      <Viewer initialValue={data || `<h3> html 헤더 <span>파란색</span></h3>`} />
+      <Viewer initialValue={data} />
     </Wrapper>
   );
 }
