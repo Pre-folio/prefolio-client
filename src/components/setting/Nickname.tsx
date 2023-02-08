@@ -5,7 +5,6 @@ import {
   UseFormRegister,
   UseFormSetError,
 } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import authAPI from '../../apis/auth';
 import { JoinFormValues, useJoinForm } from '../../hooks/useJoinForm';

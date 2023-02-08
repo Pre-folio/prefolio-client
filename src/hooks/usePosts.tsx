@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+
 import postAPI, {
   ActType,
   PartType,
