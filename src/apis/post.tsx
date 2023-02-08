@@ -22,6 +22,21 @@ export interface PostResponse {
   totalResults: number;
 }
 
+export interface UserPostRequest {
+  userId: number;
+  pageNum: number;
+  limit: number;
+  partTag: string;
+  actTag: string;
+}
+
+export interface ScrapRequest {
+  partTagList?: string;
+  actTagList?: string;
+  pageNum: number;
+  limit: number;
+}
+
 export interface ScrapResponse {
   scraps: number;
   isScrapped: boolean;
@@ -50,7 +65,6 @@ export const postAPI = {
     let param = keys.reduce((accumulator, value, index) => {
       return { ...accumulator, [value]: values[index] };
     }, {});
-    console.log('hihiasdf', param);
 
     const response = await client.get('/posts/search', {
       params: { ...param },
@@ -58,6 +72,19 @@ export const postAPI = {
 
     console.log('response', response.data.data);
 
+    return response.data.data;
+  },
+
+  USER: async (data: UserPostRequest): Promise<ScrapResponse> => {
+    const keys = Object.keys(data);
+    const values = Object.values(data);
+
+    let param = keys.reduce((accumulator, value, index) => {
+      return { ...accumulator, [value]: values[index] };
+    }, {});
+    const response = await client.get(`/posts/${data.userId}`, {
+      params: { ...param },
+    });
     return response.data.data;
   },
 

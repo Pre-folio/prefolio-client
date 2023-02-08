@@ -47,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
+  img{
+    object-fit: cover;
+  }
+
 `;
 
 export default GlobalStyle;

@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { Layout } from '../components/layout/Layout';
@@ -8,6 +7,11 @@ import GlobalStyle from '../styles/globalStyle';
 import { theme } from '../styles/theme/theme';
 import '../../public/static/fonts/style.css';
 import Head from 'next/head';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

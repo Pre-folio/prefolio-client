@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+
 import postAPI, {
   ActType,
   PartType,
@@ -30,6 +30,7 @@ export interface SearchRequestProps {
 export type SearchStateType = 'wait' | 'result' | 'none';
 
 export const usePosts = () => {
+  const [pageNum, setPageNum] = useState<number>(0);
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
 
@@ -44,8 +45,10 @@ export const usePosts = () => {
     if (res && getCookie()) {
       console.log(res);
     }
-
-    setFeed(res.posts);
+    if (res.totalPages >= pageNum) {
+      setFeed(res.posts);
+    } else {
+    }
   };
 
   const getSearch = async (param: SearchRequestProps) => {
@@ -53,7 +56,7 @@ export const usePosts = () => {
     if (searchWord === '') {
       getFeed({
         sortBy: 'LIKES',
-        pageNum: 0,
+        pageNum: pageNum,
         limit: 4,
         partTagList: type.join(','),
         actTagList: act.join(','),
@@ -61,11 +64,13 @@ export const usePosts = () => {
       return;
     }
 
-    console.log('param', param);
     const feed: PostResponse = await postAPI.SEARCH(param);
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
-    setSearch(feed.posts);
+    if (feed.totalPages >= pageNum) {
+      setSearch(feed.posts);
+    } else {
+    }
   };
 
   return {
@@ -78,5 +83,7 @@ export const usePosts = () => {
     setSearchType,
     searchWord,
     setSearchWord,
+    pageNum,
+    setPageNum,
   };
 };

@@ -121,34 +121,40 @@ function Home() {
       <ImgWrapper>
         <Section1 src='/images/home/home1.png' alt='' />
 
-        <motion.div
-          variants={imageVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, amount: 0.8 }}
-        >
-          <Flex justify='space-between'>
-            <Section2 src='/images/home/home2.png' alt='' />
-          </Flex>
-        </motion.div>
+        <SectionWrapper color={'White'}>
+          <motion.div
+            variants={imageVariants}
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.8 }}
+          >
+            <Flex justify='space-between'>
+              <Section2 src='/images/home/home2.png' alt='' />
+            </Flex>
+          </motion.div>
+        </SectionWrapper>
 
-        <motion.div
-          variants={imageVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, amount: 0.8 }}
-        >
-          <Section2 src='/images/home/home3.png' alt='' />
-        </motion.div>
+        <SectionWrapper color={'White'}>
+          <motion.div
+            variants={imageVariants}
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.8 }}
+          >
+            <Section2 src='/images/home/home3.png' alt='' />
+          </motion.div>
+        </SectionWrapper>
 
-        <motion.div
-          variants={imageVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, amount: 0.8 }}
-        >
-          <Section3 src='/images/home/home4.png' alt='' />
-        </motion.div>
+        <SectionWrapper color={'Mint10'}>
+          <motion.div
+            variants={imageVariants}
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.8 }}
+          >
+            <Section3 src='/images/home/home4.png' alt='' />
+          </motion.div>
+        </SectionWrapper>
 
         <div style={{ backgroundColor: `${theme.palette.Navy}` }}>
           <motion.div
@@ -192,7 +198,7 @@ const Section1 = styled.img`
   }
   display: flex;
   object-fit: cover;
-  background-color: ${theme.palette.Navy};
+  /* background-color: ${theme.palette.Navy}; */
 `;
 
 const Section2 = styled.img`
@@ -207,7 +213,16 @@ const Section2 = styled.img`
 `;
 
 const Section3 = styled.img`
-  background-color: ${theme.palette.Mint10};
+  height: 100vh;
+  width: 100vw;
+  @media screen and (max-width: 1200px) {
+    margin-left: 0;
+  }
+  object-fit: cover;
+`;
+
+const SectionWrapper = styled.div<{ color: KeyOfPalette }>`
+  background-color: ${({ color }) => theme.palette[color]};
   height: 100vh;
   width: 100vw;
   @media screen and (max-width: 1200px) {

@@ -1,7 +1,8 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
+
 import { useRecoilState } from 'recoil';
 import authAPI from '../apis/auth';
 import sourceAPI from '../apis/source';
@@ -37,7 +38,7 @@ export const useJoinForm = () => {
   const { kakaoJoinMutation, modifyProfileMutation } = useAuth();
   const [user, setUser] = useRecoilState(userState);
 
-  const { data } = useQuery('presignedURL', () =>
+  const { data } = useQuery(['presignedURL'], () =>
     sourceAPI.PRESIGNED_URL('PROFILE', user.userId)
   );
   const [profile, setProfile] = useState<string>('');

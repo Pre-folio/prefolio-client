@@ -1,5 +1,6 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useMutation, useQueryClient } from 'react-query';
+
 import { useRecoilState } from 'recoil';
 import authAPI, { GetUserInfoResponse, KakaoJoinResponse, KakaoValidationResponse } from '../apis/auth';
 import { accessToken, userState } from '../store/Auth/userState';

@@ -1,6 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useMutation } from 'react-query';
+
 import authAPI, { KakaoJoinResponse } from '../apis/auth';
 import { getCookie } from '../utils/cookie';
 import { useAuth } from './useAuth';

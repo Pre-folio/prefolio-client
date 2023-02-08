@@ -2,8 +2,6 @@ import { FeedRequestProps } from '../hooks/usePosts';
 import { client } from './client';
 
 export function postPosts(post: object) {
-  console.log(post);
-
   return client.post('/posts/post', post).then((res) => {
     console.log(res);
     return res.data.data.postId;
@@ -17,7 +15,13 @@ export async function getPost(id: number) {
   });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
+export async function getUserPosts(
+  userId: number,
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
   return await client
     .get(`/posts/${userId}`, {
       params: {

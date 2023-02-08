@@ -1,5 +1,7 @@
 import { SettingsInputCompositeSharp } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import postAPI, { PostResponse } from '../../apis/post';
@@ -11,38 +13,36 @@ import { FeedTagArea } from '../../components/feed/FeedTagArea';
 import { FloatSearch } from '../../components/feed/FloatSearh';
 import { NoPost } from '../../components/feed/NoPost';
 import { Posts, SinglePostResponse } from '../../components/feed/Posts';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { FeedRequestProps, usePosts } from '../../hooks/usePosts';
-import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
-import { getCookie } from '../../utils/cookie';
 
 const Feed = () => {
   const { openToast } = useToast();
-  const { feed, getFeed } = usePosts();
-  const { type, act, sort, handleTagClick, handleTabClick } = useTagArea();
+  const { feed, getFeed, pageNum, setPageNum } = usePosts();
   const user = useRecoilValue(userState);
-  const [feedParam, setFeedParam] = useState<FeedRequestProps>({
-    sortBy: sort ? 'CREATED_AT' : 'LIKES',
-    pageNum: 0,
-    limit: 24,
-    partTagList: type.join(','),
-    actTagList: act.join(','),
-  });
+  const {
+    getBoard,
+    getNextPage,
+    getBoardIsSuccess,
+    getNextPageIsPossible,
+    isLoading,
+    type,
+    act,
+    sort,
+    handleTagClick,
+    handleTabClick,
+  } = useInfiniteScroll('feed');
+
+  const [ref, isView] = useInView();
 
   useEffect(() => {
-    setFeedParam({
-      sortBy: sort ? 'CREATED_AT' : 'LIKES',
-      pageNum: 0,
-      limit: 24,
-      partTagList: type.join(','),
-      actTagList: act.join(','),
-    });
-  }, [act, type, sort]);
-
-  useEffect(() => {
-    getFeed(feedParam);
-  }, [feedParam]);
+    if (isView && getNextPageIsPossible) {
+      getNextPage();
+      console.log('끝');
+    }
+  }, [isView, getBoard]);
 
   return (
     <div>
@@ -57,7 +57,17 @@ const Feed = () => {
         handleTabBarClick={handleTabClick}
       />
       <Space height={60} />
-      <Posts posts={feed} />
+      {!isLoading && getBoardIsSuccess && getBoard!.pages
+        ? getBoard?.pages?.map((page_data: any) => {
+            return (
+              <Posts
+                posts={page_data.board_page}
+                key={page_data.current_page}
+                ref={ref}
+              />
+            );
+          })
+        : null}
       <Space height={96} />
       <NoPost
         text={
