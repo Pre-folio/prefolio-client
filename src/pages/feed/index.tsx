@@ -20,7 +20,7 @@ import { userState } from '../../store/Auth/userState';
 
 const Feed = () => {
   const { openToast } = useToast();
-  const { feed, getFeed, hasMore, pageNum, setPageNum } = usePosts();
+  const { feed, getFeed, pageNum, setPageNum } = usePosts();
   const user = useRecoilValue(userState);
   const {
     getBoard,
@@ -33,7 +33,7 @@ const Feed = () => {
     sort,
     handleTagClick,
     handleTabClick,
-  } = useInfiniteScroll();
+  } = useInfiniteScroll('feed');
 
   const [ref, isView] = useInView();
 
@@ -60,7 +60,11 @@ const Feed = () => {
       {!isLoading && getBoardIsSuccess && getBoard!.pages
         ? getBoard?.pages?.map((page_data: any) => {
             return (
-              <Posts posts={page_data} key={page_data.current_page} ref={ref} />
+              <Posts
+                posts={page_data.board_page}
+                key={page_data.current_page}
+                ref={ref}
+              />
             );
           })
         : null}

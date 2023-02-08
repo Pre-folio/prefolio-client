@@ -34,7 +34,7 @@ export interface PostsProps {
 export const Posts = React.forwardRef((props: PostsProps, ref) => {
   return (
     <Wrapper>
-      {props.posts.board_page.map((post: any) => {
+      {props.posts?.map((post: any) => {
         return (
           <PostCard
             key={post.id}

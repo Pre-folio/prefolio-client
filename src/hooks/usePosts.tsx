@@ -33,7 +33,6 @@ export const usePosts = () => {
   const [pageNum, setPageNum] = useState<number>(0);
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
-  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [searchType, setSearchType] = useState<SearchStateType>('wait');
   const [searchWord, setSearchWord] = useState<string>('');
@@ -47,10 +46,8 @@ export const usePosts = () => {
       console.log(res);
     }
     if (res.totalPages >= pageNum) {
-      setHasMore(true);
-      setFeed([...feed, ...res.posts]);
+      setFeed(res.posts);
     } else {
-      setHasMore(false);
     }
   };
 
@@ -71,10 +68,8 @@ export const usePosts = () => {
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
     if (feed.totalPages >= pageNum) {
-      setHasMore(true);
-      setSearch([...search, ...feed.posts]);
+      setSearch(feed.posts);
     } else {
-      setHasMore(false);
     }
   };
 
@@ -90,6 +85,5 @@ export const usePosts = () => {
     setSearchWord,
     pageNum,
     setPageNum,
-    hasMore,
   };
 };
