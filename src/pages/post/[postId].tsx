@@ -15,20 +15,38 @@ import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
 
-const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
-  ssr: false,
-});
+const Board = (props: any) => {
+  const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
+    ssr: false,
+  });
 
-const Board = () => {
-  const router = useRouter();
-  const { postId } = router.query;
-  const postIdToNumber = Number(postId);
+  const { postId } = props;
   const userInfo = useRecoilValue(userState);
 
-  const { isLoading: isPostLoading, data: postData } = useQuery(
-    ['post-data', postIdToNumber],
-    async () => await getPost(postIdToNumber)
-  );
+  const { isLoading: isPostLoading, data: postData } = useQuery(['post-data'], async () => await getPost(postId));
+
+  const replaceDate = (date: any) => {
+    return date.replaceAll('-', '.');
+  };
+
+  // const {
+  //   thumbnail: thumbnailImgUrl,
+  //   title,
+  //   startDate,
+  //   endDate,
+  //   createdAt,
+  //   hits,
+  //   partTag,
+  //   actTag,
+  //   tools,
+  //   contribution,
+  //   task,
+  //   contents: content,
+  // } = postData?.data.data.post;
+  // const tags = partTag.concat(actTag);
+  // const { likes, scraps } = postData?.data.data.count;
+  // const { user: postAuthInfo } = postData?.data.data.user;
+  // const { isLiked: isLikedButtonClicked, isScrapped: isScrapButtonClicked } = postData?.data.data;
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url
@@ -66,7 +84,8 @@ const Board = () => {
       setTitle(data.post.title);
       setStartDate(data.post.startDate);
       setEndDate(data.post.endDate);
-      setCreatedAt(data.post.createdAt);
+      const createdAtDate: any = replaceDate(data.post.createdAt);
+      setCreatedAt(createdAtDate);
       setHits(data.post.hits);
       setTags(data.post.partTag.concat(data.post.actTag));
       setTools(data.post.tools);
@@ -87,7 +106,7 @@ const Board = () => {
       alert('자신의 글에 좋아요 버튼을 누를 수 없습니다.');
       return;
     } else {
-      const { data, message } = await getLikes(postIdToNumber);
+      const { data, message } = await getLikes(postId);
       if (message === 'SUCCESS') {
         setIsLikedButtonClicked(!isLikedButtonClicked);
         setLikes(data.likes);
@@ -101,7 +120,7 @@ const Board = () => {
       alert('자신의 글을 스크랩할 수 없습니다.');
       return;
     } else {
-      const { data, message } = await getScraps(postIdToNumber);
+      const { data, message } = await getScraps(postId);
       if (message === 'SUCCESS') {
         setIsScrapButtonClicked(!isScrapButtonClicked);
         setScraps(data.scraps);
@@ -111,11 +130,12 @@ const Board = () => {
 
   return (
     <>
-      {isAuth && (
+      {postData?.status === 200 && isAuth && (
         <FloatingButtonWrapper>
-          <FloatingButton postId={postIdToNumber} />
+          <FloatingButton postId={postId} />
         </FloatingButtonWrapper>
       )}
+<<<<<<< HEAD
       <div
         style={{
           display: 'flex',
@@ -180,27 +200,79 @@ const Board = () => {
           />
         </Column>
       </div>
+=======
+      {postData?.status === 200 && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingBottom: '100px',
+          }}
+        >
+          <ThumbnailImageWrapper>
+            <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+          </ThumbnailImageWrapper>
+          <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+            <TitleArea>{title || '게시글 제목'}</TitleArea>
+            <DetailInfoArea>
+              <Column justifyContent="space-between" alignItems="flex-start">
+                <div>
+                  활동 기간 : {startDate}~{endDate}
+                </div>
+                <div>작성일 : {createdAt}</div>
+              </Column>
+              <div>조회수 {hits}</div>
+            </DetailInfoArea>
+            <PostTagArea
+              style={{ marginTop: '56px' }}
+              tags={tags.length !== 0 ? tags : ['']}
+              tools={tools.length !== 0 ? tools : []}
+              contribution={contribution || 80}
+              role={task || 'UI 디자인, 그래픽'}
+            />
+            <Viewer style={{ marginTop: '72px' }} data={content} />
+            <PostButtonWrapper>
+              <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+              <PostButton
+                type={'scrap'}
+                isClicked={isScrapButtonClicked}
+                onClick={onClickScrapButton}
+                counts={scraps}
+              />
+            </PostButtonWrapper>
+            <DivisionLine />
+            <ProfileArea
+              userId={postAuthInfo.id}
+              imageSrc={postAuthInfo.profileImage}
+              nickname={postAuthInfo.nickname}
+              grade={postAuthInfo.grade}
+              field={postAuthInfo.type.toLowerCase()}
+              style={{ marginTop: '86px' }}
+            />
+          </Column>
+        </div>
+      )}
+>>>>>>> c0adbd1876d5c9591fe44142b444f82684b4ae21
     </>
   );
 };
 
 export default Board;
 
-// export async function getServerSideProps(context: any) {
-//   // const router = useRouter();
-//   const { postId } = context.query;
-//   const postIdToNumber = Number(postId);
-//   // const queryClient = new QueryClient();
-//   // queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
-//   const res = await getPost(postIdToNumber);
-//   const result = res.data;
-//   // const result = await res.json();
-//   return {
-//     props: {
-//       result,
-//     },
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const { postId }: any = context.query;
+  const postIdToNumber = Number(postId);
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      postId: postIdToNumber,
+    },
+  };
+}
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;
