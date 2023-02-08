@@ -52,7 +52,7 @@ const Profile = () => {
   const [selectedBar, setSelectedBar] = useState<string>('');
   const [feedParam, setFeedParam] = useState<ScrapRequestProps>({
     pageNum: 0,
-    limit: 24,
+    limit: 50,
     partTagList: type.join(','),
     actTagList: act.join(','),
   });
@@ -70,7 +70,7 @@ const Profile = () => {
   useEffect(() => {
     setFeedParam({
       pageNum: 0,
-      limit: 24,
+      limit: 50,
       partTagList: type.join(','),
       actTagList: act.join(','),
     });

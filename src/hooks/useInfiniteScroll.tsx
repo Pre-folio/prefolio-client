@@ -28,7 +28,7 @@ export interface SearchRequestProps {
   searchWord: string;
 }
 export type SearchStateType = 'wait' | 'result' | 'none';
-export type ScrollType = 'feed' | 'search' | 'profile';
+export type ScrollType = 'feed' | 'search' | 'profile' | 'scrap';
 
 export const useInfiniteScroll = (scrollType: ScrollType) => {
   const [pageNum, setPageNum] = useState<number>(0);
