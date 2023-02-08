@@ -30,8 +30,10 @@ export interface SearchRequestProps {
 export type SearchStateType = 'wait' | 'result' | 'none';
 
 export const usePosts = () => {
+  const [pageNum, setPageNum] = useState<number>(0);
   const [feed, setFeed] = useState<SinglePostResponse[]>([]);
   const [search, setSearch] = useState<SinglePostResponse[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [searchType, setSearchType] = useState<SearchStateType>('wait');
   const [searchWord, setSearchWord] = useState<string>('');
@@ -44,8 +46,12 @@ export const usePosts = () => {
     if (res && getCookie()) {
       console.log(res);
     }
-
-    setFeed(res.posts);
+    if (res.totalPages >= pageNum) {
+      setHasMore(true);
+      setFeed([...feed, ...res.posts]);
+    } else {
+      setHasMore(false);
+    }
   };
 
   const getSearch = async (param: SearchRequestProps) => {
@@ -53,7 +59,7 @@ export const usePosts = () => {
     if (searchWord === '') {
       getFeed({
         sortBy: 'LIKES',
-        pageNum: 0,
+        pageNum: pageNum,
         limit: 4,
         partTagList: type.join(','),
         actTagList: act.join(','),
@@ -61,11 +67,15 @@ export const usePosts = () => {
       return;
     }
 
-    console.log('param', param);
     const feed: PostResponse = await postAPI.SEARCH(param);
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
-    setSearch(feed.posts);
+    if (feed.totalPages >= pageNum) {
+      setHasMore(true);
+      setSearch([...search, ...feed.posts]);
+    } else {
+      setHasMore(false);
+    }
   };
 
   return {
@@ -78,5 +88,8 @@ export const usePosts = () => {
     setSearchType,
     searchWord,
     setSearchWord,
+    pageNum,
+    setPageNum,
+    hasMore,
   };
 };

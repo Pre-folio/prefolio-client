@@ -17,7 +17,13 @@ export async function getPost(id: number) {
   });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
+export async function getUserPosts(
+  userId: number,
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
   return await client
     .get(`/posts/${userId}`, {
       params: {

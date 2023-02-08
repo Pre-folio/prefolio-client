@@ -1,3 +1,5 @@
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { scrappedState } from '../../store/Posts/postsState';
@@ -24,13 +26,15 @@ export interface SinglePostResponse {
 }
 
 export interface PostsProps {
-  posts: SinglePostResponse[];
+  ref?: any;
+  posts: any;
 }
 
-export const Posts = (props: PostsProps) => {
+// eslint-disable-next-line react/display-name
+export const Posts = React.forwardRef((props: PostsProps, ref) => {
   return (
     <Wrapper>
-      {props.posts.map((post: any) => {
+      {props.posts.board_page.map((post: any) => {
         return (
           <PostCard
             key={post.id}
@@ -45,9 +49,11 @@ export const Posts = (props: PostsProps) => {
           />
         );
       })}
+      {/* 페이지 끝 감지 */}
+      <div ref={ref} />
     </Wrapper>
   );
-};
+});
 
 const Wrapper = styled.div`
   width: 100%;

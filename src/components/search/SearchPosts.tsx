@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import {
   SearchRequestProps,
   SearchStateType,
@@ -32,6 +33,7 @@ export const SearchPosts = (props: any) => {
     actTagList: act.join(','),
     searchWord: '',
   });
+  const [ref, isView] = useInView();
 
   useEffect(() => {
     getSearch(searchParam);
@@ -61,7 +63,7 @@ export const SearchPosts = (props: any) => {
             현재 많은 프리폴리오 유저들이 읽고 있어요
           </Text>
           <Space height={60} />
-          <Posts posts={feed.slice(0, 4)} />
+          <Posts posts={feed.slice(0, 4)} ref={ref} />
         </div>
       );
     case 'result':
