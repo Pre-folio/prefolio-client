@@ -82,6 +82,11 @@ const StyledCarousel = styled(Carousel)`
     background-color: transparent;
     width: 24px;
     height: 18px;
+    display: none;
+
+    .span {
+      display: none !important;
+    }
   }
 
   circle {
