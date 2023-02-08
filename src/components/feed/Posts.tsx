@@ -31,29 +31,31 @@ export interface PostsProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const Posts = React.forwardRef((props: PostsProps, ref) => {
-  return (
-    <Wrapper>
-      {props.posts?.map((post: any) => {
-        return (
-          <PostCard
-            key={post.id}
-            thumbnail={post.thumbnail}
-            isScrapped={post.isScrapped}
-            title={post.title}
-            field={post.partTag}
-            activity={post.actTag}
-            postDate={post.createdAt}
-            hits={post.hits}
-            id={post.id}
-          />
-        );
-      })}
-      {/* 페이지 끝 감지 */}
-      <div ref={ref} />
-    </Wrapper>
-  );
-});
+export const Posts = React.forwardRef<HTMLDivElement, PostsProps>(
+  (props: PostsProps, ref) => {
+    return (
+      <Wrapper>
+        {props.posts?.map((post: any) => {
+          return (
+            <PostCard
+              key={post.id}
+              thumbnail={post.thumbnail}
+              isScrapped={post.isScrapped}
+              title={post.title}
+              field={post.partTag}
+              activity={post.actTag}
+              postDate={post.createdAt}
+              hits={post.hits}
+              id={post.id}
+            />
+          );
+        })}
+        {/* 페이지 끝 감지 */}
+        <div ref={ref} />
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.div`
   width: 100%;
