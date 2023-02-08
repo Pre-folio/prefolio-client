@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import {
   SearchRequestProps,
   SearchStateType,
@@ -20,10 +22,31 @@ export const SearchPosts = (props: any) => {
     feed,
     searchType,
     setSearchType,
+  } = usePosts();
+
+  const {
+    getBoard,
+    getNextPage,
+    getBoardIsSuccess,
+    getNextPageIsPossible,
+    isLoading,
+    type,
+    act,
+    sort,
+    handleTagClick,
+    handleTabClick,
     searchWord,
     setSearchWord,
-  } = usePosts();
-  const { type, act, sort, handleTagClick, handleTabClick } = useTagArea();
+    results,
+  } = useInfiniteScroll('search');
+  const [ref, isView] = useInView();
+
+  useEffect(() => {
+    if (isView && getNextPageIsPossible) {
+      getNextPage();
+    }
+  }, [isView, getBoard]);
+
   const [searchParam, setSearchParam] = useState<SearchRequestProps>({
     sortBy: sort ? 'CREATED_AT' : 'LIKES',
     pageNum: 0,
@@ -35,62 +58,59 @@ export const SearchPosts = (props: any) => {
 
   useEffect(() => {
     getSearch(searchParam);
-  }, [searchParam]);
+  }, []);
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      getBoardIsSuccess &&
+      getBoard!.pages &&
+      getBoard!.pages.length >= 1
+    ) {
+      console.log('searchWord', getBoard);
+    }
+  }, [getBoard]);
 
   useEffect(() => {
     if (props.value) {
       setSearchWord(props.value);
-      setSearchParam({
-        sortBy: sort ? 'CREATED_AT' : 'LIKES',
-        pageNum: 0,
-        limit: 24,
-        partTagList: type.join(','),
-        actTagList: act.join(','),
-        searchWord: props.value,
-      });
     } else {
-      setSearchType('wait');
+      setSearchWord('');
     }
-  }, [props, act, type, sort, searchWord]);
+  }, [props, searchWord]);
 
-  switch (searchType) {
-    case 'wait':
-      return (
-        <div>
-          <Text typo='Heading3' color='Black' height={24}>
-            현재 많은 프리폴리오 유저들이 읽고 있어요
-          </Text>
-          <Space height={60} />
-          <Posts posts={feed.slice(0, 4)} />
-        </div>
-      );
-    case 'result':
-      return (
-        <div>
-          <FeedTagArea
-            type={type}
-            act={act}
-            sort={sort}
-            handleTagAreaClick={handleTagClick}
-            handleTabBarClick={handleTabClick}
-          />
-          <Space height={60} />
-          <Posts posts={search} />
-        </div>
-      );
-    case 'none':
-      return (
-        <div>
-          <FeedTagArea
-            type={type}
-            act={act}
-            sort={sort}
-            handleTagAreaClick={handleTagClick}
-            handleTabBarClick={handleTabClick}
-          />
-          <Space height={60} />
-          <Posts posts={search} />
-          <Space height={60} />
+  if (searchWord === '') {
+    return (
+      <div>
+        <Text typo='Heading3' color='Black' height={24}>
+          현재 많은 프리폴리오 유저들이 읽고 있어요
+        </Text>
+        <Space height={60} />
+        <Posts posts={feed.slice(0, 4)} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <FeedTagArea
+          type={type}
+          act={act}
+          sort={sort}
+          handleTagAreaClick={handleTagClick}
+          handleTabBarClick={handleTabClick}
+        />
+        <Space height={60} />
+        {!isLoading && getBoardIsSuccess && getBoard!.pages && results !== 0 ? (
+          getBoard?.pages?.map((page_data: any) => {
+            return (
+              <Posts
+                posts={page_data.board_page}
+                key={page_data.current_page}
+                ref={ref}
+              />
+            );
+          })
+        ) : (
           <NoPost
             text={
               <Text typo={'Heading3'} color={'Gray30'} height={34}>
@@ -98,7 +118,8 @@ export const SearchPosts = (props: any) => {
               </Text>
             }
           />
-        </div>
-      );
+        )}
+      </div>
+    );
   }
 };

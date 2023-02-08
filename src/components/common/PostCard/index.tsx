@@ -57,7 +57,6 @@ export const PostCard = (props: PostCardProps) => {
   };
 
   useEffect(() => {
-    console.log('hihi,', props.isScrapped);
     if (scrap) {
       setIconFillColor(`${theme.palette.Mint100}`);
       setIconStrokeColor(`${theme.palette.Mint100}`);
@@ -82,10 +81,20 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag key={index} type={'field'} sort={index} />
+            <Tag
+              key={index}
+              type={'field'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
           {props.activity.map((index) => (
-            <Tag key={index} type={'activity'} sort={index} />
+            <Tag
+              key={index}
+              type={'activity'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>
