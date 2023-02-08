@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import postAPI, { PostResponse } from '../../apis/post';
 import { ProfilePopUp } from '../../components/common/PropfilePopUp';
 import { Toast } from '../../components/common/Toast';
 import { Space, Text } from '../../components/common/Wrapper';
