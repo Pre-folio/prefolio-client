@@ -64,7 +64,7 @@ export const usePosts = () => {
       return;
     }
 
-    const feed: PostResponse = await postAPI.SEARCH(param);
+    const feed: PostResponse = await postAPI.SEARCH(getCookie(), param);
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
     if (feed.totalPages >= pageNum) {
