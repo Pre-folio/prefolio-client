@@ -90,7 +90,12 @@ export const postAPI = {
   },
 
   SCRAP: async (token: string, postId: number): Promise<ScrapResponse> => {
-    const response = await publicClient.get(`/posts/scraps/${postId}`);
+    const response = await publicClient.get(`/posts/scraps/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return response.data.data;
   },
 };

@@ -9,9 +9,10 @@ import { Button } from '../Button';
 import { userState } from '../../../store/Auth/userState';
 import { useAutoLogin } from '../../../hooks/useAutoLogin';
 import { ProfilePopUp } from '../PropfilePopUp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toast } from '../Toast';
 import { toastTypeState } from '../../../store/Toast/toastState';
+import ScrollToTop from '../ScrollToTop';
 
 export function Header() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export function Header() {
   return (
     <>
       <HeaderWrapper>
+        <ScrollToTop />
         <Wrapper>
           <Logo />
           {currentUrl === '/login' ? (

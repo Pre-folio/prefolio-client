@@ -1,19 +1,38 @@
-import { client } from './client';
+import { client, publicClient } from './client';
 
-export function getScraps(postId: number) {
-  return client.get(`/posts/scraps/${postId}`).then((res) => {
-    return res.data;
-  });
+export function getScraps(token: string, postId: number) {
+  return publicClient
+    .get(`/posts/scraps/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 }
 
-export function getLikes(postId: number) {
-  return client.get(`/posts/likes/${postId}`).then((res) => {
-    return res.data;
-  });
+export function getLikes(token: string, postId: number) {
+  return publicClient
+    .get(`/posts/likes/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 }
 
-export function deletePost(postId: number) {
-  return client.delete(`/posts/post/${postId}`).then((res) => {
-    res;
-  });
+export function deletePost(token: string, postId: number) {
+  return publicClient
+    .delete(`/posts/post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      res;
+    });
 }
