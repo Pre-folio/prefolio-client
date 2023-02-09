@@ -53,6 +53,7 @@ const Profile = () => {
   const [barState, setBarState] = useState<boolean>(true);
   const [selectedBar, setSelectedBar] = useState<string>('');
   const [feedParam, setFeedParam] = useState<ScrapRequestProps>({
+    token: getCookie(),
     pageNum: 0,
     limit: 50,
     partTagList: type.join(','),
@@ -71,6 +72,7 @@ const Profile = () => {
   // 스크랩한 게시물 param 결정
   useEffect(() => {
     setFeedParam({
+      token: getCookie(),
       pageNum: 0,
       limit: 50,
       partTagList: type.join(','),
@@ -82,7 +84,14 @@ const Profile = () => {
     ['user-posts', watchingUserIdToNumber],
     async () => {
       if (watchingUserIdToNumber) {
-        return await getUserPosts(watchingUserIdToNumber, 0, 24, '', '');
+        return await getUserPosts(
+          getCookie(),
+          watchingUserIdToNumber,
+          0,
+          24,
+          '',
+          ''
+        );
       }
     }
   );
