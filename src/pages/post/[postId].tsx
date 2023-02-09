@@ -218,7 +218,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   await queryClient.prefetchQuery(
     ['post-data'],
-    async () => await getPost(postIdToNumber)
+    async () => await getPost(postIdToNumber, getCookie())
   );
   return {
     props: {
