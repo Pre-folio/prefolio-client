@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   body {
-    font-family: 'Pretendard Variable', Pretendard, Roboto, 'Helvetica Neue', 'Segoe UI','Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+    font-family: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', Roboto,'Helvetica Neue', 'Segoe UI', 'Noto Sans KR', 'Malgun Gothic',
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', -apple-system,
       BlinkMacSystemFont, system-ui, sans-serif, Gotham;
    
