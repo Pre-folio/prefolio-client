@@ -3,7 +3,6 @@ import { client, publicClient } from './client';
 
 export function postPosts(post: object) {
   return client.post('/posts/post', post).then((res) => {
-    console.log(res);
     return { postId: res.data.data.postId, status: res.status };
   });
 }
@@ -41,7 +40,6 @@ export async function getUserPosts(
       },
     })
     .then((res) => {
-      console.log(res);
       return res.data;
     });
 }
