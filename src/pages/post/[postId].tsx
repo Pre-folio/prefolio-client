@@ -111,7 +111,7 @@ const Board = (props: any) => {
       alert('자신의 글에 좋아요 버튼을 누를 수 없습니다.');
       return;
     } else {
-      const { data, message } = await getLikes(postId);
+      const { data, message } = await getLikes(getCookie(), postId);
       if (message === 'SUCCESS') {
         setIsLikedButtonClicked(!isLikedButtonClicked);
         setLikes(data.likes);
@@ -125,7 +125,7 @@ const Board = (props: any) => {
       alert('자신의 글을 스크랩할 수 없습니다.');
       return;
     } else {
-      const { data, message } = await getScraps(postId);
+      const { data, message } = await getScraps(getCookie(), postId);
       if (message === 'SUCCESS') {
         setIsScrapButtonClicked(!isScrapButtonClicked);
         setScraps(data.scraps);

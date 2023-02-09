@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { deletePost } from '../../apis/postContent';
 import { palette } from '../../styles/theme';
+import { getCookie } from '../../utils/cookie';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { ModifyIcon } from '../Icons/ModifyIcon';
 import { TrashCanIcon } from '../Icons/TrashCanIcon';
@@ -32,9 +33,9 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
       </Wrapper>
       {isTrashCanIconClicked && (
         <ConfirmationPopUp
-          type="delete"
+          type='delete'
           handleUploadButtonClick={() => {
-            deletePost(postId);
+            deletePost(getCookie(), postId);
             router.push('/feed');
           }}
           handleCancelButtonClick={() => {
