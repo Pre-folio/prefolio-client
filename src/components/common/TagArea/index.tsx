@@ -71,13 +71,26 @@ export function TagArea({
             />
           </Row>
           {urlPath.includes('write') ? (
-            <HelpIconArea
-              className='help-area'
-              onClick={() => setTagInfo(!tagInfo)}
-            >
-              <HelpIcon className='help-icon' />
-              <TagInfo className='hover-image' />
-            </HelpIconArea>
+            <div style={{ position: 'relative' }}>
+              <HelpIconArea
+                className='help-area'
+                onMouseOut={() => setTagInfo(false)}
+                onMouseOver={() => setTagInfo(true)}
+              >
+                <HelpIcon className='help-icon' />
+                <TagInfo className='hover-image' />
+              </HelpIconArea>
+              <div
+                style={{
+                  zIndex: '3',
+                  position: 'absolute',
+                  top: '130%',
+                  right: '48%',
+                }}
+              >
+                {tagInfo && <TagInfo className='hover-image' />}
+              </div>
+            </div>
           ) : (
             <></>
           )}
@@ -134,15 +147,16 @@ const TextArea = styled.div`
 const HelpIconArea = styled.div`
   & > div {
     display: none !important;
-    background-color: pink;
   }
 
-  & .help-icon:hover + div {
-    display: block;
-    position: absolute;
-    //TODO 비율에 따른 위치 조정 필요
-    top: 159%;
-    left: 48%;
-    z-index: 1;
+  & .help-icon:hover {
+    > div {
+      display: visible !important;
+      position: absolute;
+      //TODO 비율에 따른 위치 조정 필요
+      top: 159%;
+      left: 48%;
+      z-index: 1;
+    }
   }
 `;
