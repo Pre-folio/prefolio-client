@@ -11,7 +11,6 @@ interface getPresignedUrlProps {
  * @returns presigned url
  */
 export function getPresignedUrl(prop: getPresignedUrlProps) {
-  console.log('get', prop.userId);
   return publicClient
     .get(`/source/url`, {
       params: {
@@ -35,11 +34,7 @@ interface uploadFileProps {
  * @returns 응답 코드
  */
 export function uploadFile({ url, file }: any) {
-  console.log(url, file);
-
   return axios.put(url, file).then((res) => {
-    console.log(res);
-
     return res.status;
   });
 }

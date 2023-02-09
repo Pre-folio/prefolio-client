@@ -10,11 +10,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Space, Text } from '../../components/common/Wrapper';
 
 import { authAPI } from '../../apis/auth';
-import {
-  getUserPosts,
-  getUserScraps,
-  ScrapRequestProps,
-} from '../../apis/posts';
+import { getUserPosts, getUserScraps, ScrapRequestProps } from '../../apis/posts';
 import { userState } from '../../store/Auth/userState';
 import { getScraps } from '../../apis/postContent';
 import { getCookie } from '../../utils/cookie';
@@ -80,29 +76,15 @@ const Profile = () => {
     });
   }, [act, type]);
 
-  const { isLoading: isPostsLoading, data: postData } = useQuery(
-    ['user-posts', watchingUserIdToNumber],
-    async () => {
-      if (watchingUserIdToNumber) {
-        return await getUserPosts(
-          getCookie(),
-          watchingUserIdToNumber,
-          0,
-          24,
-          '',
-          ''
-        );
-      }
+  const { isLoading: isPostsLoading, data: postData } = useQuery(['user-posts', watchingUserIdToNumber], async () => {
+    if (watchingUserIdToNumber) {
+      return await getUserPosts(getCookie(), watchingUserIdToNumber, 0, 24, '', '');
     }
-  );
+  });
 
-  const { isLoading: isScrapsLoading, data: scrapData } = useQuery(
-    ['scrap-posts', feedParam],
-    async () => {
-      return await getUserScraps(feedParam);
-    }
-  );
-  console.log(scrapData);
+  const { isLoading: isScrapsLoading, data: scrapData } = useQuery(['scrap-posts', feedParam], async () => {
+    return await getUserScraps(feedParam);
+  });
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
   const posts = postData?.data.cardPosts;
@@ -113,12 +95,7 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <Row
-        width='100%'
-        alignItems='flex-start'
-        justifyContent='flex-start'
-        gap='24px'
-      >
+      <Row width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
         <ProfileCard
           isMyProfile={isMyProfile}
           imageSrc={profileData?.profileImage}
@@ -130,22 +107,10 @@ const Profile = () => {
           style={{ position: 'sticky', top: '180px' }}
         />
         <div style={{}} />
-        <Column
-          width='calc(100% - 282px)'
-          alignItems='flex-start '
-          justifyContent='flex-start !important'
-          gap='46px'
-        >
-          {isMyProfile && (
-            <TabBar barState={barState} setBarState={setBarState} />
-          )}
+        <Column width="calc(100% - 282px)" alignItems="flex-start " justifyContent="flex-start !important" gap="46px">
+          {isMyProfile && <TabBar barState={barState} setBarState={setBarState} />}
           {selectedBar === 'scraps' && (
-            <TagArea
-              type={type}
-              act={act}
-              handleTagAreaClick={handleTagClick}
-              width='100%'
-            />
+            <TagArea type={type} act={act} handleTagAreaClick={handleTagClick} width="100%" />
           )}
           {selectedBar === 'posts' &&
             !isPostsLoading &&

@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import postAPI, {
-  ActType,
-  PartType,
-  PostResponse,
-  SortType,
-} from '../apis/post';
+import postAPI, { ActType, PartType, PostResponse, SortType } from '../apis/post';
 import { SinglePostResponse } from '../components/feed/Posts';
 import { getCookie } from '../utils/cookie';
 import { useTagArea } from './useTagArea';

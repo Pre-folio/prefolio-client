@@ -52,7 +52,6 @@ const TextEditor = ({
       userId: user.userId,
       path: 'IMAGE',
     });
-    console.log(url);
     const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
     if (url) {
       // presigned url에 파일 업로드 후 url 저장.
@@ -106,6 +105,7 @@ const TextEditor = ({
     <>
       {isUploadButtonClicked && (
         <ConfirmationPopUp
+          style={{ position: 'absolute', top: '50%' }}
           handleUploadButtonClick={onClickPopupUploadButton}
           handleCancelButtonClick={() => {
             setIsUploadButtonClicked(false);
