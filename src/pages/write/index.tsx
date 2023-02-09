@@ -4,7 +4,7 @@ import { DatePicker } from '../../components/common/DatePicker';
 import { Input } from '../../components/common/Input';
 import { ProgressBar } from '../../components/common/ProgressBar';
 import { TagArea } from '../../components/common/TagArea';
-import { Column, Row } from '../../components/common/Wrapper';
+import { Column, Row, Space } from '../../components/common/Wrapper';
 import { theme } from '../../styles/theme';
 import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
@@ -289,18 +289,22 @@ const Write = () => {
               <span>*</span>
             </CategoryTextArea>
             <Column justifyContent='flex-start' alignItems='flex-start'>
-              <Button
-                type={'small'}
-                content={
-                  isGuideLineButtonClicked
-                    ? '가이드라인 접기'
-                    : '가이드라인 보기'
-                }
-                color={'mint'}
-                onClick={() => {
-                  setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
-                }}
-              />
+              {act.length > 0 ? (
+                <Button
+                  type={'small'}
+                  content={
+                    isGuideLineButtonClicked
+                      ? '가이드라인 접기'
+                      : '가이드라인 보기'
+                  }
+                  color={'mint'}
+                  onClick={() => {
+                    setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
+                  }}
+                />
+              ) : (
+                <Space height={34} />
+              )}
               {isGuideLineButtonClicked && (
                 <Column marginTop='20px' gap='14px'>
                   {act.map((tag: any) => {
