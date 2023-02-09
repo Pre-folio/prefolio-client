@@ -12,8 +12,6 @@ export interface GuideLineProps {
 export function GuideLine({ type, style }: GuideLineProps) {
   const [tagsList, setTagsList] = useState<string[]>([]);
   useEffect(() => {
-    console.log(tagsList);
-
     if (type === 'society') {
       setTagsList([
         '커리큘럼 관련 내용',
@@ -46,13 +44,8 @@ export function GuideLine({ type, style }: GuideLineProps) {
 
   return (
     <Wrapper style={style}>
-      <Column
-        width='100%'
-        alignItems='flex-start'
-        justifyContent='flex-start'
-        gap='24px'
-      >
-        <Row gap='20px' justifyContent='flex-start'>
+      <Column width="100%" alignItems="flex-start" justifyContent="flex-start" gap="24px">
+        <Row gap="20px" justifyContent="flex-start">
           <BigTextArea>
             {type === 'society'
               ? '동아리/학회, 이런 내용을 작성해보세요!'
@@ -60,15 +53,13 @@ export function GuideLine({ type, style }: GuideLineProps) {
               ? '프로젝트, 이런 내용을 작성해보세요!'
               : type === 'intern' && '인턴, 이런 내용을 작성해보세요!'}
           </BigTextArea>
-          <SmallTextArea>
-            {type === 'society' ? '어느 정도의 홍보도 가능해요 :)' : ''}
-          </SmallTextArea>
+          <SmallTextArea>{type === 'society' ? '어느 정도의 홍보도 가능해요 :)' : ''}</SmallTextArea>
         </Row>
-        <Row width='100%' justifyContent='flex-start' gap='12px'>
+        <Row width="100%" justifyContent="flex-start" gap="12px">
           {tagsList.map((tag) => {
             return (
               <Tag
-                type='activity'
+                type="activity"
                 sort={tag}
                 key={tag}
                 style={{

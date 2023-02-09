@@ -66,7 +66,6 @@ const Board = (props: any) => {
   useEffect(() => {
     if (!isPostLoading) {
       const data = postData?.data.data;
-      console.log(data);
 
       setThumbnailImgUrl(data.post.thumbnail);
       setTitle(data.post.title);

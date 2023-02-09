@@ -12,7 +12,6 @@ export function useAutoLogin() {
   const { kakaoAutoLoginMutation } = useAuth();
   const { pathname } = router;
 
-  console.log(pathname);
   const privatePage =
     pathname.includes('feed') ||
     pathname.includes('write') ||

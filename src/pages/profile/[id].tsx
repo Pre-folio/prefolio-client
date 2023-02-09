@@ -83,7 +83,6 @@ const Profile = () => {
   const { isLoading: isScrapsLoading, data: scrapData } = useQuery(['scrap-posts', feedParam], async () => {
     return await getUserScraps(feedParam);
   });
-  console.log(scrapData);
 
   // selectedBar이 post일 경우 내가 쓴 글 get api
   const posts = postData?.data.cardPosts;

@@ -43,10 +43,7 @@ export interface ScrapResponse {
 }
 
 export const postAPI = {
-  ALL: async (
-    token: string,
-    param: FeedRequestProps
-  ): Promise<PostResponse> => {
+  ALL: async (token: string, param: FeedRequestProps): Promise<PostResponse> => {
     const response = await publicClient.get(`/posts/all?`, {
       params: {
         ...param,
@@ -58,10 +55,7 @@ export const postAPI = {
     return response.data.data;
   },
 
-  SEARCH: async (
-    token: string,
-    data: SearchRequestProps
-  ): Promise<PostResponse> => {
+  SEARCH: async (token: string, data: SearchRequestProps): Promise<PostResponse> => {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -76,15 +70,10 @@ export const postAPI = {
       },
     });
 
-    console.log('response', response.data.data);
-
     return response.data.data;
   },
 
-  USER: async (
-    token: string,
-    data: UserPostRequest
-  ): Promise<ScrapResponse> => {
+  USER: async (token: string, data: UserPostRequest): Promise<ScrapResponse> => {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -102,7 +91,6 @@ export const postAPI = {
 
   SCRAP: async (token: string, postId: number): Promise<ScrapResponse> => {
     const response = await publicClient.get(`/posts/scraps/${postId}`);
-    console.log(postId);
     return response.data.data;
   },
 };

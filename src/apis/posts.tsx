@@ -3,7 +3,6 @@ import { client } from './client';
 
 export function postPosts(post: object) {
   return client.post('/posts/post', post).then((res) => {
-    console.log(res);
     return { postId: res.data.data.postId, status: res.status };
   });
 }
@@ -20,13 +19,7 @@ export async function getPost(id: number, token: string) {
     });
 }
 
-export async function getUserPosts(
-  userId: number,
-  pageNum: number,
-  limit: number,
-  partTag: string,
-  actTag: string
-) {
+export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
   return await client
     .get(`/posts/${userId}`, {
       params: {
@@ -37,7 +30,6 @@ export async function getUserPosts(
       },
     })
     .then((res) => {
-      console.log(res);
       return res.data;
     });
 }

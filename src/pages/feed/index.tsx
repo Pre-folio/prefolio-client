@@ -40,7 +40,6 @@ const Feed = () => {
   useEffect(() => {
     if (isView && getNextPageIsPossible) {
       getNextPage();
-      console.log('끝');
     }
   }, [isView, getBoard]);
 

@@ -14,6 +14,6 @@ export function getLikes(postId: number) {
 
 export function deletePost(postId: number) {
   return client.delete(`/posts/post/${postId}`).then((res) => {
-    console.log(res);
+    res;
   });
 }
