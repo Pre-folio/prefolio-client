@@ -8,10 +8,10 @@ import { BannerImage } from './BannerImage';
 
 export const Banner = () => {
   const src = [
-    '/images/feed/banner0.jpg',
-    '/images/feed/banner1.jpg',
-    '/images/feed/banner2.jpg',
-    '/images/feed/banner3.jpg',
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/banner0.jpg',
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/banner1.jpg',
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/banner2.jpg',
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/banner3.jpg',
   ];
   return (
     <div>

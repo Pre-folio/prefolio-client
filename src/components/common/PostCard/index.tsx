@@ -69,9 +69,7 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
       <MockThumbnail>
-        <Thumbnail
-          src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'}
-        />
+        <Thumbnail src={props.thumbnail ? props.thumbnail : ''} />
         <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
           <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
         </ScrappIconWrapper>

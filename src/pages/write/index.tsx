@@ -20,6 +20,7 @@ import { formatDate } from '../../utils/formatDate';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 import TagInfo from '../../components/common/TagInfo';
+import { getRandomThumbnail } from '../../utils/getRandomThumbnail';
 
 const TextEditor = dynamic(
   () => import('../../components/writePage/TextEditor'),
@@ -90,6 +91,10 @@ const Write = () => {
     const tempToolsList = toolsList.filter((tool) => tool !== toolName);
     setToolsList(tempToolsList);
   };
+
+  useEffect(() => {
+    setThumbnailUploadUrl(getRandomThumbnail());
+  }, []);
 
   return (
     <>

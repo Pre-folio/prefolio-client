@@ -13,7 +13,6 @@ import { useRecoilState } from 'recoil';
 import { Toast } from '../common/Toast';
 import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
-import { useTagArea } from '../../hooks/useTagArea';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 
 type HookCallback = (url: string, text?: string) => void;
