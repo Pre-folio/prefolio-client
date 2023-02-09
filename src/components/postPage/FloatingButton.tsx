@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { deletePost } from '../../apis/postContent';
+import { isPostDeleteButtonClickedState } from '../../store/Popup/popupState';
 import { palette } from '../../styles/theme';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { ModifyIcon } from '../Icons/ModifyIcon';
@@ -13,7 +15,7 @@ interface FloatingButtonProps {
 
 export function FloatingButton({ postId }: FloatingButtonProps) {
   const router = useRouter();
-  const [isTrashCanIconClicked, setIsTrashCanIconClicked] = useState(false);
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] = useRecoilState(isPostDeleteButtonClickedState);
 
   const onClickModifyIcon = () => {
     alert('기능 준비중입니다.');
@@ -21,7 +23,7 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
   };
 
   const onClickTrashCanIcon = () => {
-    setIsTrashCanIconClicked(true);
+    setIsPostDeleteButtonClicked(true);
   };
 
   return (
@@ -30,15 +32,16 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
         <ModifyIcon onClick={onClickModifyIcon} />
         <TrashCanIcon onClick={onClickTrashCanIcon} />
       </Wrapper>
-      {isTrashCanIconClicked && (
+      {isPostDeleteButtonClicked && (
         <ConfirmationPopUp
           type="delete"
+          style={{ position: 'absolute', zIndex: 100 }}
           handleUploadButtonClick={() => {
             deletePost(postId);
             router.push('/feed');
           }}
           handleCancelButtonClick={() => {
-            setIsTrashCanIconClicked(false);
+            setIsPostDeleteButtonClicked(false);
           }}
         />
       )}
@@ -55,9 +58,10 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  /* position: fixed;
+  position: fixed;
   bottom: 10%;
-  right: 100px; */
+  right: 100px;
   border-radius: 8px;
   background-color: ${palette.Gray10};
+  z-index: 1000;
 `;

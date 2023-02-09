@@ -16,6 +16,13 @@ import { userState } from '../../store/Auth/userState';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { toastTypeState } from '../../store/Toast/toastState';
 
+import chart from '@toast-ui/editor-plugin-chart';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
+import uml from '@toast-ui/editor-plugin-uml';
+
 type HookCallback = (url: string, text?: string) => void;
 
 const TextEditor = ({
@@ -105,17 +112,13 @@ const TextEditor = ({
           }}
         />
       )}
-      <Column
-        gap='20px'
-        alignItems='flex-end'
-        style={{ paddingBottom: '60px' }}
-      >
+      <Column gap="20px" alignItems="flex-end" style={{ paddingBottom: '60px' }}>
         <EditorWrapper>
           <Editor
             ref={editorRef}
-            placeholder='내용을 입력해주세요.'
-            previewStyle='vertical' // 미리보기 스타일 지정
-            height='520px' // 에디터 창 높이
+            placeholder="내용을 입력해주세요."
+            previewStyle="vertical" // 미리보기 스타일 지정
+            height="520px" // 에디터 창 높이
             // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
             toolbarItems={[
               ['heading', 'bold', 'italic', 'strike'],
@@ -131,14 +134,10 @@ const TextEditor = ({
             hooks={{
               addImageBlobHook: onUploadImage,
             }}
+            plugins={[chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml]}
           />
         </EditorWrapper>
-        <Button
-          type='medium'
-          color='mint'
-          content='업로드하기'
-          onClick={onClickUploadButton}
-        />
+        <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
         <Toast varient={toastType} />
       </Column>
     </>
