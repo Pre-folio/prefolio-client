@@ -14,6 +14,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     overflow-x: hidden;
+
+   &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background-color: ${theme.palette.Gray30};
+  }
   }
   
   #root {

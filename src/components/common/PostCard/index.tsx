@@ -1,4 +1,4 @@
-import { SetterOrUpdater } from 'recoil';
+import { SetterOrUpdater, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { theme } from '../../../styles/theme';
 import { Tag } from '../Tag';
@@ -6,6 +6,9 @@ import { ScrappIcon } from '../../../assets/icons';
 import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import postAPI from '../../../apis/post';
+import { useToast } from '../../../hooks/useToasts';
+import { Toast } from '../Toast';
+import { toastTypeState } from '../../../store/Toast/toastState';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
@@ -19,6 +22,7 @@ export interface PostCardProps {
   postDate: string;
   hits: number;
   id: number;
+  isMyPost?: boolean;
 }
 
 /**
@@ -41,37 +45,41 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(
-    `${theme.palette.Gray20}`
-  );
+  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
   const [scrap, setScrap] = useState<boolean>(props.isScrapped);
+  const { openToast } = useToast();
+  const toastType = useRecoilValue(toastTypeState);
 
   const handleIconClick = async (e: any) => {
     e.stopPropagation();
-    const res = await postAPI.SCRAP(props.id);
-    if (e.target === ref.current?.childNodes[0]) {
-      setScrap(res.isScrapped);
-    } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
-      setScrap(res.isScrapped);
+    if (props.isMyPost) {
+      openToast('자신의 글은 스크랩할 수 없어요.', 'error');
+    } else {
+      const res = await postAPI.SCRAP(props.id);
+      if (e.target === ref.current?.childNodes[0]) {
+        setScrap(res.isScrapped);
+      } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
+        setScrap(res.isScrapped);
+      }
     }
   };
 
   useEffect(() => {
-    if (scrap) {
-      setIconFillColor(`${theme.palette.Mint100}`);
-      setIconStrokeColor(`${theme.palette.Mint100}`);
-    } else {
-      setIconFillColor('none');
-      setIconStrokeColor(`${theme.palette.Gray20}`);
+    if (!props.isMyPost) {
+      if (scrap) {
+        setIconFillColor(`${theme.palette.Mint100}`);
+        setIconStrokeColor(`${theme.palette.Mint100}`);
+      } else {
+        setIconFillColor('none');
+        setIconStrokeColor(`${theme.palette.Gray20}`);
+      }
     }
   }, [scrap]);
 
   return (
     <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
       <MockThumbnail>
-        <Thumbnail
-          src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'}
-        />
+        <Thumbnail src={props.thumbnail ? props.thumbnail : ''} />
         <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
           <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
         </ScrappIconWrapper>
@@ -81,20 +89,10 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag
-              key={index}
-              type={'field'}
-              sort={index}
-              style={{ boxShadow: 'none' }}
-            />
+            <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
           ))}
           {props.activity.map((index) => (
-            <Tag
-              key={index}
-              type={'activity'}
-              sort={index}
-              style={{ boxShadow: 'none' }}
-            />
+            <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>
@@ -168,7 +166,7 @@ const ContentsWrapper = styled.div`
   gap: 20px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   white-space: pre-wrap;
   word-break: break-all;
   text-overflow: clip;

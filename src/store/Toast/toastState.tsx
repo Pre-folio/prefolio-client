@@ -9,3 +9,8 @@ export const toastContentState = atom<string>({
   key: 'toastContentState',
   default: '',
 });
+
+export const toastTypeState = atom<'success' | 'error'>({
+  key: 'toastTypeState',
+  default: 'error',
+});

@@ -14,6 +14,7 @@ import ProfileArea from '../../components/postPage/ProfileArea';
 import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
+import { GetServerSideProps } from 'next';
 
 const Board = (props: any) => {
   const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
@@ -209,7 +210,7 @@ const Board = (props: any) => {
 
 export default Board;
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { postId }: any = context.query;
   const postIdToNumber = Number(postId);
   const queryClient = new QueryClient();
@@ -224,7 +225,7 @@ export async function getServerSideProps(context: any) {
       postId: postIdToNumber,
     },
   };
-}
+};
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;

@@ -9,12 +9,12 @@ import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';
 import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Toast } from '../common/Toast';
 import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
-import { useTagArea } from '../../hooks/useTagArea';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
+import { toastTypeState } from '../../store/Toast/toastState';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -38,6 +38,7 @@ const TextEditor = ({
 
   const [imageUrl, setImageUrl] = useState('');
   const [isUploadButtonClicked, setIsUploadButtonClicked] = useState(false);
+  const toastType = useRecoilValue(toastTypeState);
 
   const onUploadImage = async (file: any, callback: HookCallback) => {
     const url = await getPresignedUrl({
@@ -58,7 +59,7 @@ const TextEditor = ({
 
   const onClickUploadButton = async () => {
     if (isError) {
-      openToast('필수 정보들을 기입해주세요 !');
+      openToast('필수 정보들을 기입해주세요 !', 'error');
     } else {
       setIsUploadButtonClicked(true);
     }
@@ -81,12 +82,16 @@ const TextEditor = ({
       contents: text,
     };
 
-    const postId = await postPosts(postContent);
-    console.log(postId);
+    const { postId, status } = await postPosts(postContent);
+
+    if (status === 200) {
+      openToast('글 작성이 완료됐어요!', 'success');
+    } else if (status !== 200) {
+      openToast('글 작성에 실패했어요.', 'error');
+    }
 
     if (postId) {
       router.push({ pathname: `/post/${postId}` });
-      //페이지 이동
     }
   };
 
@@ -100,17 +105,13 @@ const TextEditor = ({
           }}
         />
       )}
-      <Column
-        gap='20px'
-        alignItems='flex-end'
-        style={{ paddingBottom: '60px' }}
-      >
+      <Column gap="20px" alignItems="flex-end" style={{ paddingBottom: '60px' }}>
         <EditorWrapper>
           <Editor
             ref={editorRef}
-            placeholder='내용을 입력해주세요.'
-            previewStyle='vertical' // 미리보기 스타일 지정
-            height='520px' // 에디터 창 높이
+            placeholder="내용을 입력해주세요."
+            previewStyle="vertical" // 미리보기 스타일 지정
+            height="520px" // 에디터 창 높이
             // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
             toolbarItems={[
               ['heading', 'bold', 'italic', 'strike'],
@@ -128,13 +129,8 @@ const TextEditor = ({
             }}
           />
         </EditorWrapper>
-        <Button
-          type='medium'
-          color='mint'
-          content='업로드하기'
-          onClick={onClickUploadButton}
-        />
-        <Toast varient='error' />
+        <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
+        <Toast varient={toastType} />
       </Column>
     </>
   );

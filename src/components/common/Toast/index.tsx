@@ -22,7 +22,7 @@ const TOAST_SRC = {
     error: '/images/common/redMegaphone.png',
   },
   text: {
-    success: `${theme.palette.Mint100}`,
+    success: `${theme.palette.Minttext}`,
     error: `${theme.palette.Red80}`,
   },
 };
@@ -39,13 +39,8 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
   return (
     <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
-        <Image
-          src={TOAST_SRC.icon[varient]}
-          alt='megaphone'
-          width={48}
-          height={48}
-        />
-        <Text typo='Heading5' color='Red80' height={22}>
+        <Image src={TOAST_SRC.icon[varient]} alt="megaphone" width={48} height={48} />
+        <Text typo="Heading5" color="Red80" height={22}>
           {content}
         </Text>
       </Wrapper>
@@ -83,6 +78,8 @@ const Wrapper = styled.div<{
   background-color: ${({ varient }) => TOAST_SRC.wrapper[varient]};
   box-shadow: ${theme.shadow.Card.Black};
   border-radius: 14px;
+
+  transition: all 500ms ease-in-out;
 `;
 
 const Image = styled.img`

@@ -31,9 +31,10 @@ const CARD_FIELD = {
 };
 
 const CARD_GRAPHIC = {
-  plan: 'images/common/part/plan.png',
-  dev: 'images/common/part/dev.png',
-  design: 'images/common/part/design.png',
+  plan: 'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/plan.png',
+  dev: 'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/dev.png',
+  design:
+    'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/design.png',
 };
 
 /**
