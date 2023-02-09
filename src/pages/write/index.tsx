@@ -21,6 +21,8 @@ import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 import TagInfo from '../../components/common/TagInfo';
 import { getRandomThumbnail } from '../../utils/getRandomThumbnail';
+import { url } from 'inspector';
+import { relative } from 'path';
 
 const TextEditor = dynamic(
   () => import('../../components/writePage/TextEditor'),
@@ -98,18 +100,37 @@ const Write = () => {
 
   return (
     <>
-      <ThumbnailImageWrapper>
-        {thumbnailUploadUrl.length > 1 ? (
-          <img
-            src={thumbnailUploadUrl}
-            alt='게시글 썸네일 이미지'
-            width='996px'
-            height='100%'
-            style={{ objectFit: 'cover', backgroundImage: 'size' }}
-          />
-        ) : (
-          <ImageUploadArea />
-        )}
+      <ThumbnailImageWrapper
+        className='thumnail-wrapper'
+        src={thumbnailUploadUrl}
+      >
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {thumbnailUploadUrl.length > 1 ? (
+            <img
+              className='thumbnail-image'
+              src={thumbnailUploadUrl}
+              alt='게시글 썸네일 이미지'
+              width='996px'
+              height='100%'
+              style={{
+                objectFit: 'cover',
+                backgroundImage: 'size',
+                zIndex: '3',
+                position: 'relative',
+              }}
+            />
+          ) : (
+            <ImageUploadArea />
+          )}
+        </div>
         <Column
           style={{
             position: 'absolute',
@@ -309,14 +330,34 @@ const Write = () => {
   );
 };
 
-const ThumbnailImageWrapper = styled.div`
+const ThumbnailImageWrapper = styled.div<{ src: string }>`
   width: 100vw;
   height: 560px;
-  background-color: ${theme.palette.Gray15};
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+
+  &::before {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+
+  /* backdrop-filter: blur(5px); */
+
+  /* 
+  > img {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  } */
+
+  /* filter: blur(8px);
+  -webkit-filter: blur(8px); */
+
   display: flex;
   justify-content: center;
   margin-left: calc(-50vw + 50%);
   position: relative;
+  object-fit: cover;
 `;
 
 const ImageUploadArea = styled.div`
