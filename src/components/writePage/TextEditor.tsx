@@ -105,7 +105,7 @@ const TextEditor = ({
     <>
       {isUploadButtonClicked && (
         <ConfirmationPopUp
-          style={{ position: 'absolute', top: '50%' }}
+          // style={{ position: 'absolute', top: '50%' }}
           handleUploadButtonClick={onClickPopupUploadButton}
           handleCancelButtonClick={() => {
             setIsUploadButtonClicked(false);
