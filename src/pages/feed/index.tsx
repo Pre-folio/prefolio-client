@@ -43,11 +43,6 @@ const Feed = () => {
     }
   }, [isView, getBoard]);
 
-  useEffect(() => {
-    console.log(`
- 이스터에그...`);
-  }, []);
-
   return (
     <div>
       <FloatSearch top={413} />
