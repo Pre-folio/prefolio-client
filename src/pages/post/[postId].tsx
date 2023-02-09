@@ -231,8 +231,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const FloatingButtonWrapper = styled.div`
   position: fixed;
   top: 700px;
-  right: 10%;
-  z-index: 3;
+  margin-right: 10px;
 `;
 
 const ThumbnailImageWrapper = styled.div<{ src: string }>`

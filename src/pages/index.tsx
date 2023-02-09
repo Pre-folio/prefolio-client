@@ -7,8 +7,14 @@ import { BottomSection } from '../components/home/BottomSection';
 import { InfoSection } from '../components/home/InfoSection';
 import { StartSection } from '../components/home/StartSection';
 import { KeyOfPalette, KeyOfTypo, theme } from '../styles/theme';
-import { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  MotionValue,
+} from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 function useParallax(value: MotionValue<number>, distance: number) {
@@ -43,14 +49,47 @@ function Home() {
     },
   };
 
+  useEffect(() => {
+    console.log(`
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------~~~---------------------------~~~---------
+---:@@@@@@@@=~-$@@@@@@@#!--@@@@@@@@@~------!@@@@@@@@;---*#@@@@$!---~@@@#-----$@@@~---!#@@@@#*-------
+---:@@@@@@@@@@-$@@@@@@@@@*-@@@@@@@@@~------!@@@@@@@@;-~#@@@@@@@@#--~@@@#-----#@@@~-~@@@@@@@@@#------
+---:@@@@@@@@@@!$@@@@@@@@@@~@@@@@@@@@~-*$=--!@@@@@@@@;~#@@@@@@@@@@$-~@@@#-----#@@@~-$@@@@@@@@@@$~----
+---:@@@=--=@@@=$@@@!;*@@@@;@@@@------~@@@*-!@@@*~~~~-*@@@@###@@@@@!~@@@#-----#@@@~*@@@@@##@@@@@!----
+---:@@@=--:@@@$$@@@~--*@@@!@@@@------~@@@=-!@@@!----~@@@@=---~=@@@@~@@@#-----#@@@:@@@@=~---=@@@@----
+---:@@@=--:@@@$$@@@~--=@@@!@@@@@@@@:--=@#~-!@@@@###=;@@@#------@@@@;@@@#-----#@@@*@@@#------@@@@:---
+---:@@@#==#@@@=$@@@$=$@@@@;@@@@@@@@;---~---!@@@@@@@#*@@@*------=@@@*@@@#-----#@@@=@@@=------=@@@!---
+---:@@@@@@@@@@;$@@@@@@@@@@-@@@@@@@@;--~:~--!@@@@@@@#*@@@*------=@@@!@@@#-----#@@@*@@@=------=@@@;---
+---:@@@@@@@@@=-$@@@@@@@@@~-@@@@::::---$@@:-!@@@=!!!;;@@@@-----~@@@@;@@@#-----#@@@!@@@@-----~@@@@:---
+---:@@@#$$==!--$@@@@@@@@@~-@@@@------~@@@=-!@@@!-----@@@@$:--:#@@@#~@@@#-----#@@@:@@@@#:--:$@@@#----
+---:@@@=-------$@@@:;@@@@#-@@@@$$$$$--@@@!-!@@@!-----!@@@@@##@@@@@:~@@@@====~#@@@~;@@@@@##@@@@@;----
+---:@@@=-------$@@@~-:@@@@:@@@@@@@@@~-;=!--!@@@!------$@@@@@@@@@@=-~@@@@@@@@;#@@@~-=@@@@@@@@@@=-----
+---:@@@=-------$@@@~--$@@@!@@@@@@@@@~------!@@@!-------=@@@@@@@@=--~@@@@@@@@;#@@@~--=@@@@@@@@=------
+---~===!-------=###~--*###;=========-------;$$$;--------;=@@@#=;----*=======:*===~---;=#@@#=;-------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+`);
+  }, []);
+
   return (
     <div ref={scrollRef}>
       <Wrapper>
         <TextWrapper>
           <motion.div
             variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
             <StartSection />
@@ -58,53 +97,53 @@ function Home() {
 
           <motion.div
             variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
             <InfoSection
-              title1="분야별로 스펙 활동"
-              title2="모아보기"
-              description1="IT 직군 분야별 기록 뿐 아니라"
-              description2="동아리, 인턴 등의 활동별 기록들도 구경할 수 있어요."
-              justify="flex-start"
+              title1='분야별로 스펙 활동'
+              title2='모아보기'
+              description1='IT 직군 분야별 기록 뿐 아니라'
+              description2='동아리, 인턴 등의 활동별 기록들도 구경할 수 있어요.'
+              justify='flex-start'
             />
           </motion.div>
 
           <motion.div
             variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
             <InfoSection
-              title1="자유롭게"
-              title2="스크랩 하기"
-              description1="다양한 분야의 스펙활동 기록을"
-              description2="자유롭게 스크랩하여 저장할 수 있어요."
-              justify="flex-end"
+              title1='자유롭게'
+              title2='스크랩 하기'
+              description1='다양한 분야의 스펙활동 기록을'
+              description2='자유롭게 스크랩하여 저장할 수 있어요.'
+              justify='flex-end'
             />
           </motion.div>
 
           <motion.div
             variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
             <InfoSection
-              title1="내 스펙활동"
-              title2="아카이빙"
-              description1="쉽고 빠르게 스펙활동을 기록하여"
-              description2="편리하게 아카이빙 해보세요."
-              justify="flex-start"
+              title1='내 스펙활동'
+              title2='아카이빙'
+              description1='쉽고 빠르게 스펙활동을 기록하여'
+              description2='편리하게 아카이빙 해보세요.'
+              justify='flex-start'
             />
           </motion.div>
 
           <motion.div
             variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
             <BottomSection />
@@ -113,17 +152,17 @@ function Home() {
         {/* prop으로 배경색, 높이 받도록 수정 */}
       </Wrapper>
       <ImgWrapper>
-        <Section1 src="/images/home/home1.png" alt="" />
+        <Section1 src='/images/home/home1.png' alt='' />
 
         <SectionWrapper color={'White'}>
           <motion.div
             variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
-            <Flex justify="space-between">
-              <Section2 src="/images/home/home2.png" alt="" />
+            <Flex justify='space-between'>
+              <Section2 src='/images/home/home2.png' alt='' />
             </Flex>
           </motion.div>
         </SectionWrapper>
@@ -131,33 +170,33 @@ function Home() {
         <SectionWrapper color={'White'}>
           <motion.div
             variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
-            <Section2 src="/images/home/home3.png" alt="" />
+            <Section2 src='/images/home/home3.png' alt='' />
           </motion.div>
         </SectionWrapper>
 
         <SectionWrapper color={'Mint10'}>
           <motion.div
             variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
-            <Section3 src="/images/home/home4.png" alt="" />
+            <Section3 src='/images/home/home4.png' alt='' />
           </motion.div>
         </SectionWrapper>
 
         <div style={{ backgroundColor: `${theme.palette.Navy}` }}>
           <motion.div
             variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial='hidden'
+            whileInView='visible'
             viewport={{ once: true, amount: 0.8 }}
           >
-            <Section1 src="/images/home/home5.png" alt="" />
+            <Section1 src='/images/home/home5.png' alt='' />
           </motion.div>
         </div>
       </ImgWrapper>
