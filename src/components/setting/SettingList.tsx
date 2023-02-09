@@ -78,11 +78,12 @@ export const SettingList = (props: SettingListProps) => {
         control={control}
         watch={watch}
         setValue={setValue}
+        isModify={props.isModify}
       />
       <Space height={80} />
-      <Grade control={control} />
+      <Grade control={control} isModify={props.isModify} />
       <Space height={80} />
-      <Part control={control} />
+      <Part control={control} isModify={props.isModify} />
       <Space height={106} />
       <Button
         type={'big'}
