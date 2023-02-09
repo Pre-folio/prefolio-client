@@ -28,6 +28,7 @@ export const useAuth = () => {
       if (data.isMember) {
         // 가입한 유저인 경우 로그인
         kakaoLoginMutation.mutate(data);
+        openToast('로그인이 완료됐어요!', 'success');
       } else {
         // 가입하지 않은 경우 회원가입
         setUser({ ...user, userId: data.userId });
@@ -62,7 +63,6 @@ export const useAuth = () => {
   const kakaoLoginMutation = useMutation(authAPI.USER_INFO, {
     onSuccess: (data: GetUserInfoResponse) => {
       console.log('회원가입/로그인 완료, userInfo:', data);
-      openToast('로그인이 완료됐어요!', 'success');
       setUser(data);
       setLogin(true);
       router.push('/feed');
@@ -82,7 +82,6 @@ export const useAuth = () => {
     },
     onError: (error: any) => {
       console.log(error);
-      openToast('자동으로 로그아웃 되었어요.', 'error');
     },
   });
 

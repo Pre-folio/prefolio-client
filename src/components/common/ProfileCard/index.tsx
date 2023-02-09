@@ -2,6 +2,12 @@ import styled, { CSSProperties } from 'styled-components';
 import { shadow, theme } from '../../../styles/theme';
 import { Column, Row } from '../Wrapper';
 import { Tag } from '../Tag';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../store/Auth/userState';
+import { Button } from '../Button';
+import { Line } from '../Wrapper';
+import { useRouter } from 'next/router';
+import { removeCookie } from '../../../utils/cookie';
 
 interface ProfileCardProps {
   imageSrc?: string;
@@ -25,6 +31,9 @@ interface ProfileCardProps {
  */
 export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, style }: ProfileCardProps) {
   const gradeToString: string = `${grade}학년`;
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+
   return (
     <Container style={style}>
       <ImageWrapper alt="프로필 이미지" src={imageSrc ? imageSrc : ''} />
@@ -32,11 +41,21 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, st
       <Row width="100%" justifyContent="space-between" marginTop="30px">
         <Tag
           type="activity"
-          sort={gradeToString || '2학년'}
+          sort={gradeToString}
           style={{ backgroundColor: theme.palette.Gray10, color: theme.palette.Gray50, boxShadow: 'none' }}
         />
-        <Tag type="field" sort={field || 'dev'} style={{ boxShadow: 'none' }} />
+        <Tag type="field" sort={field} style={{ boxShadow: 'none' }} />
       </Row>
+      <Button
+        type="small"
+        content="프로필 수정"
+        color="black"
+        style={{ marginTop: '30px', backgroundColor: `${theme.palette.Gray10}` }}
+        onClick={() => {
+          router.push(`/setting/${userInfo.userId}`);
+        }}
+      />
+      <DivisionLine style={{ marginTop: '30px' }} />
       <Column
         width="100%"
         marginTop="30px"
@@ -45,13 +64,25 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, st
       >
         <Row justifyContent="space-between" style={{ width: '100%' }}>
           <span>추천수</span>
-          <span>{hits || 4}</span>
+          <span>{hits}</span>
         </Row>
         <Row justifyContent="space-between" style={{ width: '100%' }}>
           <span>스크랩수</span>
-          <span>{scraps || 4}</span>
+          <span>{scraps}</span>
         </Row>
       </Column>
+      <DivisionLine style={{ marginTop: '30px' }} />
+      <Button
+        style={{ marginTop: '30px', textDecoration: 'underline' }}
+        type="small"
+        color={theme.palette.Gray40}
+        content={'로그아웃'}
+        onClick={() => {
+          removeCookie();
+          router.push('/');
+          router.reload();
+        }}
+      />
     </Container>
   );
 }
@@ -88,4 +119,11 @@ const NicknameWrapper = styled.div`
   margin-top: 30px;
   ${theme.typo.Heading3};
   color: ${theme.palette.Black};
+`;
+
+const DivisionLine = styled.div`
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: ${theme.palette.Gray15};
 `;
