@@ -2,7 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import { useRecoilState } from 'recoil';
-import authAPI, { GetUserInfoResponse, KakaoJoinResponse, KakaoValidationResponse } from '../apis/auth';
+import authAPI, {
+  GetUserInfoResponse,
+  KakaoJoinResponse,
+  KakaoValidationResponse,
+} from '../apis/auth';
 import { accessToken, userState } from '../store/Auth/userState';
 import { isLoggedInState } from '../store/LoggedIn/loggedInState';
 import { getCookie, setAccessToken } from '../utils/cookie';

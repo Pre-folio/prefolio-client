@@ -72,7 +72,13 @@ export const SettingList = (props: SettingListProps) => {
         trigger={trigger}
       />
       <Space height={80} />
-      <ProfileImage register={register} errors={errors} control={control} watch={watch} setValue={setValue} />
+      <ProfileImage
+        register={register}
+        errors={errors}
+        control={control}
+        watch={watch}
+        setValue={setValue}
+      />
       <Space height={80} />
       <Grade control={control} />
       <Space height={80} />
