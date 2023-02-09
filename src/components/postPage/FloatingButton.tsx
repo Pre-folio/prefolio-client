@@ -20,7 +20,7 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
   const { openToast } = useToast();
 
   const onClickModifyIcon = () => {
-    openToast('기능 준비중입니다.');
+    openToast('기능 준비중입니다.', 'error');
     return;
   };
 
