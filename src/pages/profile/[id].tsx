@@ -120,6 +120,7 @@ const Profile = () => {
         gap='24px'
       >
         <ProfileCard
+          isMyProfile={isMyProfile}
           imageSrc={profileData?.profileImage}
           nickname={profileData?.nickname}
           grade={profileData?.grade}

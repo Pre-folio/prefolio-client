@@ -16,6 +16,13 @@ import { userState } from '../../store/Auth/userState';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { toastTypeState } from '../../store/Toast/toastState';
 
+import chart from '@toast-ui/editor-plugin-chart';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
+import uml from '@toast-ui/editor-plugin-uml';
+
 type HookCallback = (url: string, text?: string) => void;
 
 const TextEditor = ({
@@ -131,6 +138,13 @@ const TextEditor = ({
             hooks={{
               addImageBlobHook: onUploadImage,
             }}
+            plugins={[
+              chart,
+              codeSyntaxHighlight,
+              colorSyntax,
+              tableMergedCell,
+              uml,
+            ]}
           />
         </EditorWrapper>
         <Button

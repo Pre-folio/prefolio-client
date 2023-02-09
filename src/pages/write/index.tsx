@@ -21,14 +21,10 @@ import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToasts';
 import { getRandomThumbnail } from '../../utils/getRandomThumbnail';
 
-const TextEditor = dynamic(
-  () => import('../../components/writePage/TextEditor'),
-  { ssr: false }
-);
+const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
 
 const Write = () => {
-  const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] =
-    useState<boolean>(false);
+  const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
   const [thumbnailUploadUrl, setThumbnailUploadUrl] = useState('');
   const title = useInput(''); // title.value가 값임
   const startDate = useInput(''); // startDate.value 가 값임
@@ -40,19 +36,9 @@ const Write = () => {
   const { openToast } = useToast();
 
   const [user, setUser] = useRecoilState(userState);
-  const {
-    type,
-    setType,
-    act,
-    setAct,
-    sort,
-    setSort,
-    handleTagClick,
-    handleTabClick,
-  } = useTagArea();
+  const { type, setType, act, setAct, sort, setSort, handleTagClick, handleTabClick } = useTagArea();
 
-  const isError =
-    !startDate.value || !endDate.value || type.length === 0 || act.length === 0;
+  const isError = !startDate.value || !endDate.value || type.length === 0 || act.length === 0;
 
   const onEnterToolBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -98,10 +84,7 @@ const Write = () => {
 
   return (
     <>
-      <ThumbnailImageWrapper
-        className='thumnail-wrapper'
-        src={thumbnailUploadUrl}
-      >
+      <ThumbnailImageWrapper className="thumnail-wrapper" src={thumbnailUploadUrl}>
         <div
           style={{
             width: '100%',
@@ -113,11 +96,11 @@ const Write = () => {
         >
           {thumbnailUploadUrl.length > 1 ? (
             <img
-              className='thumbnail-image'
+              className="thumbnail-image"
               src={thumbnailUploadUrl}
-              alt='게시글 썸네일 이미지'
-              width='996px'
-              height='100%'
+              alt="게시글 썸네일 이미지"
+              width="996px"
+              height="100%"
               style={{
                 objectFit: 'cover',
                 backgroundImage: 'size',
@@ -136,89 +119,63 @@ const Write = () => {
             left: `calc(50% + 548px)`,
             marginTop: '438px',
           }}
-          gap='30px'
+          gap="30px"
         >
           <div>
             <input
-              type='file'
-              id='img-upload'
+              type="file"
+              id="img-upload"
               style={{ display: 'none' }}
               onChange={(e) => {
-                if (e.target.files)
-                  return onUploadThumbnailImage(e.target.files[0]);
+                if (e.target.files) return onUploadThumbnailImage(e.target.files[0]);
               }}
-              accept='image/x-png,image/gif,image/jpeg'
+              accept="image/x-png,image/gif,image/jpeg"
             />
-            <UploadIcon htmlFor='img-upload' />
+            <UploadIcon htmlFor="img-upload" />
           </div>
           <TrashCanIcon onClick={onClickTrashCanIcon} />
         </Column>
       </ThumbnailImageWrapper>
       <div style={{ alignItems: 'center' }}>
         <Column
-          marginTop='60px'
-          justifyContent='flex-start'
-          alignItems='flex-start'
+          marginTop="60px"
+          justifyContent="flex-start"
+          alignItems="flex-start"
           style={{ height: '800px' }}
-          gap='42px'
+          gap="42px"
         >
-          <Input
-            width={1200}
-            placeholder='제목을 입력하세요.'
-            typo={'Heading3'}
-            {...title}
-          />
-          <Row height='auto'>
+          <Input width={1200} placeholder="제목을 입력하세요." typo={'Heading3'} {...title} />
+          <Row height="auto">
             <CategoryTextArea>
               활동 기간
               <span>*</span>
             </CategoryTextArea>
             <Row>
-              <DatePicker
-                {...startDate}
-                height={46}
-                placeholder='시작 날짜를 선택하세요.'
-                typo={'Body1'}
-              />
+              <DatePicker {...startDate} height={46} placeholder="시작 날짜를 선택하세요." typo={'Body1'} />
               <div style={{ width: '126px', textAlign: 'center' }}>~</div>
-              <DatePicker
-                {...endDate}
-                height={46}
-                placeholder='종료 날짜를 선택하세요.'
-                typo={'Body1'}
-              />
+              <DatePicker {...endDate} height={46} placeholder="종료 날짜를 선택하세요." typo={'Body1'} />
             </Row>
           </Row>
-          <Row marginTop='-17px'>
+          <Row marginTop="-17px">
             <CategoryTextArea>기여도</CategoryTextArea>
             <ProgressBar {...contribution} />
           </Row>
-          <Row
-            gap='24px'
-            width='100%'
-            justifyContent='flex-start'
-            marginTop='-17px'
-          >
+          <Row gap="24px" width="100%" justifyContent="flex-start" marginTop="-17px">
             <CategoryTextArea>맡은 역할</CategoryTextArea>
             <Input
               typo={'Body1'}
               width={1098}
               height={46}
-              placeholder='활동에서 주로 맡은 역할을 작성해주세요.'
+              placeholder="활동에서 주로 맡은 역할을 작성해주세요."
               {...task}
             />
           </Row>
-          <Row
-            gap='24px'
-            width='100%'
-            justifyContent='flex-start'
-            alignItems='center'
-          >
+          <Row gap="24px" width="100%" justifyContent="flex-start" alignItems="center">
             <CategoryTextArea>사용 툴</CategoryTextArea>
             <Input
               width={1098}
               height={46}
-              placeholder='활동에서 사용한 툴을 작성 후 엔터키를 누르면 등록됩니다. (최대 8개)'
+              placeholder="활동에서 사용한 툴을 작성 후 엔터키를 누르면 등록됩니다. (최대 8개)"
               typo={'Body1'}
               onKeyPress={onEnterToolBar}
             />
@@ -226,8 +183,8 @@ const Write = () => {
           {toolsList.length === 0 ? (
             ''
           ) : (
-            <Column marginTop='-22px'>
-              <Row justifyContent='flex-end'>
+            <Column marginTop="-22px">
+              <Row justifyContent="flex-end">
                 <CategoryTextArea />
                 <div
                   style={{
@@ -236,17 +193,13 @@ const Write = () => {
                   }}
                 />
               </Row>
-              <Row
-                marginTop='20px'
-                justifyContent='flex-start'
-                alignItems='flex-start'
-              >
+              <Row marginTop="20px" justifyContent="flex-start" alignItems="flex-start">
                 <CategoryTextArea />
                 <Row
-                  width='1098px'
-                  gap='12px'
-                  justifyContent='flex-start'
-                  alignItems='flext-start'
+                  width="1098px"
+                  gap="12px"
+                  justifyContent="flex-start"
+                  alignItems="flext-start"
                   style={{ flexWrap: 'wrap' }}
                 >
                   {toolsList.map((tool) => {
@@ -269,32 +222,23 @@ const Write = () => {
               </Row>
             </Column>
           )}
-          <Row justifyContent='flex-start' alignItems='flex-start'>
+          <Row justifyContent="flex-start" alignItems="flex-start">
             <CategoryTextArea>
               태그 선택
               <span>*</span>
             </CategoryTextArea>
-            <TagArea
-              width='1098px'
-              type={type}
-              act={act}
-              handleTagAreaClick={handleTagClick}
-            />
+            <TagArea width="1098px" type={type} act={act} handleTagAreaClick={handleTagClick} />
           </Row>
-          <Row justifyContent='flex-start' alignItems='flex-start'>
+          <Row justifyContent="flex-start" alignItems="flex-start">
             <CategoryTextArea>
               본문 작성
               <span>*</span>
             </CategoryTextArea>
-            <Column justifyContent='flex-start' alignItems='flex-start'>
+            <Column justifyContent="flex-start" alignItems="flex-start">
               {act.length > 0 ? (
                 <Button
                   type={'small'}
-                  content={
-                    isGuideLineButtonClicked
-                      ? '가이드라인 접기'
-                      : '가이드라인 보기'
-                  }
+                  content={isGuideLineButtonClicked ? '가이드라인 접기' : '가이드라인 보기'}
                   color={'mint'}
                   onClick={() => {
                     setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
@@ -304,7 +248,7 @@ const Write = () => {
                 <Space height={34} />
               )}
               {isGuideLineButtonClicked && (
-                <Column marginTop='20px' gap='14px'>
+                <Column marginTop="20px" gap="14px">
                   {act.map((tag: any) => {
                     return <GuideLine type={tag} key={tag} />;
                   })}
@@ -314,11 +258,7 @@ const Write = () => {
           </Row>
           <div style={{ height: '300px' }}>
             <TextEditor
-              thumbnailUploadUrl={
-                thumbnailUploadUrl === ''
-                  ? getRandomThumbnail()
-                  : thumbnailUploadUrl
-              }
+              thumbnailUploadUrl={thumbnailUploadUrl === '' ? getRandomThumbnail() : thumbnailUploadUrl}
               title={title.value}
               startDate={formatDate(startDate.value)}
               endDate={formatDate(endDate.value)}
