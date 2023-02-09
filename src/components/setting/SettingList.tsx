@@ -50,7 +50,12 @@ export const SettingList = (props: SettingListProps) => {
 
   // 새로고침 시 submit 이벤트 발생
   const onSubmit = (data: any) => {
-    props.isModify ? modifyProfile.mutate(data) : joinPrefolio.mutate(data);
+    console.log(props.isModify);
+    if (props.isModify) {
+      modifyProfile.mutate(data);
+    } else {
+      joinPrefolio.mutate(data);
+    }
   };
 
   const onError = (error: any) => {

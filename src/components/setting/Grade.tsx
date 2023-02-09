@@ -15,7 +15,6 @@ export const Grade = (props: any) => {
   };
 
   useEffect(() => {
-    console.log('props.isModify', props.isModify);
     if (props.isModify) {
       setSelectedGrade(user.grade);
     }
