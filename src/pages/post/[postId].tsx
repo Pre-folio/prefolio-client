@@ -24,7 +24,10 @@ const Board = (props: any) => {
   const { postId } = props;
   const userInfo = useRecoilValue(userState);
 
-  const { isLoading: isPostLoading, data: postData } = useQuery(['post-data'], async () => await getPost(postId));
+  const { isLoading: isPostLoading, data: postData } = useQuery(
+    ['post-data'],
+    async () => await getPost(postId)
+  );
 
   const replaceDate = (date: any) => {
     return date.replaceAll('-', '.');
@@ -136,72 +139,6 @@ const Board = (props: any) => {
           <FloatingButton postId={postId} />
         </FloatingButtonWrapper>
       )}
-<<<<<<< HEAD
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          paddingBottom: '100px',
-        }}
-      >
-        <ThumbnailImageWrapper>
-          <ImageUploadArea
-            alt='썸네일 이미지'
-            src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-          />
-        </ThumbnailImageWrapper>
-        <Column
-          width='996px'
-          justifyContent='center'
-          alignItems='flex-start'
-          marginTop='60px'
-        >
-          <TitleArea>{title || '게시글 제목'}</TitleArea>
-          <DetailInfoArea>
-            <Column justifyContent='space-between' alignItems='flex-start'>
-              <div>
-                활동 기간 : {startDate || '2022.08.29'}~
-                {endDate || '2022.09.30'}
-              </div>
-              <div>작성일 : {createdAt || '2022.12.17'}</div>
-            </Column>
-            <div>조회수 {hits || '100'}</div>
-          </DetailInfoArea>
-          <PostTagArea
-            style={{ marginTop: '56px' }}
-            tags={tags.length !== 0 ? tags : ['']}
-            tools={tools.length !== 0 ? tools : ['']}
-            contribution={contribution || 80}
-            role={task || 'UI 디자인, 그래픽'}
-          />
-          <Viewer style={{ marginTop: '72px' }} data={content} />
-          <PostButtonWrapper>
-            <PostButton
-              type={'hit'}
-              isClicked={isLikedButtonClicked}
-              onClick={onClickLikeButton}
-              counts={likes}
-            />
-            <PostButton
-              type={'scrap'}
-              isClicked={isScrapButtonClicked}
-              onClick={onClickScrapButton}
-              counts={scraps}
-            />
-          </PostButtonWrapper>
-          <DivisionLine />
-          <ProfileArea
-            userId={postAuthInfo.id}
-            imageSrc={postAuthInfo.profileImage}
-            nickname={postAuthInfo.nickname}
-            grade={postAuthInfo.grade}
-            field={postAuthInfo.type.toLowerCase()}
-            style={{ marginTop: '86px' }}
-          />
-        </Column>
-      </div>
-=======
       {postData?.status === 200 && (
         <div
           style={{
@@ -212,12 +149,20 @@ const Board = (props: any) => {
           }}
         >
           <ThumbnailImageWrapper>
-            <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+            <ImageUploadArea
+              alt='썸네일 이미지'
+              src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+            />
           </ThumbnailImageWrapper>
-          <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+          <Column
+            width='996px'
+            justifyContent='center'
+            alignItems='flex-start'
+            marginTop='60px'
+          >
             <TitleArea>{title || '게시글 제목'}</TitleArea>
             <DetailInfoArea>
-              <Column justifyContent="space-between" alignItems="flex-start">
+              <Column justifyContent='space-between' alignItems='flex-start'>
                 <div>
                   활동 기간 : {startDate}~{endDate}
                 </div>
@@ -234,7 +179,12 @@ const Board = (props: any) => {
             />
             <Viewer style={{ marginTop: '72px' }} data={content} />
             <PostButtonWrapper>
-              <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+              <PostButton
+                type={'hit'}
+                isClicked={isLikedButtonClicked}
+                onClick={onClickLikeButton}
+                counts={likes}
+              />
               <PostButton
                 type={'scrap'}
                 isClicked={isScrapButtonClicked}
@@ -254,7 +204,6 @@ const Board = (props: any) => {
           </Column>
         </div>
       )}
->>>>>>> c0adbd1876d5c9591fe44142b444f82684b4ae21
     </>
   );
 };
@@ -266,7 +215,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const postIdToNumber = Number(postId);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber));
+  await queryClient.prefetchQuery(
+    ['post-data'],
+    async () => await getPost(postIdToNumber)
+  );
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
