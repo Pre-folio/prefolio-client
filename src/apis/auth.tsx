@@ -38,7 +38,11 @@ export const authAPI = {
     return response.data.data;
   },
 
-  CHECK_NICKNAME: async (token: string, nickname: string, userId: number): Promise<boolean> => {
+  CHECK_NICKNAME: async (
+    token: string,
+    nickname: string,
+    userId: number
+  ): Promise<boolean> => {
     const response = await publicClient.post(
       '/user/nickname',
       {
@@ -84,7 +88,9 @@ export const authAPI = {
     return response.data.data;
   },
 
-  USER_INFO: async (data: KakaoValidationResponse): Promise<GetUserInfoResponse> => {
+  USER_INFO: async (
+    data: KakaoValidationResponse
+  ): Promise<GetUserInfoResponse> => {
     const response = await publicClient.get(`/user/${data.userId}`, {
       headers: {
         Authorization: `Bearer ${data.accessToken}`,

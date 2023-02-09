@@ -6,7 +6,6 @@ export default function ScrollToTop() {
   const pathname = router.pathname;
 
   useEffect(() => {
-    console.log('router', router);
     window.document.scrollingElement?.scrollTo(0, 0);
   }, [pathname]);
 
