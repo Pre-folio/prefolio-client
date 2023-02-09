@@ -132,11 +132,12 @@ const TextArea = styled.div`
 `;
 
 const HelpIconArea = styled.div`
-  #hover-img {
+  & > div {
     display: none !important;
+    background-color: pink;
   }
 
-  & .help-icon:hover + #hover-img {
+  & .help-icon:hover + div {
     display: block;
     position: absolute;
     //TODO 비율에 따른 위치 조정 필요
