@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 25px;
     background-color: ${theme.palette.Gray30};
   }
+
   }
   
   #root {

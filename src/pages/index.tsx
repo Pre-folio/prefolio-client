@@ -228,10 +228,12 @@ const Section1 = styled.img`
 
   @media screen and (max-width: 1200px) {
     margin-left: 0;
+    width: 1200px;
   }
   display: flex;
   object-fit: cover;
-  /* background-color: ${theme.palette.Navy}; */
+
+  background-color: ${theme.palette.Navy};
 `;
 
 const Section2 = styled.img`
@@ -241,6 +243,7 @@ const Section2 = styled.img`
   left: 0vw;
   @media screen and (max-width: 1200px) {
     margin-left: 0;
+    width: 1200px;
   }
   object-fit: cover;
 `;
@@ -248,8 +251,10 @@ const Section2 = styled.img`
 const Section3 = styled.img`
   height: 100vh;
   width: 100vw;
+
   @media screen and (max-width: 1200px) {
     margin-left: 0;
+    width: 1200px;
   }
   object-fit: cover;
 `;
@@ -260,6 +265,7 @@ const SectionWrapper = styled.div<{ color: KeyOfPalette }>`
   width: 100vw;
   @media screen and (max-width: 1200px) {
     margin-left: 0;
+    width: 1200px;
   }
   object-fit: cover;
 `;
