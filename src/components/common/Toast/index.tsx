@@ -40,7 +40,7 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
     <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
         <Image src={TOAST_SRC.icon[varient]} alt="megaphone" width={48} height={48} />
-        <Text typo="Heading5" color="Red80" height={22}>
+        <Text typo="Heading5" color={varient === 'error' ? 'Red80' : 'Minttext'} height={22}>
           {content}
         </Text>
       </Wrapper>

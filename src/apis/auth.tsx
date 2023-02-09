@@ -64,9 +64,7 @@ export const authAPI = {
     return response.data.data;
   },
 
-  USER_INFO: async (
-    data: KakaoValidationResponse
-  ): Promise<GetUserInfoResponse> => {
+  USER_INFO: async (data: KakaoValidationResponse): Promise<GetUserInfoResponse> => {
     const response = await publicClient.get(`/user/${data.userId}`, {
       headers: {
         Authorization: `Bearer ${data.accessToken}`,
