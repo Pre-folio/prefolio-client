@@ -48,7 +48,7 @@ export const Posts = React.forwardRef<HTMLDivElement, PostsProps>((props: PostsP
             postDate={post.createdAt}
             hits={post.hits}
             id={post.id}
-            // isMyPost={userInfo.userId == }
+            isMyPost={post.isMine}
           />
         );
       })}

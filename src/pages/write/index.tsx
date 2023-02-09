@@ -21,9 +21,9 @@ import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToasts';
 
-const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
-
 const Write = () => {
+  const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
+
   const [isGuideLineButtonClicked, setIsGuideLineButtonClicked] = useState<boolean>(false);
   const [thumbnailUploadUrl, setThumbnailUploadUrl] = useState('');
   const title = useInput(''); // title.value가 값임

@@ -59,8 +59,6 @@ const Feed = () => {
       <Space height={60} />
       {!isLoading && getBoardIsSuccess && getBoard!.pages
         ? getBoard?.pages?.map((page_data: any) => {
-            console.log(page_data);
-
             return <Posts posts={page_data.board_page} key={page_data.current_page} ref={ref} />;
           })
         : null}

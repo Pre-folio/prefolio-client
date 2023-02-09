@@ -19,7 +19,7 @@ const TOAST_SRC = {
   },
   icon: {
     success: '/images/megaphone.png',
-    error: '/images/megaphone.png',
+    error: '/images/common/redMegaphone.png',
   },
   text: {
     success: `${theme.palette.Minttext}`,
