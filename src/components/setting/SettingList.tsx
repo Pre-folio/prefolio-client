@@ -1,10 +1,11 @@
 import { PropaneSharp } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useJoinForm } from '../../hooks/useJoinForm';
 import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
+import { toastTypeState } from '../../store/Toast/toastState';
 import { Button } from '../common/Button';
 import { Toast } from '../common/Toast';
 import { Space, Text } from '../common/Wrapper';
@@ -35,6 +36,7 @@ export const SettingList = (props: SettingListProps) => {
 
   const { openToast } = useToast();
   const [user, setUser] = useRecoilState(userState);
+  const toastType = useRecoilValue(toastTypeState);
 
   useEffect(() => {
     if (props.isModify) {
@@ -52,12 +54,12 @@ export const SettingList = (props: SettingListProps) => {
   };
 
   const onError = (error: any) => {
-    openToast(`프로필 사진 제외 모든 항목을 기입해 주세요`);
+    openToast(`프로필 사진 제외 모든 항목을 기입해 주세요`, 'error');
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <Toast varient='error' />
+      <Toast varient={toastType} />
       <Text typo={'Heading1'} color={'Black'} height={40}>
         내 정보 입력하기
       </Text>
@@ -70,13 +72,7 @@ export const SettingList = (props: SettingListProps) => {
         trigger={trigger}
       />
       <Space height={80} />
-      <ProfileImage
-        register={register}
-        errors={errors}
-        control={control}
-        watch={watch}
-        setValue={setValue}
-      />
+      <ProfileImage register={register} errors={errors} control={control} watch={watch} setValue={setValue} />
       <Space height={80} />
       <Grade control={control} />
       <Space height={80} />

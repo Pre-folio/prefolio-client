@@ -10,6 +10,8 @@ import { userState } from '../../../store/Auth/userState';
 import { useAutoLogin } from '../../../hooks/useAutoLogin';
 import { ProfilePopUp } from '../PropfilePopUp';
 import { useState } from 'react';
+import { Toast } from '../Toast';
+import { toastTypeState } from '../../../store/Toast/toastState';
 
 export function Header() {
   const router = useRouter();
@@ -17,6 +19,7 @@ export function Header() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const user = useRecoilValue(userState);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toastType = useRecoilValue(toastTypeState);
 
   useAutoLogin();
 
@@ -31,15 +34,7 @@ export function Header() {
           ) : isLoggedIn ? (
             // 로그인 된 경우
             currentUrl.includes('/write') ? (
-              <Button
-                type={'medium'}
-                color={'mint'}
-                content={'업로드하기'}
-                onClick={() => {
-                  // router.push('/login');
-                  //TODO 업로드 시 버튼
-                }}
-              />
+              <></>
             ) : currentUrl.includes('/profile') ? (
               <Button
                 type={'medium'}
@@ -47,7 +42,6 @@ export function Header() {
                 content={'새 글 작성'}
                 onClick={() => {
                   router.push('/write');
-                  // TODO 게시글 작성 페이지로 이동
                 }}
               />
             ) : (
@@ -59,7 +53,6 @@ export function Header() {
                     content={'새 글 작성'}
                     onClick={() => {
                       router.push('/write');
-                      // TODO 게시글 작성 페이지로 이동
                     }}
                   />
                   <button
@@ -98,6 +91,7 @@ export function Header() {
         </Wrapper>
       </HeaderWrapper>
       {isOpen && <ProfilePopUp isOpen={isOpen} setIsOpen={setIsOpen} />}
+      <Toast varient={toastType} />
     </>
   );
 }
