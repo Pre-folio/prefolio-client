@@ -168,7 +168,7 @@ const ContentsWrapper = styled.div`
   gap: 20px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   white-space: pre-wrap;
   word-break: break-all;
   text-overflow: clip;
