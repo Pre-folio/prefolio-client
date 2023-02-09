@@ -20,19 +20,14 @@ export const BottomSection = () => {
     <Section>
       <Space height={248} />
       <TextFlex>
-        <Text typo='Landing' color='White'>
+        <Text typo="Landing" color="White">
           친구의 스펙 구경하고
         </Text>
-        <Text typo='Landing' color='White'>
+        <Text typo="Landing" color="White">
           나의 활동도 기록하세요!
         </Text>
         <Space height={56} />
-        <Button
-          type='big'
-          color='mint'
-          content='바로 시작하기'
-          onClick={handleButtonClick}
-        />
+        <Button type="big" color="mint" content="바로 시작하기" onClick={handleButtonClick} />
       </TextFlex>
       <Space height={233} />
     </Section>

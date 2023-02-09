@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { getLikes, getScraps } from '../../apis/postContent';
+import { deletePost, getLikes, getScraps } from '../../apis/postContent';
 import { getPost } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
@@ -16,14 +16,18 @@ import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
 import { GetServerSideProps } from 'next';
 import { getCookie } from '../../utils/cookie';
+import { ConfirmationPopUp } from '../../components/common/ConfirmationPopUp';
+import { isPostDeleteButtonClickedState } from '../../store/Popup/popupState';
 
 const Board = (props: any) => {
   const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
     ssr: false,
   });
+  const router = useRouter();
 
   const { postId } = props;
   const userInfo = useRecoilValue(userState);
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] = useRecoilState(isPostDeleteButtonClickedState);
 
   const { isLoading: isPostLoading, data: postData } = useQuery(
     ['post-data'],
@@ -33,25 +37,6 @@ const Board = (props: any) => {
   const replaceDate = (date: any) => {
     return date.replaceAll('-', '.');
   };
-
-  // const {
-  //   thumbnail: thumbnailImgUrl,
-  //   title,
-  //   startDate,
-  //   endDate,
-  //   createdAt,
-  //   hits,
-  //   partTag,
-  //   actTag,
-  //   tools,
-  //   contribution,
-  //   task,
-  //   contents: content,
-  // } = postData?.data.data.post;
-  // const tags = partTag.concat(actTag);
-  // const { likes, scraps } = postData?.data.data.count;
-  // const { user: postAuthInfo } = postData?.data.data.user;
-  // const { isLiked: isLikedButtonClicked, isScrapped: isScrapButtonClicked } = postData?.data.data;
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url
@@ -74,10 +59,8 @@ const Board = (props: any) => {
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] =
-    useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] =
-    useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
   const isAuth = postAuthInfo.id === userInfo.userId;
 
   useEffect(() => {
@@ -107,34 +90,37 @@ const Board = (props: any) => {
 
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
-    if (isAuth) {
-      alert('자신의 글에 좋아요 버튼을 누를 수 없습니다.');
-      return;
-    } else {
-      const { data, message } = await getLikes(postId);
-      if (message === 'SUCCESS') {
-        setIsLikedButtonClicked(!isLikedButtonClicked);
-        setLikes(data.likes);
-      }
+    const { data, message } = await getLikes(postId);
+    if (message === 'SUCCESS') {
+      setIsLikedButtonClicked(!isLikedButtonClicked);
+      setLikes(data.likes);
     }
   };
 
   // 스크랩 버튼 클릭 함수
   const onClickScrapButton = async () => {
-    if (isAuth) {
-      alert('자신의 글을 스크랩할 수 없습니다.');
-      return;
-    } else {
-      const { data, message } = await getScraps(postId);
-      if (message === 'SUCCESS') {
-        setIsScrapButtonClicked(!isScrapButtonClicked);
-        setScraps(data.scraps);
-      }
+    const { data, message } = await getScraps(postId);
+    if (message === 'SUCCESS') {
+      setIsScrapButtonClicked(!isScrapButtonClicked);
+      setScraps(data.scraps);
     }
   };
 
   return (
     <>
+      {isPostDeleteButtonClicked && (
+        <ConfirmationPopUp
+          type="delete"
+          style={{ position: 'absolute', zIndex: 100 }}
+          handleUploadButtonClick={() => {
+            deletePost(postId);
+            router.push('/feed');
+          }}
+          handleCancelButtonClick={() => {
+            setIsPostDeleteButtonClicked(false);
+          }}
+        />
+      )}
       {postData?.status === 200 && isAuth && (
         <FloatingButtonWrapper>
           <FloatingButton postId={postId} />
@@ -159,21 +145,13 @@ const Board = (props: any) => {
                 justifyContent: 'center',
               }}
             >
-              <ImageUploadArea
-                alt='썸네일 이미지'
-                src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-              />
+              <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
             </div>
           </ThumbnailImageWrapper>
-          <Column
-            width='996px'
-            justifyContent='center'
-            alignItems='flex-start'
-            marginTop='60px'
-          >
-            <TitleArea>{title || '게시글 제목'}</TitleArea>
+          <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+            <TitleArea>{title}</TitleArea>
             <DetailInfoArea>
-              <Column justifyContent='space-between' alignItems='flex-start'>
+              <Column justifyContent="space-between" alignItems="flex-start">
                 <div>
                   활동 기간 : {startDate}~{endDate}
                 </div>
@@ -185,24 +163,21 @@ const Board = (props: any) => {
               style={{ marginTop: '56px' }}
               tags={tags.length !== 0 ? tags : ['']}
               tools={tools.length !== 0 ? tools : []}
-              contribution={contribution || 80}
-              role={task || 'UI 디자인, 그래픽'}
+              contribution={contribution}
+              role={task}
             />
             <Viewer style={{ marginTop: '72px' }} data={content} />
-            <PostButtonWrapper>
-              <PostButton
-                type={'hit'}
-                isClicked={isLikedButtonClicked}
-                onClick={onClickLikeButton}
-                counts={likes}
-              />
-              <PostButton
-                type={'scrap'}
-                isClicked={isScrapButtonClicked}
-                onClick={onClickScrapButton}
-                counts={scraps}
-              />
-            </PostButtonWrapper>
+            {!isAuth && (
+              <PostButtonWrapper>
+                <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+                <PostButton
+                  type={'scrap'}
+                  isClicked={isScrapButtonClicked}
+                  onClick={onClickScrapButton}
+                  counts={scraps}
+                />
+              </PostButtonWrapper>
+            )}
             <DivisionLine />
             <ProfileArea
               userId={postAuthInfo.id}
@@ -226,10 +201,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const postIdToNumber = Number(postId);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ['post-data'],
-    async () => await getPost(postIdToNumber, getCookie())
-  );
+  await queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber, getCookie()));
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

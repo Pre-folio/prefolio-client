@@ -4,7 +4,9 @@ import { theme } from './theme';
 const GlobalStyle = createGlobalStyle`
 
 
-  html,
+  html {
+    height: 100%;
+  }
   body {
     font-family: 'Pretendard Variable', Pretendard, -apple-system,
       BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
