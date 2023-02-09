@@ -242,6 +242,7 @@ const FloatingButtonWrapper = styled.div`
   position: fixed;
   top: 100px;
   right: 10%;
+  z-index: 3;
 `;
 
 const ThumbnailImageWrapper = styled.div<{ src: string }>`
