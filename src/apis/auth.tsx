@@ -33,9 +33,12 @@ export const authAPI = {
     return response.data.data;
   },
 
-  CHECK_NICKNAME: async (nickname: string): Promise<boolean> => {
-    const response = await client.post('/user/nickname', {
+  CHECK_NICKNAME: async (token: string, nickname: string): Promise<boolean> => {
+    const response = await publicClient.post('/user/nickname', {
       nickname: `${nickname}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.data.is_used;
   },
