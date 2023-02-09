@@ -2,9 +2,11 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deletePost } from '../../apis/postContent';
+import { useToast } from '../../hooks/useToasts';
 import { palette } from '../../styles/theme';
 import { getCookie } from '../../utils/cookie';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
+import { Toast } from '../common/Toast';
 import { ModifyIcon } from '../Icons/ModifyIcon';
 import { TrashCanIcon } from '../Icons/TrashCanIcon';
 
@@ -15,9 +17,10 @@ interface FloatingButtonProps {
 export function FloatingButton({ postId }: FloatingButtonProps) {
   const router = useRouter();
   const [isTrashCanIconClicked, setIsTrashCanIconClicked] = useState(false);
+  const { openToast } = useToast();
 
   const onClickModifyIcon = () => {
-    alert('기능 준비중입니다.');
+    openToast('기능 준비중입니다.');
     return;
   };
 
@@ -43,6 +46,7 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
           }}
         />
       )}
+      <Toast varient={'error'} />
     </>
   );
 }

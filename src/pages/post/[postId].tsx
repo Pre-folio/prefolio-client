@@ -16,6 +16,7 @@ import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
 import { GetServerSideProps } from 'next';
 import { getCookie } from '../../utils/cookie';
+import { Toast } from '../../components/common/Toast';
 
 const Board = (props: any) => {
   const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
@@ -240,7 +241,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;
-  top: 100px;
+  top: 700px;
   right: 10%;
   z-index: 3;
 `;
