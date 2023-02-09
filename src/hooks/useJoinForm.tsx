@@ -75,7 +75,7 @@ export const useJoinForm = () => {
 
   const joinPrefolio = useMutation(async () => {
     try {
-      kakaoJoinMutation.mutate(getValues());
+      kakaoJoinMutation.mutate({ ...getValues(), token: getCookie() });
     } catch (error: unknown) {
       await console.log('error...', error);
     }

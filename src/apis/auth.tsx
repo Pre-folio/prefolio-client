@@ -1,3 +1,4 @@
+import { JoinFormValues } from '../hooks/useJoinForm';
 import { setAccessToken, setRefreshToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 import { PartType } from './post';
@@ -21,6 +22,10 @@ export interface GetUserInfoResponse {
   refreshToken: string | null;
   countScrap: number;
   countLike: number;
+}
+
+export interface JoinRequest extends JoinFormValues {
+  token: string;
 }
 
 export const authAPI = {
@@ -66,13 +71,20 @@ export const authAPI = {
   },
 
   JOIN: async (data: any): Promise<KakaoJoinResponse> => {
-    console.log(data);
-    const response = await client.post('/user/join', {
-      nickname: data.nickname,
-      profileImage: data.profileImage,
-      grade: data.grade,
-      type: data.type,
-    });
+    const response = await publicClient.post(
+      '/user/join',
+      {
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        grade: data.grade,
+        type: data.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
 
     return response.data.data;
   },
