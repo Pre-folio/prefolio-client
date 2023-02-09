@@ -9,6 +9,7 @@ import postAPI from '../../../apis/post';
 import { useToast } from '../../../hooks/useToasts';
 import { Toast } from '../Toast';
 import { toastTypeState } from '../../../store/Toast/toastState';
+import { getCookie } from '../../../utils/cookie';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
@@ -57,7 +58,7 @@ export const PostCard = (props: PostCardProps) => {
     if (props.isMyPost) {
       openToast('자신의 글은 스크랩할 수 없어요.', 'error');
     } else {
-      const res = await postAPI.SCRAP(props.id);
+      const res = await postAPI.SCRAP(getCookie(), props.id);
       if (e.target === ref.current?.childNodes[0]) {
         setScrap(res.isScrapped);
       } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {

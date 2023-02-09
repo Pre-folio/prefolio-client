@@ -92,9 +92,9 @@ const Write = () => {
     setToolsList(tempToolsList);
   };
 
-  useEffect(() => {
-    setThumbnailUploadUrl(getRandomThumbnail());
-  }, []);
+  // useEffect(() => {
+  //   setThumbnailUploadUrl('');
+  // }, []);
 
   return (
     <>
@@ -314,7 +314,11 @@ const Write = () => {
           </Row>
           <div style={{ height: '300px' }}>
             <TextEditor
-              thumbnailUploadUrl={thumbnailUploadUrl}
+              thumbnailUploadUrl={
+                thumbnailUploadUrl === ''
+                  ? getRandomThumbnail()
+                  : thumbnailUploadUrl
+              }
               title={title.value}
               startDate={formatDate(startDate.value)}
               endDate={formatDate(endDate.value)}
@@ -335,6 +339,8 @@ const Write = () => {
 const ThumbnailImageWrapper = styled.div<{ src: string }>`
   width: 100vw;
   height: 560px;
+
+  background-color: ${theme.palette.Gray15};
   background-image: ${({ src }) => `url(${src})`};
   background-size: cover;
   background-position: center;
@@ -343,17 +349,6 @@ const ThumbnailImageWrapper = styled.div<{ src: string }>`
     filter: blur(8px);
     -webkit-filter: blur(8px);
   }
-
-  /* backdrop-filter: blur(5px); */
-
-  /* 
-  > img {
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-  } */
-
-  /* filter: blur(8px);
-  -webkit-filter: blur(8px); */
 
   display: flex;
   justify-content: center;

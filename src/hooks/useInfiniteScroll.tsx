@@ -53,7 +53,7 @@ export const useInfiniteScroll = (scrollType: ScrollType) => {
       scrollType === 'feed'
         ? await postAPI.ALL(getCookie(), param)
         : 'search'
-        ? await postAPI.SEARCH({
+        ? await postAPI.SEARCH(getCookie(), {
             ...param,
             searchWord: searchWord,
           })

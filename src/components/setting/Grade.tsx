@@ -1,15 +1,24 @@
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../store/Auth/userState';
 import { Button } from '../common/Button';
 import { Flex, Text } from '../common/Wrapper';
 
 export const Grade = (props: any) => {
   const [selectedGrade, setSelectedGrade] = useState<number>();
   const grades = [1, 2, 3, 4];
+  const user = useRecoilValue(userState);
 
   const handleButtonClick = (grade: number) => {
     setSelectedGrade(grade);
   };
+
+  useEffect(() => {
+    if (props.isModify) {
+      setSelectedGrade(user.grade);
+    }
+  }, []);
 
   return (
     <Flex direction='column' align='flex-start' width={588} gap={36}>
