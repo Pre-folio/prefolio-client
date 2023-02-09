@@ -8,6 +8,7 @@ import { useTagArea } from '../../../hooks/useTagArea';
 import { theme } from '../../../styles/theme';
 import { HelpIcon } from '../../Icons/HelpIcon';
 import { Filter } from '../Filter';
+import TagInfo from '../TagInfo';
 import { Column, Row } from '../Wrapper';
 
 interface TagAreaProps {
@@ -33,6 +34,7 @@ export function TagArea({
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const urlPath: string = router.asPath;
+  const [tagInfo, setTagInfo] = useState<boolean>(false);
 
   const isClicked = (arg: any) => {
     if (act === undefined && type === undefined) {
@@ -69,13 +71,12 @@ export function TagArea({
             />
           </Row>
           {urlPath.includes('write') ? (
-            <HelpIconArea className='help-area'>
+            <HelpIconArea
+              className='help-area'
+              onClick={() => setTagInfo(!tagInfo)}
+            >
               <HelpIcon className='help-icon' />
-              <img
-                className='hover-img'
-                alt='호버 이미지'
-                src='/src/writePage/TagHoverImage.png'
-              />
+              <TagInfo className='hover-image' />
             </HelpIconArea>
           ) : (
             <></>
@@ -131,11 +132,11 @@ const TextArea = styled.div`
 `;
 
 const HelpIconArea = styled.div`
-  & .hover-img {
-    display: none;
+  #hover-img {
+    display: none !important;
   }
 
-  & .help-icon:hover + .hover-img {
+  & .help-icon:hover + #hover-img {
     display: block;
     position: absolute;
     //TODO 비율에 따른 위치 조정 필요

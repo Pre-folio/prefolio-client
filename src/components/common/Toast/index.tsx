@@ -83,6 +83,8 @@ const Wrapper = styled.div<{
   background-color: ${({ varient }) => TOAST_SRC.wrapper[varient]};
   box-shadow: ${theme.shadow.Card.Black};
   border-radius: 14px;
+
+  transition: all 500ms ease-in-out;
 `;
 
 const Image = styled.img`

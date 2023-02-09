@@ -44,7 +44,7 @@ export const useInfiniteScroll = (scrollType: ScrollType) => {
     const param = {
       sortBy: sort ? 'CREATED_AT' : 'LIKES',
       pageNum: pageParam,
-      limit: 10,
+      limit: 20,
       partTagList: type.join(','),
       actTagList: act.join(','),
     };

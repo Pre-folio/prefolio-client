@@ -19,6 +19,7 @@ import { getPresignedUrl, uploadFile } from '../../apis/uploadImage';
 import { formatDate } from '../../utils/formatDate';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
+import TagInfo from '../../components/common/TagInfo';
 
 const TextEditor = dynamic(
   () => import('../../components/writePage/TextEditor'),
