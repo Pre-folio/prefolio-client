@@ -1,5 +1,5 @@
 import { FeedRequestProps } from '../hooks/usePosts';
-import { client } from './client';
+import { client, publicClient } from './client';
 
 export function postPosts(post: object) {
   return client.post('/posts/post', post).then((res) => {
@@ -9,7 +9,7 @@ export function postPosts(post: object) {
 }
 
 export async function getPost(id: number, token: string) {
-  return await client
+  return await publicClient
     .get(`/posts/post/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -21,19 +21,23 @@ export async function getPost(id: number, token: string) {
 }
 
 export async function getUserPosts(
+  token: string,
   userId: number,
   pageNum: number,
   limit: number,
   partTag: string,
   actTag: string
 ) {
-  return await client
+  return await publicClient
     .get(`/posts/${userId}`, {
       params: {
         partTag: partTag && partTag,
         actTag: actTag && actTag,
         pageNum: pageNum,
         limit: limit,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res) => {
@@ -43,6 +47,7 @@ export async function getUserPosts(
 }
 
 export interface ScrapRequestProps {
+  token: string;
   partTagList?: string;
   actTagList?: string;
   pageNum: number;

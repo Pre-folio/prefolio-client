@@ -27,7 +27,8 @@ const Board = (props: any) => {
 
   const { postId } = props;
   const userInfo = useRecoilValue(userState);
-  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] = useRecoilState(isPostDeleteButtonClickedState);
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] =
+    useRecoilState(isPostDeleteButtonClickedState);
 
   const { isLoading: isPostLoading, data: postData } = useQuery(
     ['post-data'],
@@ -59,8 +60,10 @@ const Board = (props: any) => {
     profileImage: '',
     type: '',
   });
-  const [isLikedButtonClicked, setIsLikedButtonClicked] = useState<boolean>(false);
-  const [isScrapButtonClicked, setIsScrapButtonClicked] = useState<boolean>(false);
+  const [isLikedButtonClicked, setIsLikedButtonClicked] =
+    useState<boolean>(false);
+  const [isScrapButtonClicked, setIsScrapButtonClicked] =
+    useState<boolean>(false);
   const isAuth = postAuthInfo.id === userInfo.userId;
 
   useEffect(() => {
@@ -90,7 +93,7 @@ const Board = (props: any) => {
 
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
-    const { data, message } = await getLikes(postId);
+    const { data, message } = await getLikes(getCookie(), postId);
     if (message === 'SUCCESS') {
       setIsLikedButtonClicked(!isLikedButtonClicked);
       setLikes(data.likes);
@@ -99,7 +102,7 @@ const Board = (props: any) => {
 
   // 스크랩 버튼 클릭 함수
   const onClickScrapButton = async () => {
-    const { data, message } = await getScraps(postId);
+    const { data, message } = await getScraps(getCookie(), postId);
     if (message === 'SUCCESS') {
       setIsScrapButtonClicked(!isScrapButtonClicked);
       setScraps(data.scraps);
@@ -110,10 +113,10 @@ const Board = (props: any) => {
     <>
       {isPostDeleteButtonClicked && (
         <ConfirmationPopUp
-          type="delete"
+          type='delete'
           style={{ position: 'absolute', zIndex: 100 }}
           handleUploadButtonClick={() => {
-            deletePost(postId);
+            deletePost(getCookie(), postId);
             router.push('/feed');
           }}
           handleCancelButtonClick={() => {
@@ -145,13 +148,21 @@ const Board = (props: any) => {
                 justifyContent: 'center',
               }}
             >
-              <ImageUploadArea alt="썸네일 이미지" src={thumbnailImgUrl ? thumbnailImgUrl : ''} />
+              <ImageUploadArea
+                alt='썸네일 이미지'
+                src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+              />
             </div>
           </ThumbnailImageWrapper>
-          <Column width="996px" justifyContent="center" alignItems="flex-start" marginTop="60px">
+          <Column
+            width='996px'
+            justifyContent='center'
+            alignItems='flex-start'
+            marginTop='60px'
+          >
             <TitleArea>{title}</TitleArea>
             <DetailInfoArea>
-              <Column justifyContent="space-between" alignItems="flex-start">
+              <Column justifyContent='space-between' alignItems='flex-start'>
                 <div>
                   활동 기간 : {startDate}~{endDate}
                 </div>
@@ -169,7 +180,12 @@ const Board = (props: any) => {
             <Viewer style={{ marginTop: '72px' }} data={content} />
             {!isAuth && (
               <PostButtonWrapper>
-                <PostButton type={'hit'} isClicked={isLikedButtonClicked} onClick={onClickLikeButton} counts={likes} />
+                <PostButton
+                  type={'hit'}
+                  isClicked={isLikedButtonClicked}
+                  onClick={onClickLikeButton}
+                  counts={likes}
+                />
                 <PostButton
                   type={'scrap'}
                   isClicked={isScrapButtonClicked}
@@ -201,7 +217,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const postIdToNumber = Number(postId);
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['post-data'], async () => await getPost(postIdToNumber, getCookie()));
+  await queryClient.prefetchQuery(
+    ['post-data'],
+    async () => await getPost(postIdToNumber, getCookie())
+  );
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -212,8 +231,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;
-  top: 100px;
+  top: 700px;
   right: 10%;
+  z-index: 3;
 `;
 
 const ThumbnailImageWrapper = styled.div<{ src: string }>`

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Header } from '../common/Header';
+import ScrollToTop from '../common/ScrollToTop';
 import { Section } from '../common/Wrapper';
 
 interface LayoutProps {
