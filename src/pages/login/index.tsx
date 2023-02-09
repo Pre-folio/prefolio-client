@@ -1,5 +1,5 @@
-import { LoginPage } from '../../components/login/LoginPage';
-//왜안돼
+import LoginPage from '../../components/login/LoginPage';
+
 const Login = () => {
   return (
     <div>
