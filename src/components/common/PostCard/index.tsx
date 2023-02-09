@@ -19,6 +19,7 @@ export interface PostCardProps {
   postDate: string;
   hits: number;
   id: number;
+  isMyPost?: boolean;
 }
 
 /**
@@ -41,9 +42,7 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(
-    `${theme.palette.Gray20}`
-  );
+  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
   const [scrap, setScrap] = useState<boolean>(props.isScrapped);
 
   const handleIconClick = async (e: any) => {
@@ -69,9 +68,7 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
       <MockThumbnail>
-        <Thumbnail
-          src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'}
-        />
+        <Thumbnail src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'} />
         <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
           <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
         </ScrappIconWrapper>
@@ -81,20 +78,10 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag
-              key={index}
-              type={'field'}
-              sort={index}
-              style={{ boxShadow: 'none' }}
-            />
+            <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
           ))}
           {props.activity.map((index) => (
-            <Tag
-              key={index}
-              type={'activity'}
-              sort={index}
-              style={{ boxShadow: 'none' }}
-            />
+            <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>

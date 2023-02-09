@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof Toast> = (args) => {
         type={'medium'}
         color={'mint'}
         content={'토스트 열기'}
-        onClick={() => openToast('정보를 모두 입력해주세요!')}
+        onClick={() => openToast('정보를 모두 입력해주세요!', 'error')}
       />
       <Toast varient={'error'} />
     </div>

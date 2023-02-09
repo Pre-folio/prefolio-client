@@ -19,10 +19,10 @@ const TOAST_SRC = {
   },
   icon: {
     success: '/images/megaphone.png',
-    error: '/images/common/redMegaphone.png',
+    error: '/images/megaphone.png',
   },
   text: {
-    success: `${theme.palette.Mint100}`,
+    success: `${theme.palette.Minttext}`,
     error: `${theme.palette.Red80}`,
   },
 };
@@ -39,13 +39,8 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
   return (
     <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
-        <Image
-          src={TOAST_SRC.icon[varient]}
-          alt='megaphone'
-          width={48}
-          height={48}
-        />
-        <Text typo='Heading5' color='Red80' height={22}>
+        <Image src={TOAST_SRC.icon[varient]} alt="megaphone" width={48} height={48} />
+        <Text typo="Heading5" color="Red80" height={22}>
           {content}
         </Text>
       </Wrapper>
