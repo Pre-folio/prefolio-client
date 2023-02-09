@@ -4,13 +4,12 @@ import { DatePicker } from '../../components/common/DatePicker';
 import { Input } from '../../components/common/Input';
 import { ProgressBar } from '../../components/common/ProgressBar';
 import { TagArea } from '../../components/common/TagArea';
-import { Column, Row } from '../../components/common/Wrapper';
+import { Column, Row, Space } from '../../components/common/Wrapper';
 import { theme } from '../../styles/theme';
 import { Filter } from '../../components/common/Filter';
 import { Button } from '../../components/common/Button';
 import { GuideLine } from '../../components/writePage/GuideLine';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
 import dynamic from 'next/dynamic';
 import useInput from '../../hooks/useInput';
 import { UploadIcon } from '../../components/Icons/UploadIcon';
@@ -20,6 +19,7 @@ import { formatDate } from '../../utils/formatDate';
 import { userState } from '../../store/Auth/userState';
 import { useTagArea } from '../../hooks/useTagArea';
 import { useToast } from '../../hooks/useToasts';
+import { getRandomThumbnail } from '../../utils/getRandomThumbnail';
 
 const Write = () => {
   const TextEditor = dynamic(() => import('../../components/writePage/TextEditor'), { ssr: false });
@@ -78,20 +78,40 @@ const Write = () => {
     setToolsList(tempToolsList);
   };
 
+  useEffect(() => {
+    setThumbnailUploadUrl(getRandomThumbnail());
+  }, []);
+
   return (
     <>
-      <ThumbnailImageWrapper>
-        {thumbnailUploadUrl.length > 1 ? (
-          <img
-            src={thumbnailUploadUrl}
-            alt="게시글 썸네일 이미지"
-            width="996px"
-            height="100%"
-            style={{ objectFit: 'cover', backgroundImage: 'size' }}
-          />
-        ) : (
-          <ImageUploadArea />
-        )}
+      <ThumbnailImageWrapper className="thumnail-wrapper" src={thumbnailUploadUrl}>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {thumbnailUploadUrl.length > 1 ? (
+            <img
+              className="thumbnail-image"
+              src={thumbnailUploadUrl}
+              alt="게시글 썸네일 이미지"
+              width="996px"
+              height="100%"
+              style={{
+                objectFit: 'cover',
+                backgroundImage: 'size',
+                zIndex: '3',
+                position: 'relative',
+              }}
+            />
+          ) : (
+            <ImageUploadArea />
+          )}
+        </div>
         <Column
           style={{
             position: 'absolute',
@@ -215,14 +235,18 @@ const Write = () => {
               <span>*</span>
             </CategoryTextArea>
             <Column justifyContent="flex-start" alignItems="flex-start">
-              <Button
-                type={'small'}
-                content={isGuideLineButtonClicked ? '가이드라인 접기' : '가이드라인 보기'}
-                color={'mint'}
-                onClick={() => {
-                  setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
-                }}
-              />
+              {act.length > 0 ? (
+                <Button
+                  type={'small'}
+                  content={isGuideLineButtonClicked ? '가이드라인 접기' : '가이드라인 보기'}
+                  color={'mint'}
+                  onClick={() => {
+                    setIsGuideLineButtonClicked(!isGuideLineButtonClicked);
+                  }}
+                />
+              ) : (
+                <Space height={34} />
+              )}
               {isGuideLineButtonClicked && (
                 <Column marginTop="20px" gap="14px">
                   {act.map((tag: any) => {
@@ -252,14 +276,34 @@ const Write = () => {
   );
 };
 
-const ThumbnailImageWrapper = styled.div`
+const ThumbnailImageWrapper = styled.div<{ src: string }>`
   width: 100vw;
   height: 560px;
-  background-color: ${theme.palette.Gray15};
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+
+  &::before {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+
+  /* backdrop-filter: blur(5px); */
+
+  /* 
+  > img {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  } */
+
+  /* filter: blur(8px);
+  -webkit-filter: blur(8px); */
+
   display: flex;
   justify-content: center;
   margin-left: calc(-50vw + 50%);
   position: relative;
+  object-fit: cover;
 `;
 
 const ImageUploadArea = styled.div`

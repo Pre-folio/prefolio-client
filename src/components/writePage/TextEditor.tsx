@@ -13,7 +13,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Toast } from '../common/Toast';
 import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
-import { useTagArea } from '../../hooks/useTagArea';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { toastTypeState } from '../../store/Toast/toastState';
 

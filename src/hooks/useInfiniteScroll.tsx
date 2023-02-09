@@ -1,3 +1,4 @@
+import { LastPage } from '@mui/icons-material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import postAPI, {
@@ -52,13 +53,17 @@ export const useInfiniteScroll = (scrollType: ScrollType) => {
       scrollType === 'feed'
         ? await postAPI.ALL(getCookie(), param)
         : 'search'
-        ? await postAPI.SEARCH({ ...param, searchWord: searchWord })
+        ? await postAPI.SEARCH({
+            ...param,
+            searchWord: searchWord,
+          })
         : 'profile'
         ? await postAPI.ALL(getCookie(), param)
         : await postAPI.ALL(getCookie(), param);
 
     setResults(res.totalResults);
 
+    console.log('total', res.totalPages);
     return {
       board_page: res.posts,
       current_page: pageParam,
@@ -78,6 +83,8 @@ export const useInfiniteScroll = (scrollType: ScrollType) => {
       return undefined;
     },
   });
+
+  console.log(getBoard);
 
   return {
     getBoard,

@@ -8,6 +8,7 @@ import { useTagArea } from '../../../hooks/useTagArea';
 import { theme } from '../../../styles/theme';
 import { HelpIcon } from '../../Icons/HelpIcon';
 import { Filter } from '../Filter';
+import TagInfo from '../TagInfo';
 import { Column, Row } from '../Wrapper';
 
 interface TagAreaProps {
@@ -33,6 +34,7 @@ export function TagArea({
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
   const urlPath: string = router.asPath;
+  const [tagInfo, setTagInfo] = useState<boolean>(false);
 
   const isClicked = (arg: any) => {
     if (act === undefined && type === undefined) {
@@ -69,14 +71,26 @@ export function TagArea({
             />
           </Row>
           {urlPath.includes('write') ? (
-            <HelpIconArea className='help-area'>
-              <HelpIcon className='help-icon' />
-              <img
-                className='hover-img'
-                alt='호버 이미지'
-                src='/src/writePage/TagHoverImage.png'
-              />
-            </HelpIconArea>
+            <div style={{ position: 'relative' }}>
+              <HelpIconArea
+                className='help-area'
+                onMouseOut={() => setTagInfo(false)}
+                onMouseOver={() => setTagInfo(true)}
+              >
+                <HelpIcon className='help-icon' />
+                <TagInfo className='hover-image' />
+              </HelpIconArea>
+              <div
+                style={{
+                  zIndex: '3',
+                  position: 'absolute',
+                  top: '130%',
+                  right: '48%',
+                }}
+              >
+                {tagInfo && <TagInfo className='hover-image' />}
+              </div>
+            </div>
           ) : (
             <></>
           )}
@@ -131,16 +145,18 @@ const TextArea = styled.div`
 `;
 
 const HelpIconArea = styled.div`
-  & .hover-img {
-    display: none;
+  & > div {
+    display: none !important;
   }
 
-  & .help-icon:hover + .hover-img {
-    display: block;
-    position: absolute;
-    //TODO 비율에 따른 위치 조정 필요
-    top: 159%;
-    left: 48%;
-    z-index: 1;
+  & .help-icon:hover {
+    > div {
+      display: visible !important;
+      position: absolute;
+      //TODO 비율에 따른 위치 조정 필요
+      top: 159%;
+      left: 48%;
+      z-index: 1;
+    }
   }
 `;

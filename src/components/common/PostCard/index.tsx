@@ -77,32 +77,30 @@ export const PostCard = (props: PostCardProps) => {
   }, [scrap]);
 
   return (
-    <>
-      <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
-        <MockThumbnail>
-          <Thumbnail src={props.thumbnail ? props.thumbnail : '/images/megaphone.png'} />
-          <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
-            <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
-          </ScrappIconWrapper>
-        </MockThumbnail>
+    <PostCardWrapper onClick={() => router.push(`/post/${props.id}`)}>
+      <MockThumbnail>
+        <Thumbnail src={props.thumbnail ? props.thumbnail : ''} />
+        <ScrappIconWrapper ref={ref} onClick={handleIconClick}>
+          <ScrappIcon fill={iconFillColor} stroke={iconStrokeColor} />
+        </ScrappIconWrapper>
+      </MockThumbnail>
 
-        <ContentsWrapper>
-          <Title>{props.title}</Title>
-          <TagsWrapper>
-            {props.field.map((index) => (
-              <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
-            ))}
-            {props.activity.map((index) => (
-              <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
-            ))}
-          </TagsWrapper>
-          <PostInfoWrapper>
-            <PostInfo>{props.postDate}</PostInfo>
-            <PostInfo>{`조회수  ${props.hits}`}</PostInfo>
-          </PostInfoWrapper>
-        </ContentsWrapper>
-      </PostCardWrapper>
-    </>
+      <ContentsWrapper>
+        <Title>{props.title}</Title>
+        <TagsWrapper>
+          {props.field.map((index) => (
+            <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
+          ))}
+          {props.activity.map((index) => (
+            <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
+          ))}
+        </TagsWrapper>
+        <PostInfoWrapper>
+          <PostInfo>{props.postDate}</PostInfo>
+          <PostInfo>{`조회수  ${props.hits}`}</PostInfo>
+        </PostInfoWrapper>
+      </ContentsWrapper>
+    </PostCardWrapper>
   );
 };
 
@@ -168,7 +166,7 @@ const ContentsWrapper = styled.div`
   gap: 20px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   white-space: pre-wrap;
   word-break: break-all;
   text-overflow: clip;

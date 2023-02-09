@@ -1,10 +1,8 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
 import { KakaoButton } from './KakaoButton';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   return (
     <Wrapper>
       <Space height={104} />
@@ -20,9 +18,8 @@ export const LoginPage = () => {
         프리폴리오 이용하기
       </Text>
       <Space height={60} />
-      <Img src="/images/login.png" alt="" />
+      <Img src="https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/login.png" alt="" />
       <Space height={100} />
-      {/* <Link href={process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL!}> */}
       <a href={`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}`} rel={'noopener noreferrer'}>
         <KakaoButton />
       </a>
@@ -33,6 +30,8 @@ export const LoginPage = () => {
     </Wrapper>
   );
 };
+
+export default LoginPage;
 
 const Wrapper = styled.div`
   width: 100%;

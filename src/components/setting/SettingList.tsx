@@ -1,3 +1,4 @@
+import { PropaneSharp } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -38,7 +39,13 @@ export const SettingList = (props: SettingListProps) => {
   const toastType = useRecoilValue(toastTypeState);
 
   useEffect(() => {
-    trigger();
+    if (props.isModify) {
+      setValue('nickname', user.nickname);
+      setValue('profileImage', user.profileImage);
+      setValue('grade', user.grade);
+      setValue('type', user.type);
+      trigger();
+    }
   }, []);
 
   // 새로고침 시 submit 이벤트 발생

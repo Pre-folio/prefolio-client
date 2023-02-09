@@ -69,6 +69,7 @@ const Tab = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 300ms ease-in-out;
 `;
 
 const TabLine = styled.div<{
