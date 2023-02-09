@@ -20,6 +20,7 @@ export interface ProfileImageProps {
   control: any;
   watch: any;
   setValue: any;
+  isModify: boolean;
 }
 
 export const ProfileImage = ({
@@ -61,15 +62,17 @@ export const ProfileImage = ({
   };
 
   useEffect(() => {
-    setValue(
-      'profileImage',
-      'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
-    );
+    if (props.isModify) {
+      setValue('profileImage', user.profileImage);
+      setImage(user.profileImage);
+      setTrashIconColor(`${theme.palette.Gray40}`);
+    } else {
+      setValue(
+        'profileImage',
+        'https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/default_profile.png'
+      );
+    }
   }, []);
-
-  useEffect(() => {
-    console.log(url);
-  }, [url]);
 
   const handleTrashIconClick = () => {
     setImage(

@@ -33,10 +33,23 @@ export const authAPI = {
     return response.data.data;
   },
 
-  CHECK_NICKNAME: async (nickname: string): Promise<boolean> => {
-    const response = await client.post('/user/nickname', {
-      nickname: `${nickname}`,
-    });
+  CHECK_NICKNAME: async (
+    token: string,
+    nickname: string,
+    userId: number
+  ): Promise<boolean> => {
+    const response = await publicClient.post(
+      '/user/nickname',
+      {
+        nickname: `${nickname}`,
+        userId: userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.data.is_used;
   },
 
@@ -64,7 +77,9 @@ export const authAPI = {
     return response.data.data;
   },
 
-  USER_INFO: async (data: KakaoValidationResponse): Promise<GetUserInfoResponse> => {
+  USER_INFO: async (
+    data: KakaoValidationResponse
+  ): Promise<GetUserInfoResponse> => {
     const response = await publicClient.get(`/user/${data.userId}`, {
       headers: {
         Authorization: `Bearer ${data.accessToken}`,

@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import authAPI from '../apis/auth';
 import sourceAPI from '../apis/source';
 import { userState } from '../store/Auth/userState';
+import { getCookie } from '../utils/cookie';
 import { useAuth } from './useAuth';
 
 export interface JoinFormValues {
@@ -47,7 +48,11 @@ export const useJoinForm = () => {
 
   // 닉네임 validation check
   const nicknameValidation = async (value: string) => {
-    const isUsed: boolean = await authAPI.CHECK_NICKNAME(watch('nickname'));
+    const isUsed: boolean = await authAPI.CHECK_NICKNAME(
+      getCookie(),
+      watch('nickname'),
+      user.userId
+    );
     if (isUsed === true) {
       return '*중복된 닉네임입니다.';
     }

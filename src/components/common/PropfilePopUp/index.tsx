@@ -31,14 +31,14 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
 
   return (
     <PopUpContainer>
-      <Flex width={1200} height={392} justify="flex-end">
+      <Flex width={1200} height={392} justify='flex-end'>
         <PopUpWrapper
           onMouseOver={() => props.setIsOpen(true)}
           onMouseMove={() => props.setIsOpen(true)}
           onMouseLeave={() => props.setIsOpen(false)}
           style={{ cursor: 'pointer', top: '0px' }}
         >
-          <Flex direction="column" style={{ cursor: 'default' }}>
+          <Flex direction='column' style={{ cursor: 'default' }}>
             <Img
               src={user.profileImage}
               onClick={() => {
@@ -55,7 +55,11 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
                 router.push(`/setting/${user.userId}`);
               }}
             >
-              <Tag type={'activity'} sort={'프로필 수정'} style={{ boxShadow: 'none', cursor: 'pointer' }} />
+              <Tag
+                type={'activity'}
+                sort={'프로필 수정'}
+                style={{ boxShadow: 'none', cursor: 'pointer' }}
+              />
             </div>
             <Space height={16} />
             <Text

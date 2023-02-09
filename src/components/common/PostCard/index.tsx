@@ -45,7 +45,9 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
+  const [iconStrokeColor, setIconStrokeColor] = useState(
+    `${theme.palette.Gray20}`
+  );
   const [scrap, setScrap] = useState<boolean>(props.isScrapped);
   const { openToast } = useToast();
   const toastType = useRecoilValue(toastTypeState);
@@ -89,10 +91,20 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
+            <Tag
+              key={index}
+              type={'field'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
           {props.activity.map((index) => (
-            <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
+            <Tag
+              key={index}
+              type={'activity'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>
