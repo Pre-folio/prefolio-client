@@ -15,6 +15,7 @@ import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
 import { GetServerSideProps } from 'next';
+import { getCookie } from '../../utils/cookie';
 
 const Board = (props: any) => {
   const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
@@ -26,7 +27,7 @@ const Board = (props: any) => {
 
   const { isLoading: isPostLoading, data: postData } = useQuery(
     ['post-data'],
-    async () => await getPost(postId)
+    async () => await getPost(postId, getCookie())
   );
 
   const replaceDate = (date: any) => {

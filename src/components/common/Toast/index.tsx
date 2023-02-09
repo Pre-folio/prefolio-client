@@ -39,8 +39,17 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
   return (
     <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
-        <Image src={TOAST_SRC.icon[varient]} alt="megaphone" width={48} height={48} />
-        <Text typo="Heading5" color={varient === 'error' ? 'Red80' : 'Minttext'} height={22}>
+        <Image
+          src={TOAST_SRC.icon[varient]}
+          alt='megaphone'
+          width={48}
+          height={48}
+        />
+        <Text
+          typo='Heading5'
+          color={varient === 'error' ? 'Red80' : 'Minttext'}
+          height={22}
+        >
           {content}
         </Text>
       </Wrapper>

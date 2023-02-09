@@ -16,7 +16,14 @@ interface IButton {
   width?: number;
 }
 
-export function Button({ type, color, content, onClick, width, style }: ButtonProps) {
+export function Button({
+  type,
+  color,
+  content,
+  onClick,
+  width,
+  style,
+}: ButtonProps) {
   return type === 'big' ? (
     // 버튼_대는 mint color 밖에 없음
     <BigButton color={color} onClick={onClick} width={width} style={style}>

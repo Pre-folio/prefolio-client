@@ -8,14 +8,25 @@ export function postPosts(post: object) {
   });
 }
 
-export async function getPost(id: number) {
-  return await client.get(`/posts/post/${id}`).then((res) => {
-    // console.log(res);
-    return res;
-  });
+export async function getPost(id: number, token: string) {
+  return await client
+    .get(`/posts/post/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res;
+    });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
+export async function getUserPosts(
+  userId: number,
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
   return await client
     .get(`/posts/${userId}`, {
       params: {
