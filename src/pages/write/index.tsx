@@ -175,7 +175,7 @@ const Write = () => {
             <Input
               width={1098}
               height={46}
-              placeholder="활동에서 사용한 툴을 작성해주세요. (최대 8개)"
+              placeholder="활동에서 사용한 툴을 작성 후 엔터키를 누르면 등록됩니다. (최대 8개)"
               typo={'Body1'}
               onKeyPress={onEnterToolBar}
             />
