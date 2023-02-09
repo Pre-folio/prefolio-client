@@ -350,17 +350,6 @@ const ThumbnailImageWrapper = styled.div<{ src: string }>`
     -webkit-filter: blur(8px);
   }
 
-  /* backdrop-filter: blur(5px); */
-
-  /* 
-  > img {
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-  } */
-
-  /* filter: blur(8px);
-  -webkit-filter: blur(8px); */
-
   display: flex;
   justify-content: center;
   margin-left: calc(-50vw + 50%);

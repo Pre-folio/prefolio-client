@@ -149,11 +149,21 @@ const Board = (props: any) => {
             paddingBottom: '100px',
           }}
         >
-          <ThumbnailImageWrapper>
-            <ImageUploadArea
-              alt='썸네일 이미지'
-              src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-            />
+          <ThumbnailImageWrapper src={thumbnailImgUrl}>
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                backdropFilter: 'blur(10px)',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <ImageUploadArea
+                alt='썸네일 이미지'
+                src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+              />
+            </div>
           </ThumbnailImageWrapper>
           <Column
             width='996px'
@@ -234,13 +244,18 @@ const FloatingButtonWrapper = styled.div`
   right: 10%;
 `;
 
-const ThumbnailImageWrapper = styled.div`
+const ThumbnailImageWrapper = styled.div<{ src: string }>`
   width: 100vw;
   @media screen and (max-width: 1200px) {
     width: 1200px;
   }
   height: 560px;
+
   background-color: ${theme.palette.Gray15};
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+
   display: flex;
   justify-content: center;
 `;
