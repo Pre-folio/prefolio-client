@@ -59,12 +59,20 @@ export const authAPI = {
   },
 
   MODIFY_PROFILE: async (data: any): Promise<KakaoJoinResponse> => {
-    const response = await client.put('/user/join', {
-      nickname: data.nickname,
-      profileImage: data.profileImage,
-      grade: data.grade,
-      type: data.type,
-    });
+    const response = await publicClient.put(
+      '/user/join',
+      {
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        grade: data.grade,
+        type: data.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
 
     return response.data.data;
   },
