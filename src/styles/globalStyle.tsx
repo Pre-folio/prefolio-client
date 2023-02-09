@@ -4,7 +4,9 @@ import { theme } from './theme';
 const GlobalStyle = createGlobalStyle`
 
 
-  html,
+  html{
+    height: 100%;
+  }
   body {
     font-family: 'Pretendard Variable', Pretendard, -apple-system,
       BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
@@ -14,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     overflow-x: hidden;
+   
 
    &::-webkit-scrollbar {
     width: 8px;
@@ -27,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
   
   #root {
     margin: 0 auto;
+    height: 100%;
   }
 
   * {

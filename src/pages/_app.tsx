@@ -12,6 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import ScrollToTop from '../components/common/ScrollToTop';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
               <Layout>
+                <ScrollToTop />
                 <Component {...pageProps} />
               </Layout>
             </ThemeProvider>
