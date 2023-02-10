@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
 
    &::-webkit-scrollbar {
     width: 8px;
-    background-color: transparent;
+    background-color: white;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 25px;
