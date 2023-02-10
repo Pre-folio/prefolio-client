@@ -54,8 +54,10 @@ const Wrapper = styled.div`
   gap: 30px;
   position: fixed;
   bottom: 10%;
-  right: 100px;
+  /* right: 100px; */
   border-radius: 8px;
   background-color: ${palette.Gray10};
   z-index: 1000;
+  left: 50%;
+  transform: translate(542px, 0%);
 `;
