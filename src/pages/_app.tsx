@@ -22,13 +22,13 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Pre:folio</title>
         <link rel='shortcut icon' href='/favicon.png' />
-        <meta property='og: title' content='Pre:folio' />
+        <meta property='og:title' content='Pre:folio' />
         <meta
-          property='og: description'
+          property='og:description'
           content='대학생이라면 이용해야 하는 IT 스펙 저장소, Prepare Your Portfolio!'
         />
         <meta
-          property='og: image'
+          property='og:image'
           content='https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/ogImage.jpg'
         />
         <meta property='og:url' content='pre-folio.com' />
