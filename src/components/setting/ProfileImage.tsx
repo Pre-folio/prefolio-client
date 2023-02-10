@@ -115,5 +115,5 @@ const Image = styled.img`
   height: 180px;
   width: 180px;
   border-radius: 100%;
-  background-color: #000;
+  background-color: transparent;
 `;

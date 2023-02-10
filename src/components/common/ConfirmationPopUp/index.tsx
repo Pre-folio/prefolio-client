@@ -20,9 +20,12 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
   return (
     <PopUpContainer style={props.style}>
       <ConfirmationPopUpWrapper>
-        <ConfirmText>{props.type === 'delete' ? '게시물을 삭제하시겠습니까?' : '업로드하시겠습니까?'}</ConfirmText>
-        <Img src="/images/popup.png" alt="" />
-        <ConfirmText>업로드하시겠습니까?</ConfirmText>
+        <ConfirmText>
+          {props.type === 'delete'
+            ? '게시물을 삭제하시겠습니까?'
+            : '업로드하시겠습니까?'}
+        </ConfirmText>
+        <Img src='/images/popup.png' alt='' />
         <CautionText>
           {props.type === 'delete'
             ? '삭제한 게시물은 되돌리기 어려우니한번 더 확인해주세요!'
@@ -49,31 +52,45 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
 };
 
 const PopUpContainer = styled.div`
-  width: 100vw;
+  /* width: 100vw;
   position: absolute;
   left: 0;
-  top: 20%;
-
+  top: 20%; */
+  /* position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 100vw; */
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  position: absolute;
 `;
 
 const BackDrop = styled.div`
-  z-index: 9999;
+  z-index: 15000;
 
   width: 100vw;
   height: 100vh;
 
   position: fixed;
+
   top: 0;
   left: 0;
 
   background-color: rgba(14, 14, 14, 0.5);
+  overflow: hidden;
 `;
 
 const ConfirmationPopUpWrapper = styled.div`
-  z-index: 10000;
+  z-index: 16000;
 
   background-color: ${theme.palette.White};
   color: ${theme.palette.Black};
@@ -82,6 +99,7 @@ const ConfirmationPopUpWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   padding: 80px 102.5px 80px 102.5px;
   border-radius: 20px;

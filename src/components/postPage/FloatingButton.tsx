@@ -38,19 +38,6 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
         <ModifyIcon onClick={onClickModifyIcon} />
         <TrashCanIcon onClick={onClickTrashCanIcon} />
       </Wrapper>
-      {isPostDeleteButtonClicked && (
-        <ConfirmationPopUp
-          type='delete'
-          style={{ position: 'absolute', zIndex: 100 }}
-          handleUploadButtonClick={() => {
-            deletePost(getCookie(), postId);
-            router.push('/feed');
-          }}
-          handleCancelButtonClick={() => {
-            setIsPostDeleteButtonClicked(false);
-          }}
-        />
-      )}
       <Toast varient={'error'} />
     </>
   );

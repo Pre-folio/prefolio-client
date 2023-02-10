@@ -22,6 +22,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
 import uml from '@toast-ui/editor-plugin-uml';
+import { getCookie } from '../../utils/cookie';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -88,7 +89,7 @@ const TextEditor = ({
       contents: text,
     };
 
-    const { postId, status } = await postPosts(postContent);
+    const { postId, status } = await postPosts(getCookie(), postContent);
 
     if (status === 200) {
       openToast('글 작성이 완료됐어요!', 'success');
@@ -105,7 +106,7 @@ const TextEditor = ({
     <>
       {isUploadButtonClicked && (
         <ConfirmationPopUp
-          style={{ position: 'absolute', top: '50%' }}
+          // style={{ position: 'absolute', top: '50%' }}
           handleUploadButtonClick={onClickPopupUploadButton}
           handleCancelButtonClick={() => {
             setIsUploadButtonClicked(false);

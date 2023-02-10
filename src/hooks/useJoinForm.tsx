@@ -83,7 +83,7 @@ export const useJoinForm = () => {
 
   const modifyProfile = useMutation(async () => {
     try {
-      modifyProfileMutation.mutate(getValues());
+      modifyProfileMutation.mutate({ ...getValues(), token: getCookie() });
     } catch (error: unknown) {
       await console.log('error...', error);
     }

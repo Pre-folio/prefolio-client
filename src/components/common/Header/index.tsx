@@ -48,7 +48,7 @@ export function Header() {
               />
             ) : (
               <>
-                <Row gap="16px">
+                <Row gap='16px'>
                   <Button
                     type={'medium'}
                     color={'mint'}
@@ -67,7 +67,7 @@ export function Header() {
                       <ProfileImageWrapper
                         onMouseOver={() => setIsOpen(true)}
                         onMouseMove={() => setIsOpen(true)}
-                        alt="프로필 이미지"
+                        alt='프로필 이미지'
                         src={
                           user.profileImage
                             ? user.profileImage
@@ -114,6 +114,10 @@ const HeaderWrapper = styled.div`
   z-index: 999;
 
   width: 100vw;
+  @media screen and (max-width: 1200px) {
+    margin-left: 0;
+    width: 1200px;
+  }
 `;
 
 const Wrapper = styled.div`
