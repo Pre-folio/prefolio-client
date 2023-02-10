@@ -63,13 +63,14 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
 const BackDrop = styled.div`
   z-index: 15000;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   position: fixed;
 
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   background-color: rgba(14, 14, 14, 0.5);
 
