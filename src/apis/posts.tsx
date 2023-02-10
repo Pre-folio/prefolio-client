@@ -61,10 +61,13 @@ export interface ScrapRequestProps {
   pageNum: number;
   limit: number;
 }
-export async function getUserScraps(param: ScrapRequestProps) {
+export async function getUserScraps(token: string, param: ScrapRequestProps) {
   if (param.partTagList && param.actTagList) {
     const res = await client.get(`/posts/scraps`, {
       params: param,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data.data;
   } else if (param.partTagList && !param.actTagList) {
@@ -73,6 +76,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         partTagList: param.partTagList,
         pageNum: param.pageNum,
         limit: param.limit,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data.data;
@@ -83,6 +89,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         pageNum: param.pageNum,
         limit: param.limit,
       },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data.data;
   } else {
@@ -91,6 +100,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         params: {
           pageNum: param.pageNum,
           limit: param.limit,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

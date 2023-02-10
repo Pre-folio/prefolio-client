@@ -3,7 +3,7 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import styled from 'styled-components';
-import { Column } from '../common/Wrapper';
+import { Column, Flex } from '../common/Wrapper';
 import { Button } from '../common/Button';
 import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';

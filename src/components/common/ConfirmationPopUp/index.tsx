@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
 import styled, { CSSProperties } from 'styled-components';
 import { theme } from '../../../styles/theme';
 import { Button } from '../Button';
@@ -17,8 +17,17 @@ export interface ConfirmationPopUpProps {
  */
 
 export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
+  useEffect(() => {
+    // mount
+    document.body.style.overflowY = 'hidden';
+    return () => {
+      // unmount
+      document.body.style.overflowY = 'unset';
+    };
+  }, []);
+
   return (
-    <PopUpContainer style={props.style}>
+    <>
       <ConfirmationPopUpWrapper>
         <ConfirmText>
           {props.type === 'delete'
@@ -47,46 +56,25 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
         </ButtonWrapper>
       </ConfirmationPopUpWrapper>
       <BackDrop />
-    </PopUpContainer>
+    </>
   );
 };
-
-const PopUpContainer = styled.div`
-  /* width: 100vw;
-  position: absolute;
-  left: 0;
-  top: 20%; */
-  /* position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100vw; */
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  position: absolute;
-`;
 
 const BackDrop = styled.div`
   z-index: 15000;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   position: fixed;
 
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   background-color: rgba(14, 14, 14, 0.5);
-  overflow: hidden;
+
+  /* overflow: hidden; */
 `;
 
 const ConfirmationPopUpWrapper = styled.div`
@@ -106,6 +94,13 @@ const ConfirmationPopUpWrapper = styled.div`
 
   width: 792px;
   height: 758px;
+
+  position: fixed;
+  margin: 0 auto;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Img = styled.img`
