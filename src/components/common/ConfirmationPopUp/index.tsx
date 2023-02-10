@@ -64,10 +64,12 @@ const PopUpContainer = styled.div`
   width: 100vw; */
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 
   position: absolute;
 `;

@@ -1,10 +1,20 @@
 import { FeedRequestProps } from '../hooks/usePosts';
 import { client, publicClient } from './client';
 
-export function postPosts(post: object) {
-  return client.post('/posts/post', post).then((res) => {
-    return { postId: res.data.data.postId, status: res.status };
-  });
+export function postPosts(token: string, post: object) {
+  return publicClient
+    .post(
+      '/posts/post',
+      { ...post },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      return { postId: res.data.data.postId, status: res.status };
+    });
 }
 
 export async function getPost(id: number, token: string) {
