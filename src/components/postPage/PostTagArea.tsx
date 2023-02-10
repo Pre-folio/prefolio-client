@@ -99,7 +99,7 @@ export function PostTagArea({
             gap='48px'
             justifyContent='flex-start'
             alignItems='flex-start'
-            style={{ paddingLeft: '48px' }}
+            style={{ paddingLeft: '30px' }}
           >
             <CategoryTextArea>맡은 역할 </CategoryTextArea>
             <RoleTextArea>{role}</RoleTextArea>
@@ -124,7 +124,7 @@ const GridWrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  row-gap: 18px;
 `;
 
 const CategoryTextArea = styled.div`
