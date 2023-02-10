@@ -21,17 +21,16 @@ export function PostTagArea({
   return (
     <TagAreaWrapper style={style}>
       {(contribution || role) && <DivisionLine />}
-      <Flex
-        gap={18}
-        direction='column'
-        justify='space-between'
-        align='flex-start'
-      >
-        <Row gap='57px' style={{ alignItems: 'flex-start' }}>
+      <GridWrapper>
+        <Row
+          gap='57px'
+          style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+        >
           <CategoryTextArea>태그</CategoryTextArea>
           <Row
             gap='12px'
             justifyContent='flex-start'
+            alignItems='flex-start'
             style={{ maxWidth: '360px', flexWrap: 'wrap' }}
           >
             {tags?.map((tag: any, index: number) => {
@@ -57,7 +56,26 @@ export function PostTagArea({
             })}
           </Row>
         </Row>
-        <Row gap='38px' style={{ height: '28px' }}>
+
+        {contribution && (
+          <Row
+            gap='48px'
+            justifyContent='flex-start'
+            alignItems='flex-start'
+            style={{ paddingLeft: '48px' }}
+          >
+            <CategoryTextArea>기여도</CategoryTextArea>
+            <Tag
+              type={'activity'}
+              sort={`${contribution}%`}
+              style={{ backgroundColor: 'white' }}
+            />
+          </Row>
+        )}
+        <Row
+          gap='38px'
+          style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+        >
           <CategoryTextArea>사용 툴</CategoryTextArea>
           <Row
             gap='12px'
@@ -76,31 +94,18 @@ export function PostTagArea({
             })}
           </Row>
         </Row>
-      </Flex>
-      <Flex
-        gap={23}
-        direction='column'
-        align='flex-start'
-        justify='space-between'
-        style={{ paddingLeft: '43px', height: 'auto' }}
-      >
-        {contribution && (
-          <Row gap='48px'>
-            <CategoryTextArea>기여도</CategoryTextArea>
-            <Tag
-              type={'activity'}
-              sort={`${contribution}%`}
-              style={{ backgroundColor: 'white' }}
-            />
-          </Row>
-        )}
         {role && (
-          <Row gap='28px'>
+          <Row
+            gap='48px'
+            justifyContent='flex-start'
+            alignItems='flex-start'
+            style={{ paddingLeft: '48px' }}
+          >
             <CategoryTextArea>맡은 역할 </CategoryTextArea>
             <RoleTextArea>{role}</RoleTextArea>
           </Row>
         )}
-      </Flex>
+      </GridWrapper>
     </TagAreaWrapper>
   );
 }
@@ -112,6 +117,14 @@ const TagAreaWrapper = styled.div`
   padding: 24px 30px;
   border-radius: 8px;
   display: flex;
+`;
+
+const GridWrapper = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
 `;
 
 const CategoryTextArea = styled.div`
