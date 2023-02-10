@@ -81,7 +81,7 @@ const Wrapper = styled.div<{
   gap: 16px;
   padding: 16px 38px;
 
-  z-index: 10001;
+  z-index: 20000;
   width: fit-content;
 
   background-color: ${({ varient }) => TOAST_SRC.wrapper[varient]};
