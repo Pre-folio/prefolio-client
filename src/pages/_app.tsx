@@ -31,7 +31,6 @@ export default function App({ Component, pageProps }: AppProps) {
           property='og:image'
           content='https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/ogImage.jpg'
         />
-        <meta property='og:url' content='pre-folio.com' />
       </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
