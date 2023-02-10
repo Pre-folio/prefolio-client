@@ -30,18 +30,27 @@ interface ProfileCardProps {
  * @param scraps 스크랩수
  * @returns
  */
-export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, style, isMyProfile }: ProfileCardProps) {
+export function ProfileCard({
+  imageSrc,
+  nickname,
+  grade,
+  field,
+  hits,
+  scraps,
+  style,
+  isMyProfile,
+}: ProfileCardProps) {
   const gradeToString: string = `${grade}학년`;
   const router = useRouter();
   const [userInfo, setUserInfo] = useRecoilState(userState);
 
   return (
     <Container style={style}>
-      <ImageWrapper alt="프로필 이미지" src={imageSrc ? imageSrc : ''} />
+      <ImageWrapper alt='프로필 이미지' src={imageSrc ? imageSrc : ''} />
       <NicknameWrapper>{nickname || '닉네임'}</NicknameWrapper>
-      <Row width="100%" justifyContent="space-between" marginTop="30px">
+      <Row width='100%' justifyContent='space-between' marginTop='30px'>
         <Tag
-          type="activity"
+          type='activity'
           sort={gradeToString}
           style={{
             backgroundColor: theme.palette.Gray10,
@@ -49,14 +58,14 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, st
             boxShadow: 'none',
           }}
         />
-        <Tag type="field" sort={field} style={{ boxShadow: 'none' }} />
+        <Tag type='field' sort={field} style={{ boxShadow: 'none' }} />
       </Row>
       {isMyProfile && (
         <>
           <Button
-            type="small"
-            content="프로필 수정"
-            color="black"
+            type='small'
+            content='프로필 수정'
+            color='black'
             style={{
               marginTop: '30px',
               backgroundColor: `${theme.palette.Gray10}`,
@@ -69,19 +78,19 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, st
         </>
       )}
       <Column
-        width="100%"
-        marginTop="30px"
-        gap="12px"
+        width='100%'
+        marginTop='30px'
+        gap='12px'
         style={{
           fontSize: `${theme.typo.Body1}`,
           color: `${theme.palette.Gray50}`,
         }}
       >
-        <Row justifyContent="space-between" style={{ width: '100%' }}>
+        <Row justifyContent='space-between' style={{ width: '100%' }}>
           <span>추천수</span>
           <span>{hits}</span>
         </Row>
-        <Row justifyContent="space-between" style={{ width: '100%' }}>
+        <Row justifyContent='space-between' style={{ width: '100%' }}>
           <span>스크랩수</span>
           <span>{scraps}</span>
         </Row>
@@ -91,7 +100,7 @@ export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, st
           <DivisionLine style={{ marginTop: '30px' }} />
           <Button
             style={{ marginTop: '30px', textDecoration: 'underline' }}
-            type="small"
+            type='small'
             color={theme.palette.Gray40}
             content={'로그아웃'}
             onClick={() => {
@@ -138,6 +147,16 @@ const NicknameWrapper = styled.div`
   margin-top: 30px;
   ${theme.typo.Heading3};
   color: ${theme.palette.Black};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  white-space: pre-wrap;
+  word-break: break-all;
+  text-overflow: clip;
+  overflow: hidden;
 `;
 
 const DivisionLine = styled.div`
