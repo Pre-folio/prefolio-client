@@ -4,7 +4,7 @@ import { MouseEventHandler } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { userState } from '../../../store/Auth/userState';
-import { theme } from '../../../styles/theme';
+import { KeyOfPalette, KeyOfTypo, theme } from '../../../styles/theme';
 import { removeCookie } from '../../../utils/cookie';
 import { Button } from '../Button';
 import { Tag } from '../Tag';
@@ -46,9 +46,9 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
               }}
             />
             <Space height={20} />
-            <Text typo={'Heading4'} color={'Black'} height={22}>
+            <TextWrapper typo={'Heading4'} color={'Black'}>
               {user.nickname}
-            </Text>
+            </TextWrapper>
             <Space height={20} />
             <div
               onClick={() => {
@@ -82,6 +82,27 @@ export const ProfilePopUp = (props: ProfilePopUpProps) => {
     </PopUpContainer>
   );
 };
+
+export const TextWrapper = styled.div<{
+  typo: KeyOfTypo;
+  color: KeyOfPalette;
+}>`
+  ${({ typo }) => theme.typo[typo]};
+  color: ${({ color }) => theme.palette[color]};
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  white-space: pre-wrap;
+  word-break: break-all;
+  text-overflow: clip;
+  overflow: hidden;
+
+  height: auto;
+`;
 
 const PopUpContainer = styled.div`
   width: 100%;
