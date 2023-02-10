@@ -15,11 +15,5 @@ export const usePresignedURL = () => {
     return sourceAPI.PRESIGNED_URL('PROFILE', user.userId);
   });
 
-  const uploadS3Mutation = useMutation(sourceAPI.UPLOAD_S3, {
-    onSuccess: (url: string) => {
-      console.log(`${url}에 업로드`);
-    },
-  });
-
   return { url, setSource };
 };
