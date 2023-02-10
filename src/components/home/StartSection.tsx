@@ -35,7 +35,6 @@ export const StartSection = () => {
         color='mint'
         content='바로 시작하기'
         onClick={handleButtonClick}
-        width={272}
       />
     </Section>
   );

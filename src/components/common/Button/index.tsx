@@ -1,6 +1,7 @@
 import styled, { CSSProp, CSSProperties } from 'styled-components';
 import React from 'react';
 import { shadow, theme } from '../../../styles/theme';
+import { Flex } from '../Wrapper';
 
 interface ButtonProps {
   type: 'big' | 'medium' | 'small' | 'popup';
@@ -24,26 +25,38 @@ export function Button({
   width,
   style,
 }: ButtonProps) {
-  return type === 'big' ? (
-    // 버튼_대는 mint color 밖에 없음
-    <BigButton color={color} onClick={onClick} width={width} style={style}>
-      {content || '시작하기'}
-    </BigButton>
-  ) : type === 'medium' ? (
-    <MediumButton color={color} onClick={onClick} width={width} style={style}>
-      {content || '로그인/가입'}
-    </MediumButton>
-  ) : type === 'small' ? (
-    // 버튼_소는 white color 밖에 없음
-    <SmallButton color={color} onClick={onClick} width={width} style={style}>
-      {content || '이미지 업로드'}
-    </SmallButton>
-  ) : type === 'popup' ? (
-    <PopupButton color={color} onClick={onClick} style={style}>
-      {content || '업로드하기'}
-    </PopupButton>
-  ) : (
-    <></>
+  return (
+    <div>
+      {type === 'big' ? ( // 버튼_대는 mint color 밖에 없음
+        <BigButton color={color} onClick={onClick} width={width} style={style}>
+          {content || '시작하기'}
+        </BigButton>
+      ) : type === 'medium' ? (
+        <MediumButton
+          color={color}
+          onClick={onClick}
+          width={width}
+          style={style}
+        >
+          {content || '로그인/가입'}
+        </MediumButton>
+      ) : type === 'small' ? ( // 버튼_소는 white color 밖에 없음
+        <SmallButton
+          color={color}
+          onClick={onClick}
+          width={width}
+          style={style}
+        >
+          {content || '이미지 업로드'}
+        </SmallButton>
+      ) : type === 'popup' ? (
+        <PopupButton color={color} onClick={onClick} style={style}>
+          {content || '업로드하기'}
+        </PopupButton>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }
 
