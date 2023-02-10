@@ -1,7 +1,9 @@
 import { MouseEventHandler, useEffect } from 'react';
 import styled, { CSSProperties } from 'styled-components';
+import { isPostDeleteButtonClickedState } from '../../../store/Popup/popupState';
 import { theme } from '../../../styles/theme';
 import { Button } from '../Button';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export interface ConfirmationPopUpProps {
   handleCancelButtonClick?: MouseEventHandler<HTMLButtonElement>;
@@ -17,12 +19,16 @@ export interface ConfirmationPopUpProps {
  */
 
 export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] =
+    useRecoilState(isPostDeleteButtonClickedState);
+
   useEffect(() => {
     // mount
     document.body.style.overflowY = 'hidden';
     return () => {
       // unmount
       document.body.style.overflowY = 'unset';
+      setIsPostDeleteButtonClicked(false);
     };
   }, []);
 
