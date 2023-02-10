@@ -80,6 +80,10 @@ function Home() {
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 `);
+    document.body.style.backgroundColor = `${theme.palette.Navy}`;
+    return () => {
+      document.body.style.backgroundColor = 'transparent';
+    };
   }, []);
 
   return (
