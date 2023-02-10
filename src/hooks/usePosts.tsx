@@ -37,9 +37,6 @@ export const usePosts = () => {
   const getFeed = async (param: FeedRequestProps) => {
     const res: PostResponse = await postAPI.ALL(getCookie(), param);
 
-    if (res && getCookie()) {
-      console.log(res);
-    }
     if (res.totalPages >= pageNum) {
       setFeed(res.posts);
     } else {

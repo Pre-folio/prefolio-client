@@ -32,7 +32,6 @@ export function deletePost(token: string, postId: number) {
       },
     })
     .then((res) => {
-      console.log(res);
       res;
     });
 }
