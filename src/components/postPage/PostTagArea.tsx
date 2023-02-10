@@ -62,7 +62,7 @@ export function PostTagArea({
             gap='48px'
             justifyContent='flex-start'
             alignItems='flex-start'
-            style={{ paddingLeft: '48px' }}
+            style={{ paddingLeft: '30px' }}
           >
             <CategoryTextArea>기여도</CategoryTextArea>
             <Tag
@@ -96,7 +96,7 @@ export function PostTagArea({
         </Row>
         {role && (
           <Row
-            gap='48px'
+            gap='28px'
             justifyContent='flex-start'
             alignItems='flex-start'
             style={{ paddingLeft: '30px' }}
