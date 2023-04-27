@@ -1,7 +1,9 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
 import styled, { CSSProperties } from 'styled-components';
+import { isPostDeleteButtonClickedState } from '../../../store/Popup/popupState';
 import { theme } from '../../../styles/theme';
 import { Button } from '../Button';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 export interface ConfirmationPopUpProps {
   handleCancelButtonClick?: MouseEventHandler<HTMLButtonElement>;
@@ -17,12 +19,28 @@ export interface ConfirmationPopUpProps {
  */
 
 export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] =
+    useRecoilState(isPostDeleteButtonClickedState);
+
+  useEffect(() => {
+    // mount
+    document.body.style.overflowY = 'hidden';
+    return () => {
+      // unmount
+      document.body.style.overflowY = 'unset';
+      setIsPostDeleteButtonClicked(false);
+    };
+  }, []);
+
   return (
-    <PopUpContainer style={props.style}>
+    <>
       <ConfirmationPopUpWrapper>
-        <ConfirmText>{props.type === 'delete' ? '게시물을 삭제하시겠습니까?' : '업로드하시겠습니까?'}</ConfirmText>
-        <Img src="/images/popup.png" alt="" />
-        <ConfirmText>업로드하시겠습니까?</ConfirmText>
+        <ConfirmText>
+          {props.type === 'delete'
+            ? '게시물을 삭제하시겠습니까?'
+            : '업로드하시겠습니까?'}
+        </ConfirmText>
+        <Img src='/images/popup.png' alt='' />
         <CautionText>
           {props.type === 'delete'
             ? '삭제한 게시물은 되돌리기 어려우니한번 더 확인해주세요!'
@@ -44,36 +62,29 @@ export const ConfirmationPopUp = (props: ConfirmationPopUpProps) => {
         </ButtonWrapper>
       </ConfirmationPopUpWrapper>
       <BackDrop />
-    </PopUpContainer>
+    </>
   );
 };
 
-const PopUpContainer = styled.div`
-  width: 100vw;
-  position: absolute;
-  left: 0;
-  top: 20%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const BackDrop = styled.div`
-  z-index: 9999;
+  z-index: 15000;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   position: fixed;
-  top: 0;
-  left: 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   background-color: rgba(14, 14, 14, 0.5);
+
+  /* overflow: hidden; */
 `;
 
 const ConfirmationPopUpWrapper = styled.div`
-  z-index: 10000;
+  z-index: 16000;
 
   background-color: ${theme.palette.White};
   color: ${theme.palette.Black};
@@ -82,12 +93,20 @@ const ConfirmationPopUpWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   padding: 80px 102.5px 80px 102.5px;
   border-radius: 20px;
 
   width: 792px;
   height: 758px;
+
+  position: fixed;
+  margin: 0 auto;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Img = styled.img`

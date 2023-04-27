@@ -2,6 +2,12 @@ import styled, { CSSProperties } from 'styled-components';
 import { shadow, theme } from '../../../styles/theme';
 import { Column, Row } from '../Wrapper';
 import { Tag } from '../Tag';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../store/Auth/userState';
+import { Button } from '../Button';
+import { Line } from '../Wrapper';
+import { useRouter } from 'next/router';
+import { removeCookie } from '../../../utils/cookie';
 
 interface ProfileCardProps {
   imageSrc?: string;
@@ -11,6 +17,7 @@ interface ProfileCardProps {
   hits?: number;
   scraps?: number;
   style?: CSSProperties;
+  isMyProfile?: boolean;
 }
 
 /**
@@ -23,35 +30,87 @@ interface ProfileCardProps {
  * @param scraps 스크랩수
  * @returns
  */
-export function ProfileCard({ imageSrc, nickname, grade, field, hits, scraps, style }: ProfileCardProps) {
+export function ProfileCard({
+  imageSrc,
+  nickname,
+  grade,
+  field,
+  hits,
+  scraps,
+  style,
+  isMyProfile,
+}: ProfileCardProps) {
   const gradeToString: string = `${grade}학년`;
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+
   return (
     <Container style={style}>
-      <ImageWrapper alt="프로필 이미지" src={imageSrc ? imageSrc : ''} />
+      <ImageWrapper alt='프로필 이미지' src={imageSrc ? imageSrc : ''} />
       <NicknameWrapper>{nickname || '닉네임'}</NicknameWrapper>
-      <Row width="100%" justifyContent="space-between" marginTop="30px">
+      <Row width='100%' justifyContent='space-between' marginTop='30px'>
         <Tag
-          type="activity"
-          sort={gradeToString || '2학년'}
-          style={{ backgroundColor: theme.palette.Gray10, color: theme.palette.Gray50, boxShadow: 'none' }}
+          type='activity'
+          sort={gradeToString}
+          style={{
+            backgroundColor: theme.palette.Gray10,
+            color: theme.palette.Gray50,
+            boxShadow: 'none',
+          }}
         />
-        <Tag type="field" sort={field || 'dev'} style={{ boxShadow: 'none' }} />
+        <Tag type='field' sort={field} style={{ boxShadow: 'none' }} />
       </Row>
+      {isMyProfile && (
+        <>
+          <Button
+            type='small'
+            content='프로필 수정'
+            color='black'
+            style={{
+              marginTop: '30px',
+              backgroundColor: `${theme.palette.Gray10}`,
+            }}
+            onClick={() => {
+              router.push(`/setting/${userInfo.userId}`);
+            }}
+          />
+          <DivisionLine style={{ marginTop: '30px' }} />
+        </>
+      )}
       <Column
-        width="100%"
-        marginTop="30px"
-        gap="12px"
-        style={{ fontSize: `${theme.typo.Body1}`, color: `${theme.palette.Gray50}` }}
+        width='100%'
+        marginTop='30px'
+        gap='12px'
+        style={{
+          fontSize: `${theme.typo.Body1}`,
+          color: `${theme.palette.Gray50}`,
+        }}
       >
-        <Row justifyContent="space-between" style={{ width: '100%' }}>
+        <Row justifyContent='space-between' style={{ width: '100%' }}>
           <span>추천수</span>
-          <span>{hits || 4}</span>
+          <span>{hits}</span>
         </Row>
-        <Row justifyContent="space-between" style={{ width: '100%' }}>
+        <Row justifyContent='space-between' style={{ width: '100%' }}>
           <span>스크랩수</span>
-          <span>{scraps || 4}</span>
+          <span>{scraps}</span>
         </Row>
       </Column>
+      {isMyProfile && (
+        <>
+          <DivisionLine style={{ marginTop: '30px' }} />
+          <Button
+            style={{ marginTop: '30px', textDecoration: 'underline' }}
+            type='small'
+            color={theme.palette.Gray40}
+            content={'로그아웃'}
+            onClick={() => {
+              removeCookie();
+              router.push('/');
+              router.reload();
+            }}
+          />
+        </>
+      )}
     </Container>
   );
 }
@@ -88,4 +147,21 @@ const NicknameWrapper = styled.div`
   margin-top: 30px;
   ${theme.typo.Heading3};
   color: ${theme.palette.Black};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  white-space: pre-wrap;
+  word-break: break-all;
+  text-overflow: clip;
+  overflow: hidden;
+`;
+
+const DivisionLine = styled.div`
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: ${theme.palette.Gray15};
 `;

@@ -50,7 +50,11 @@ export const SettingList = (props: SettingListProps) => {
 
   // 새로고침 시 submit 이벤트 발생
   const onSubmit = (data: any) => {
-    props.isModify ? modifyProfile.mutate(data) : joinPrefolio.mutate(data);
+    if (props.isModify) {
+      modifyProfile.mutate(data);
+    } else {
+      joinPrefolio.mutate(data);
+    }
   };
 
   const onError = (error: any) => {
@@ -72,11 +76,18 @@ export const SettingList = (props: SettingListProps) => {
         trigger={trigger}
       />
       <Space height={80} />
-      <ProfileImage register={register} errors={errors} control={control} watch={watch} setValue={setValue} />
+      <ProfileImage
+        register={register}
+        errors={errors}
+        control={control}
+        watch={watch}
+        setValue={setValue}
+        isModify={props.isModify}
+      />
       <Space height={80} />
-      <Grade control={control} />
+      <Grade control={control} isModify={props.isModify} />
       <Space height={80} />
-      <Part control={control} />
+      <Part control={control} isModify={props.isModify} />
       <Space height={106} />
       <Button
         type={'big'}

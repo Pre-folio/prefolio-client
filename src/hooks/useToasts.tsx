@@ -1,5 +1,9 @@
 import { useRecoilState } from 'recoil';
-import { toastContentState, toastState, toastTypeState } from '../store/Toast/toastState';
+import {
+  toastContentState,
+  toastState,
+  toastTypeState,
+} from '../store/Toast/toastState';
 
 export const useToast = () => {
   const [open, setOpen] = useRecoilState(toastState);

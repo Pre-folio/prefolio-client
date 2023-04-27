@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { CSSProp, CSSProperties } from 'styled-components';
 import React from 'react';
 import { shadow, theme } from '../../../styles/theme';
+import { Flex } from '../Wrapper';
 
 interface ButtonProps {
   type: 'big' | 'medium' | 'small' | 'popup';
@@ -8,6 +9,7 @@ interface ButtonProps {
   content?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   width?: number;
+  style?: CSSProperties;
 }
 
 interface IButton {
@@ -15,27 +17,46 @@ interface IButton {
   width?: number;
 }
 
-export function Button({ type, color, content, onClick, width }: ButtonProps) {
-  return type === 'big' ? (
-    // 버튼_대는 mint color 밖에 없음
-    <BigButton color={color} onClick={onClick} width={width}>
-      {content || '시작하기'}
-    </BigButton>
-  ) : type === 'medium' ? (
-    <MediumButton color={color} onClick={onClick} width={width}>
-      {content || '로그인/가입'}
-    </MediumButton>
-  ) : type === 'small' ? (
-    // 버튼_소는 white color 밖에 없음
-    <SmallButton color={color} onClick={onClick} width={width}>
-      {content || '이미지 업로드'}
-    </SmallButton>
-  ) : type === 'popup' ? (
-    <PopupButton color={color} onClick={onClick}>
-      {content || '업로드하기'}
-    </PopupButton>
-  ) : (
-    <></>
+export function Button({
+  type,
+  color,
+  content,
+  onClick,
+  width,
+  style,
+}: ButtonProps) {
+  return (
+    <div>
+      {type === 'big' ? ( // 버튼_대는 mint color 밖에 없음
+        <BigButton color={color} onClick={onClick} width={width} style={style}>
+          {content || '시작하기'}
+        </BigButton>
+      ) : type === 'medium' ? (
+        <MediumButton
+          color={color}
+          onClick={onClick}
+          width={width}
+          style={style}
+        >
+          {content || '로그인/가입'}
+        </MediumButton>
+      ) : type === 'small' ? ( // 버튼_소는 white color 밖에 없음
+        <SmallButton
+          color={color}
+          onClick={onClick}
+          width={width}
+          style={style}
+        >
+          {content || '이미지 업로드'}
+        </SmallButton>
+      ) : type === 'popup' ? (
+        <PopupButton color={color} onClick={onClick} style={style}>
+          {content || '업로드하기'}
+        </PopupButton>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }
 

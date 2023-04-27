@@ -1,22 +1,43 @@
 import { FeedRequestProps } from '../hooks/usePosts';
-import { client } from './client';
+import { client, publicClient } from './client';
 
-export function postPosts(post: object) {
-  return client.post('/posts/post', post).then((res) => {
-    console.log(res);
-    return { postId: res.data.data.postId, status: res.status };
-  });
+export function postPosts(token: string, post: object) {
+  return publicClient
+    .post(
+      '/posts/post',
+      { ...post },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      return { postId: res.data.data.postId, status: res.status };
+    });
 }
 
-export async function getPost(id: number) {
-  return await client.get(`/posts/post/${id}`).then((res) => {
-    // console.log(res);
-    return res;
-  });
+export async function getPost(id: number, token: string) {
+  return await publicClient
+    .get(`/posts/post/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res;
+    });
 }
 
-export async function getUserPosts(userId: number, pageNum: number, limit: number, partTag: string, actTag: string) {
-  return await client
+export async function getUserPosts(
+  token: string,
+  userId: number,
+  pageNum: number,
+  limit: number,
+  partTag: string,
+  actTag: string
+) {
+  return await publicClient
     .get(`/posts/${userId}`, {
       params: {
         partTag: partTag && partTag,
@@ -24,23 +45,29 @@ export async function getUserPosts(userId: number, pageNum: number, limit: numbe
         pageNum: pageNum,
         limit: limit,
       },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
     .then((res) => {
-      console.log(res);
       return res.data;
     });
 }
 
 export interface ScrapRequestProps {
+  token: string;
   partTagList?: string;
   actTagList?: string;
   pageNum: number;
   limit: number;
 }
-export async function getUserScraps(param: ScrapRequestProps) {
+export async function getUserScraps(token: string, param: ScrapRequestProps) {
   if (param.partTagList && param.actTagList) {
     const res = await client.get(`/posts/scraps`, {
       params: param,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data.data;
   } else if (param.partTagList && !param.actTagList) {
@@ -49,6 +76,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         partTagList: param.partTagList,
         pageNum: param.pageNum,
         limit: param.limit,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data.data;
@@ -59,6 +89,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         pageNum: param.pageNum,
         limit: param.limit,
       },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data.data;
   } else {
@@ -67,6 +100,9 @@ export async function getUserScraps(param: ScrapRequestProps) {
         params: {
           pageNum: param.pageNum,
           limit: param.limit,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

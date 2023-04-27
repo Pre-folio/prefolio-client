@@ -1,3 +1,4 @@
+import { JoinFormValues } from '../hooks/useJoinForm';
 import { setAccessToken, setRefreshToken } from '../utils/cookie';
 import { client, publicClient } from './client';
 import { PartType } from './post';
@@ -23,6 +24,10 @@ export interface GetUserInfoResponse {
   countLike: number;
 }
 
+export interface JoinRequest extends JoinFormValues {
+  token: string;
+}
+
 export const authAPI = {
   KAKAO_VALIDATION: async (code: string): Promise<KakaoValidationResponse> => {
     const response = await publicClient.get(`/kakao/login?code=${code}`);
@@ -33,33 +38,60 @@ export const authAPI = {
     return response.data.data;
   },
 
-  CHECK_NICKNAME: async (nickname: string): Promise<boolean> => {
-    const response = await client.post('/user/nickname', {
-      nickname: `${nickname}`,
-    });
+  CHECK_NICKNAME: async (
+    token: string,
+    nickname: string,
+    userId: number
+  ): Promise<boolean> => {
+    const response = await publicClient.post(
+      '/user/nickname',
+      {
+        nickname: `${nickname}`,
+        userId: userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.data.is_used;
   },
 
   MODIFY_PROFILE: async (data: any): Promise<KakaoJoinResponse> => {
-    console.log(data);
-    const response = await client.put('/user/join', {
-      nickname: data.nickname,
-      profileImage: data.profileImage,
-      grade: data.grade,
-      type: data.type,
-    });
+    const response = await publicClient.put(
+      '/user/join',
+      {
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        grade: data.grade,
+        type: data.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
 
     return response.data.data;
   },
 
   JOIN: async (data: any): Promise<KakaoJoinResponse> => {
-    console.log(data);
-    const response = await client.post('/user/join', {
-      nickname: data.nickname,
-      profileImage: data.profileImage,
-      grade: data.grade,
-      type: data.type,
-    });
+    const response = await publicClient.post(
+      '/user/join',
+      {
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        grade: data.grade,
+        type: data.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
 
     return response.data.data;
   },

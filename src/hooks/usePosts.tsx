@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import postAPI, {
-  ActType,
-  PartType,
-  PostResponse,
-  SortType,
-} from '../apis/post';
+import postAPI, { ActType, PartType, PostResponse, SortType } from '../apis/post';
 import { SinglePostResponse } from '../components/feed/Posts';
 import { getCookie } from '../utils/cookie';
 import { useTagArea } from './useTagArea';
@@ -42,9 +37,6 @@ export const usePosts = () => {
   const getFeed = async (param: FeedRequestProps) => {
     const res: PostResponse = await postAPI.ALL(getCookie(), param);
 
-    if (res && getCookie()) {
-      console.log(res);
-    }
     if (res.totalPages >= pageNum) {
       setFeed(res.posts);
     } else {
@@ -64,7 +56,7 @@ export const usePosts = () => {
       return;
     }
 
-    const feed: PostResponse = await postAPI.SEARCH(param);
+    const feed: PostResponse = await postAPI.SEARCH(getCookie(), param);
 
     feed.posts.length > 0 ? setSearchType('result') : setSearchType('none');
     if (feed.totalPages >= pageNum) {

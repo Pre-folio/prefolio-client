@@ -1,9 +1,14 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { deletePost } from '../../apis/postContent';
+import { useToast } from '../../hooks/useToasts';
+import { isPostDeleteButtonClickedState } from '../../store/Popup/popupState';
 import { palette } from '../../styles/theme';
+import { getCookie } from '../../utils/cookie';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
+import { Toast } from '../common/Toast';
 import { ModifyIcon } from '../Icons/ModifyIcon';
 import { TrashCanIcon } from '../Icons/TrashCanIcon';
 
@@ -14,14 +19,17 @@ interface FloatingButtonProps {
 export function FloatingButton({ postId }: FloatingButtonProps) {
   const router = useRouter();
   const [isTrashCanIconClicked, setIsTrashCanIconClicked] = useState(false);
+  const { openToast } = useToast();
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] =
+    useRecoilState(isPostDeleteButtonClickedState);
 
   const onClickModifyIcon = () => {
-    alert('기능 준비중입니다.');
+    openToast('기능 준비중입니다.', 'error');
     return;
   };
 
   const onClickTrashCanIcon = () => {
-    setIsTrashCanIconClicked(true);
+    setIsPostDeleteButtonClicked(true);
   };
 
   return (
@@ -30,18 +38,7 @@ export function FloatingButton({ postId }: FloatingButtonProps) {
         <ModifyIcon onClick={onClickModifyIcon} />
         <TrashCanIcon onClick={onClickTrashCanIcon} />
       </Wrapper>
-      {isTrashCanIconClicked && (
-        <ConfirmationPopUp
-          type="delete"
-          handleUploadButtonClick={() => {
-            deletePost(postId);
-            router.push('/feed');
-          }}
-          handleCancelButtonClick={() => {
-            setIsTrashCanIconClicked(false);
-          }}
-        />
-      )}
+      <Toast varient={'error'} />
     </>
   );
 }
@@ -55,9 +52,12 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  /* position: fixed;
+  position: fixed;
   bottom: 10%;
-  right: 100px; */
+  /* right: 100px; */
   border-radius: 8px;
   background-color: ${palette.Gray10};
+  z-index: 1000;
+  left: 50%;
+  transform: translate(542px, 0%);
 `;

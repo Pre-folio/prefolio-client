@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { getLikes, getScraps } from '../../apis/postContent';
+import { deletePost, getLikes, getScraps } from '../../apis/postContent';
 import { getPost } from '../../apis/posts';
 import { PostButton } from '../../components/common/PostButton';
 import { Column } from '../../components/common/Wrapper';
@@ -15,42 +15,33 @@ import { IUserInfo } from '../../interfaces';
 import { theme } from '../../styles/theme';
 import { userState } from '../../store/Auth/userState';
 import { GetServerSideProps } from 'next';
+import { getCookie } from '../../utils/cookie';
+import { ConfirmationPopUp } from '../../components/common/ConfirmationPopUp';
+import { isPostDeleteButtonClickedState } from '../../store/Popup/popupState';
+import { useToast } from '../../hooks/useToasts';
+import { Toast } from '../../components/common/Toast';
+import { toastTypeState } from '../../store/Toast/toastState';
 
 const Board = (props: any) => {
   const Viewer = dynamic(() => import('../../components/postPage/TextViewer'), {
     ssr: false,
   });
+  const router = useRouter();
 
   const { postId } = props;
   const userInfo = useRecoilValue(userState);
+  const [isPostDeleteButtonClicked, setIsPostDeleteButtonClicked] =
+    useRecoilState(isPostDeleteButtonClickedState);
+  const toastType = useRecoilValue(toastTypeState);
 
   const { isLoading: isPostLoading, data: postData } = useQuery(
     ['post-data'],
-    async () => await getPost(postId)
+    async () => await getPost(postId, getCookie())
   );
 
   const replaceDate = (date: any) => {
     return date.replaceAll('-', '.');
   };
-
-  // const {
-  //   thumbnail: thumbnailImgUrl,
-  //   title,
-  //   startDate,
-  //   endDate,
-  //   createdAt,
-  //   hits,
-  //   partTag,
-  //   actTag,
-  //   tools,
-  //   contribution,
-  //   task,
-  //   contents: content,
-  // } = postData?.data.data.post;
-  // const tags = partTag.concat(actTag);
-  // const { likes, scraps } = postData?.data.data.count;
-  // const { user: postAuthInfo } = postData?.data.data.user;
-  // const { isLiked: isLikedButtonClicked, isScrapped: isScrapButtonClicked } = postData?.data.data;
 
   // GET 요청 api 후
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState<string>(''); // 썸네일 이미지 url
@@ -78,11 +69,11 @@ const Board = (props: any) => {
   const [isScrapButtonClicked, setIsScrapButtonClicked] =
     useState<boolean>(false);
   const isAuth = postAuthInfo.id === userInfo.userId;
+  const { openToast } = useToast();
 
   useEffect(() => {
     if (!isPostLoading) {
       const data = postData?.data.data;
-      console.log(data);
 
       setThumbnailImgUrl(data.post.thumbnail);
       setTitle(data.post.title);
@@ -107,10 +98,10 @@ const Board = (props: any) => {
   // 좋아요 버튼 클릭 함수
   const onClickLikeButton = async () => {
     if (isAuth) {
-      alert('자신의 글에 좋아요 버튼을 누를 수 없습니다.');
+      openToast('자신의 글을 추천할 수 없습니다.', 'error');
       return;
     } else {
-      const { data, message } = await getLikes(postId);
+      const { data, message } = await getLikes(getCookie(), postId);
       if (message === 'SUCCESS') {
         setIsLikedButtonClicked(!isLikedButtonClicked);
         setLikes(data.likes);
@@ -121,10 +112,10 @@ const Board = (props: any) => {
   // 스크랩 버튼 클릭 함수
   const onClickScrapButton = async () => {
     if (isAuth) {
-      alert('자신의 글을 스크랩할 수 없습니다.');
+      openToast('자신의 글을 스크랩할 수 없습니다.', 'error');
       return;
     } else {
-      const { data, message } = await getScraps(postId);
+      const { data, message } = await getScraps(getCookie(), postId);
       if (message === 'SUCCESS') {
         setIsScrapButtonClicked(!isScrapButtonClicked);
         setScraps(data.scraps);
@@ -134,6 +125,21 @@ const Board = (props: any) => {
 
   return (
     <>
+      <Toast varient={toastType} />
+      {isPostDeleteButtonClicked && (
+        <ConfirmationPopUp
+          type='delete'
+          style={{ position: 'absolute', zIndex: 100 }}
+          handleUploadButtonClick={() => {
+            deletePost(getCookie(), postId);
+            openToast('게시물이 성공적으로 삭제되었어요!', 'success');
+            router.push('/feed');
+          }}
+          handleCancelButtonClick={() => {
+            setIsPostDeleteButtonClicked(false);
+          }}
+        />
+      )}
       {postData?.status === 200 && isAuth && (
         <FloatingButtonWrapper>
           <FloatingButton postId={postId} />
@@ -148,11 +154,21 @@ const Board = (props: any) => {
             paddingBottom: '100px',
           }}
         >
-          <ThumbnailImageWrapper>
-            <ImageUploadArea
-              alt='썸네일 이미지'
-              src={thumbnailImgUrl ? thumbnailImgUrl : ''}
-            />
+          <ThumbnailImageWrapper src={thumbnailImgUrl}>
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                backdropFilter: 'blur(10px)',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <ImageUploadArea
+                alt='썸네일 이미지'
+                src={thumbnailImgUrl ? thumbnailImgUrl : ''}
+              />
+            </div>
           </ThumbnailImageWrapper>
           <Column
             width='996px'
@@ -160,7 +176,7 @@ const Board = (props: any) => {
             alignItems='flex-start'
             marginTop='60px'
           >
-            <TitleArea>{title || '게시글 제목'}</TitleArea>
+            <TitleArea>{title}</TitleArea>
             <DetailInfoArea>
               <Column justifyContent='space-between' alignItems='flex-start'>
                 <div>
@@ -174,10 +190,11 @@ const Board = (props: any) => {
               style={{ marginTop: '56px' }}
               tags={tags.length !== 0 ? tags : ['']}
               tools={tools.length !== 0 ? tools : []}
-              contribution={contribution || 80}
-              role={task || 'UI 디자인, 그래픽'}
+              contribution={contribution}
+              role={task}
             />
             <Viewer style={{ marginTop: '72px' }} data={content} />
+
             <PostButtonWrapper>
               <PostButton
                 type={'hit'}
@@ -192,6 +209,7 @@ const Board = (props: any) => {
                 counts={scraps}
               />
             </PostButtonWrapper>
+
             <DivisionLine />
             <ProfileArea
               userId={postAuthInfo.id}
@@ -217,7 +235,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   await queryClient.prefetchQuery(
     ['post-data'],
-    async () => await getPost(postIdToNumber)
+    async () => await getPost(postIdToNumber, getCookie())
   );
   return {
     props: {
@@ -229,17 +247,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const FloatingButtonWrapper = styled.div`
   position: fixed;
-  top: 100px;
-  right: 10%;
+  top: 700px;
+  margin-right: 10px;
 `;
 
-const ThumbnailImageWrapper = styled.div`
+const ThumbnailImageWrapper = styled.div<{ src: string }>`
   width: 100vw;
   @media screen and (max-width: 1200px) {
     width: 1200px;
   }
   height: 560px;
+
   background-color: ${theme.palette.Gray15};
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
+  background-position: center;
+
   display: flex;
   justify-content: center;
 `;

@@ -43,10 +43,7 @@ export interface ScrapResponse {
 }
 
 export const postAPI = {
-  ALL: async (
-    token: string,
-    param: FeedRequestProps
-  ): Promise<PostResponse> => {
+  ALL: async (token: string, param: FeedRequestProps): Promise<PostResponse> => {
     const response = await publicClient.get(`/posts/all?`, {
       params: {
         ...param,
@@ -58,7 +55,7 @@ export const postAPI = {
     return response.data.data;
   },
 
-  SEARCH: async (data: SearchRequestProps): Promise<PostResponse> => {
+  SEARCH: async (token: string, data: SearchRequestProps): Promise<PostResponse> => {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
@@ -66,31 +63,39 @@ export const postAPI = {
       return { ...accumulator, [value]: values[index] };
     }, {});
 
-    const response = await client.get('/posts/search', {
+    const response = await publicClient.get('/posts/search', {
       params: { ...param },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-
-    console.log('response', response.data.data);
 
     return response.data.data;
   },
 
-  USER: async (data: UserPostRequest): Promise<ScrapResponse> => {
+  USER: async (token: string, data: UserPostRequest): Promise<ScrapResponse> => {
     const keys = Object.keys(data);
     const values = Object.values(data);
 
     let param = keys.reduce((accumulator, value, index) => {
       return { ...accumulator, [value]: values[index] };
     }, {});
-    const response = await client.get(`/posts/${data.userId}`, {
+    const response = await publicClient.get(`/posts/${data.userId}`, {
       params: { ...param },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data.data;
   },
 
-  SCRAP: async (postId: number): Promise<ScrapResponse> => {
-    const response = await client.get(`/posts/scraps/${postId}`);
-    console.log(postId);
+  SCRAP: async (token: string, postId: number): Promise<ScrapResponse> => {
+    const response = await publicClient.get(`/posts/scraps/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return response.data.data;
   },
 };

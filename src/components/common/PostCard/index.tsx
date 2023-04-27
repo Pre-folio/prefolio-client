@@ -9,6 +9,7 @@ import postAPI from '../../../apis/post';
 import { useToast } from '../../../hooks/useToasts';
 import { Toast } from '../Toast';
 import { toastTypeState } from '../../../store/Toast/toastState';
+import { getCookie } from '../../../utils/cookie';
 
 // 나중에 PostProps 만들어서 Post 객체 전체를 받아오는 걸로 수정
 export interface PostCardProps {
@@ -45,7 +46,9 @@ export const PostCard = (props: PostCardProps) => {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const [iconFillColor, setIconFillColor] = useState('none');
-  const [iconStrokeColor, setIconStrokeColor] = useState(`${theme.palette.Gray20}`);
+  const [iconStrokeColor, setIconStrokeColor] = useState(
+    `${theme.palette.Gray20}`
+  );
   const [scrap, setScrap] = useState<boolean>(props.isScrapped);
   const { openToast } = useToast();
   const toastType = useRecoilValue(toastTypeState);
@@ -55,7 +58,7 @@ export const PostCard = (props: PostCardProps) => {
     if (props.isMyPost) {
       openToast('자신의 글은 스크랩할 수 없어요.', 'error');
     } else {
-      const res = await postAPI.SCRAP(props.id);
+      const res = await postAPI.SCRAP(getCookie(), props.id);
       if (e.target === ref.current?.childNodes[0]) {
         setScrap(res.isScrapped);
       } else if (e.target === ref.current?.childNodes[0].childNodes[0]) {
@@ -89,10 +92,20 @@ export const PostCard = (props: PostCardProps) => {
         <Title>{props.title}</Title>
         <TagsWrapper>
           {props.field.map((index) => (
-            <Tag key={index} type={'field'} sort={index} style={{ boxShadow: 'none' }} />
+            <Tag
+              key={index}
+              type={'field'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
           {props.activity.map((index) => (
-            <Tag key={index} type={'activity'} sort={index} style={{ boxShadow: 'none' }} />
+            <Tag
+              key={index}
+              type={'activity'}
+              sort={index}
+              style={{ boxShadow: 'none' }}
+            />
           ))}
         </TagsWrapper>
         <PostInfoWrapper>

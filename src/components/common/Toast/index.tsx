@@ -39,8 +39,17 @@ export const Toast = ({ varient = 'error', onClick }: ToastProps) => {
   return (
     <ToastContainer isOpen={open}>
       <Wrapper varient={varient}>
-        <Image src={TOAST_SRC.icon[varient]} alt="megaphone" width={48} height={48} />
-        <Text typo="Heading5" color="Red80" height={22}>
+        <Image
+          src={TOAST_SRC.icon[varient]}
+          alt='megaphone'
+          width={48}
+          height={48}
+        />
+        <Text
+          typo='Heading5'
+          color={varient === 'error' ? 'Red80' : 'Minttext'}
+          height={22}
+        >
           {content}
         </Text>
       </Wrapper>
@@ -72,7 +81,7 @@ const Wrapper = styled.div<{
   gap: 16px;
   padding: 16px 38px;
 
-  z-index: 10001;
+  z-index: 20000;
   width: fit-content;
 
   background-color: ${({ varient }) => TOAST_SRC.wrapper[varient]};

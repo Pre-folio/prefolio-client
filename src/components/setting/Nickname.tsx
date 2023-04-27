@@ -32,7 +32,7 @@ export const Nickname = ({
   setError,
   trigger,
 }: NicknameProps) => {
-  const [message, setMessage] = useState<string>('*2byte 이상 입력해 주세요.');
+  const [message, setMessage] = useState<string>('*2글자 이상 입력해 주세요.');
   const [messageColor, setMessageColor] = useState<KeyOfPalette>('Red');
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export const Nickname = ({
       <Input
         width={588}
         height={46}
-        placeholder={'최대 24byte'}
+        placeholder={'최대 12글자'}
         errorMessage={
           errors.nickname?.message
             ? errors.nickname?.message
@@ -56,14 +56,14 @@ export const Nickname = ({
         }
         errorMessageColor={errors.nickname?.message ? 'Red' : 'Blue100'}
         {...register('nickname', {
-          required: '*2byte 이상 입력해 주세요.',
+          required: '*2글자 이상 입력해 주세요.',
           maxLength: {
             value: 12,
-            message: '*24byte를 초과하였습니다.',
+            message: '*12글자를 초과하였습니다.',
           },
           minLength: {
-            value: 1,
-            message: '*2byte 이상 입력해 주세요.',
+            value: 2,
+            message: '*2글자 이상 입력해 주세요.',
           },
           validate: { nicknameValidation },
         })}

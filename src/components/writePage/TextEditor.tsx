@@ -3,7 +3,7 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import styled from 'styled-components';
-import { Column } from '../common/Wrapper';
+import { Column, Flex } from '../common/Wrapper';
 import { Button } from '../common/Button';
 import { postPosts } from '../../apis/posts';
 import { useRouter } from 'next/router';
@@ -15,6 +15,14 @@ import { useToast } from '../../hooks/useToasts';
 import { userState } from '../../store/Auth/userState';
 import { ConfirmationPopUp } from '../common/ConfirmationPopUp';
 import { toastTypeState } from '../../store/Toast/toastState';
+
+import chart from '@toast-ui/editor-plugin-chart';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import tableMergedCell from '@toast-ui/editor-plugin-table-merged-cell';
+import uml from '@toast-ui/editor-plugin-uml';
+import { getCookie } from '../../utils/cookie';
 
 type HookCallback = (url: string, text?: string) => void;
 
@@ -45,7 +53,6 @@ const TextEditor = ({
       userId: user.userId,
       path: 'IMAGE',
     });
-    console.log(url);
     const slicedUrl = url.slice(0, url.indexOf('?x-amz'));
     if (url) {
       // presigned url에 파일 업로드 후 url 저장.
@@ -82,7 +89,7 @@ const TextEditor = ({
       contents: text,
     };
 
-    const { postId, status } = await postPosts(postContent);
+    const { postId, status } = await postPosts(getCookie(), postContent);
 
     if (status === 200) {
       openToast('글 작성이 완료됐어요!', 'success');
@@ -99,19 +106,24 @@ const TextEditor = ({
     <>
       {isUploadButtonClicked && (
         <ConfirmationPopUp
+          // style={{ position: 'absolute', top: '50%' }}
           handleUploadButtonClick={onClickPopupUploadButton}
           handleCancelButtonClick={() => {
             setIsUploadButtonClicked(false);
           }}
         />
       )}
-      <Column gap="20px" alignItems="flex-end" style={{ paddingBottom: '60px' }}>
+      <Column
+        gap='20px'
+        alignItems='flex-end'
+        style={{ paddingBottom: '60px' }}
+      >
         <EditorWrapper>
           <Editor
             ref={editorRef}
-            placeholder="내용을 입력해주세요."
-            previewStyle="vertical" // 미리보기 스타일 지정
-            height="520px" // 에디터 창 높이
+            placeholder='내용을 입력해주세요.'
+            previewStyle='vertical' // 미리보기 스타일 지정
+            height='520px' // 에디터 창 높이
             // initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
             toolbarItems={[
               ['heading', 'bold', 'italic', 'strike'],
@@ -127,9 +139,21 @@ const TextEditor = ({
             hooks={{
               addImageBlobHook: onUploadImage,
             }}
+            plugins={[
+              chart,
+              codeSyntaxHighlight,
+              colorSyntax,
+              tableMergedCell,
+              uml,
+            ]}
           />
         </EditorWrapper>
-        <Button type="medium" color="mint" content="업로드하기" onClick={onClickUploadButton} />
+        <Button
+          type='medium'
+          color='mint'
+          content='업로드하기'
+          onClick={onClickUploadButton}
+        />
         <Toast varient={toastType} />
       </Column>
     </>
@@ -149,6 +173,7 @@ const EditorWrapper = styled.div`
 
   .toastui-editor-main-container {
     background-color: white;
+
     /* font: Pretendard;
     font-size: 140px; */
   }

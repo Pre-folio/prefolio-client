@@ -40,7 +40,6 @@ const Feed = () => {
   useEffect(() => {
     if (isView && getNextPageIsPossible) {
       getNextPage();
-      console.log('끝');
     }
   }, [isView, getBoard]);
 
@@ -59,7 +58,13 @@ const Feed = () => {
       <Space height={60} />
       {!isLoading && getBoardIsSuccess && getBoard!.pages
         ? getBoard?.pages?.map((page_data: any) => {
-            return <Posts posts={page_data.board_page} key={page_data.current_page} ref={ref} />;
+            return (
+              <Posts
+                posts={page_data.board_page}
+                key={page_data.current_page}
+                ref={ref}
+              />
+            );
           })
         : null}
       <Space height={96} />

@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img src="https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/banner0.jpg" width=100%>
 
-## Getting Started
+# PRE:FOLIO<img src="https://user-images.githubusercontent.com/103591752/218816673-e1721062-9683-4810-b523-76666d6ec0e5.png" align=left width=100>
 
-First, run the development server:
+> 대학생이라면 이용해야 하는 IT 스펙 저장소, Prepare Your Portfolio! • <b>클라이언트</b> 레포지토리
 
-```bash
-npm run dev
-# or
-yarn dev
+<br/>
+
+
+## 1. 서비스 소개
+
+<img src="https://user-images.githubusercontent.com/103591752/218819044-a53eb271-280f-4216-a8a3-3225c8a9a84a.png">
+
+<br/>
+
+## 2. 사용 기술
+
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/React Query-FF4154?style=flat-square&logo=reactquery&logoColor=white">
+<img src="https://img.shields.io/badge/Recoil-121212?style=flat-square&logo=react&logoColor=white">
+<br/>
+<img src="https://img.shields.io/badge/Styled-DB7093?style=flat-square&logo=styled-components&logoColor=white">
+<img src="https://img.shields.io/badge/Storybook-FF4785?style=flat-square&logo=storybook&logoColor=white">
+<img src="https://img.shields.io/badge/ESlint-4B32C3?style=flat-square&logo=eslint&logoColor=white">
+<img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=prettier&logoColor=white">
+
+## 3. 폴더 구조
+
+```
+.
+├── .github #S3 자동 배포 워크플로우
+├── src
+│    ├── apis
+│    ├── assets
+│    ├── components
+│    ├── constants
+│    ├── hooks
+│    ├── interfaces
+│    ├── pages
+│    ├── store
+│    ├── styles #global style, theme provider 세팅
+│    └── utils
+└── #etc...
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 4. 바로가기
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<div align="center">
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+🔗 [프리폴리오 바로가기](https://pre-folio.com)
+<br/>
+<img width="60%" src="https://user-images.githubusercontent.com/103591752/222283911-311b0279-ea27-4da6-afbf-618a9e13e247.gif" />
+</div>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 5. 참여자
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<table>
+    <tr align="center">
+        <td><B>front-end<B></td>
+        <td><B>front-end<B></td>
+    </tr>
+    <tr align="center">
+        <td><B>강나연<B></td>
+        <td><B>장영준<B></td>
+    </tr>
+    <tr align="center">
+        <td>
+            <img src="https://github.com/kongnayeon.png?size=100">
+            <br>
+            <a href="https://github.com/kongnayeon"><I>kongnayeon</I></a>
+        </td>
+        <td>
+            <img src="https://github.com/yjoonjang.png?size=100" width="100">
+            <br>
+            <a href="https://github.com/yjoonjang"><I>yjoonjang</I></a>
+        </td>
+    </tr>
+</table>

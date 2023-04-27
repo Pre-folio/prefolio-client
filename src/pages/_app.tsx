@@ -12,6 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import ScrollToTop from '../components/common/ScrollToTop';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -21,6 +22,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Pre:folio</title>
         <link rel='shortcut icon' href='/favicon.png' />
+        <meta property='og:title' content='Pre:folio' />
+        <meta
+          property='og:description'
+          content='대학생이라면 이용해야 하는 IT 스펙 저장소, Prepare Your Portfolio!'
+        />
+        <meta
+          property='og:image'
+          content='https://s3.ap-northeast-2.amazonaws.com/prefolio.net-image/default/ogImage.jpg'
+        />
       </Head>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
@@ -28,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <GlobalStyle />
             <ThemeProvider theme={theme}>
               <Layout>
+                <ScrollToTop />
                 <Component {...pageProps} />
               </Layout>
             </ThemeProvider>

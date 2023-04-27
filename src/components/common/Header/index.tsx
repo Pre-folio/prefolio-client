@@ -9,9 +9,10 @@ import { Button } from '../Button';
 import { userState } from '../../../store/Auth/userState';
 import { useAutoLogin } from '../../../hooks/useAutoLogin';
 import { ProfilePopUp } from '../PropfilePopUp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toast } from '../Toast';
 import { toastTypeState } from '../../../store/Toast/toastState';
+import ScrollToTop from '../ScrollToTop';
 
 export function Header() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export function Header() {
   return (
     <>
       <HeaderWrapper>
+        <ScrollToTop />
         <Wrapper>
           <Logo />
           {currentUrl === '/login' ? (
@@ -77,6 +79,8 @@ export function Header() {
                 </Row>
               </>
             )
+          ) : currentUrl.includes('/setting') ? (
+            <></>
           ) : (
             // 로그인 안 됐을 경우
             <Button
@@ -110,6 +114,10 @@ const HeaderWrapper = styled.div`
   z-index: 999;
 
   width: 100vw;
+  @media screen and (max-width: 1200px) {
+    margin-left: 0;
+    width: 1200px;
+  }
 `;
 
 const Wrapper = styled.div`

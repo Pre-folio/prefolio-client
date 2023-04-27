@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
-import {
-  SearchRequestProps,
-  SearchStateType,
-  usePosts,
-} from '../../hooks/usePosts';
+import { SearchRequestProps, SearchStateType, usePosts } from '../../hooks/usePosts';
 import { useTagArea } from '../../hooks/useTagArea';
 import { Space, Text } from '../common/Wrapper';
 import { FeedTagArea } from '../feed/FeedTagArea';
@@ -14,15 +10,7 @@ import { Posts } from '../feed/Posts';
 import { TagTabBar } from '../feed/TagTabBar';
 
 export const SearchPosts = (props: any) => {
-  const {
-    search,
-    setSearch,
-    getFeed,
-    getSearch,
-    feed,
-    searchType,
-    setSearchType,
-  } = usePosts();
+  const { search, setSearch, getFeed, getSearch, feed, searchType, setSearchType } = usePosts();
 
   const {
     getBoard,
@@ -61,17 +49,6 @@ export const SearchPosts = (props: any) => {
   }, []);
 
   useEffect(() => {
-    if (
-      !isLoading &&
-      getBoardIsSuccess &&
-      getBoard!.pages &&
-      getBoard!.pages.length >= 1
-    ) {
-      console.log('searchWord', getBoard);
-    }
-  }, [getBoard]);
-
-  useEffect(() => {
     if (props.value) {
       setSearchWord(props.value);
     } else {
@@ -82,7 +59,7 @@ export const SearchPosts = (props: any) => {
   if (searchWord === '') {
     return (
       <div>
-        <Text typo='Heading3' color='Black' height={24}>
+        <Text typo="Heading3" color="Black" height={24}>
           현재 많은 프리폴리오 유저들이 읽고 있어요
         </Text>
         <Space height={60} />
@@ -102,13 +79,7 @@ export const SearchPosts = (props: any) => {
         <Space height={60} />
         {!isLoading && getBoardIsSuccess && getBoard!.pages && results !== 0 ? (
           getBoard?.pages?.map((page_data: any) => {
-            return (
-              <Posts
-                posts={page_data.board_page}
-                key={page_data.current_page}
-                ref={ref}
-              />
-            );
+            return <Posts posts={page_data.board_page} key={page_data.current_page} ref={ref} />;
           })
         ) : (
           <NoPost
