@@ -15,3 +15,5 @@ export const publicClient: AxiosInstance = axios.create({
   baseURL: PREFOLIO_API_URL,
   withCredentials: true, // refresh_token cookie를 주고받기 위함
 });
+
+publicClient.interceptors.response.use((response) => response, )

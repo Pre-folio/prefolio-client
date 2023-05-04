@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -21,12 +22,13 @@ export function useAutoLogin() {
     pathname.includes('oauth') ||
     pathname.includes('profile');
 
-  // const getUserId = async (accessToken: string) => {
-  //   if (accessToken) {
-  //     await authAPI.USER_TOKEN(accessToken);
-  //     return await authAPI.USER_TOKEN(accessToken);
-  //   }
-  // };
+    // const getUserId = async (accessToken: string) => {
+    //   if (accessToken) {
+    //     await authAPI.USER_TOKEN(accessToken);
+    //     return await authAPI.USER_TOKEN(accessToken);
+    //   }
+    // };
+
   useEffect(() => {
     if (accessToken) {
       accessTokenMutation.mutate(accessToken);

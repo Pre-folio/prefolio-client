@@ -156,7 +156,7 @@ function Home() {
         {/* prop으로 배경색, 높이 받도록 수정 */}
       </Wrapper>
       <ImgWrapper>
-        <Section1 src='/images/home/home1.png' alt='' />
+        <Section src='/images/home/home1.png' alt='' />
 
         <SectionWrapper color={'White'}>
           <motion.div
@@ -224,6 +224,20 @@ const ImgWrapper = styled.div`
   @media screen and (max-width: 1200px) {
     margin-left: 0;
   }
+`;
+
+const Section = styled.img`
+  height: 100vh;
+  width: 100vw;
+
+  @media screen and (max-width: 1200px) {
+    margin-left: 0;
+    width: 1200px;
+  }
+  display: flex;
+  object-fit: cover;
+
+  background: linear-gradient(180deg, #F2F1F0 0%, #F4F2F2 100%);
 `;
 
 const Section1 = styled.img`
