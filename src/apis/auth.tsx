@@ -38,6 +38,13 @@ export const authAPI = {
     return response.data.data;
   },
 
+  REFRESH_TOKEN: async (refreshToken: string, userId: number ): Promise<string> => {
+    const response = await publicClient.post(`/user/refresh/${userId}`, {
+      refreshToken,
+    })
+    return response.data.data;
+  },
+
   CHECK_NICKNAME: async (
     token: string,
     nickname: string,
