@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
-import { Space, Text } from '../common/Wrapper';
+import { Space, Text, Flex } from '../common/Wrapper';
 import { KakaoButton } from './KakaoButton';
 
 const LoginPage = () => {
     return (
-        <Wrapper>
+        <Flex direction="column" justify="center">
             <Space height={125} mobileHeight={110} />
             <Text typo={'Body1'} color={'Black'} height={18}>
                 친구들의 스펙 활동 구경하고 싶으세요?
@@ -28,23 +28,20 @@ const LoginPage = () => {
             <a href="https://kauth.kakao.com/oauth/authorize?client_id=448df92a872863d23fb53063e2ea6e12&redirect_uri=http://localhost:3000/oauth/callback/kakao&response_type=code">
                 카카오 로그인
             </a>
-        </Wrapper>
+        </Flex>
     );
 };
 
 export default LoginPage;
-
-const Wrapper = styled.div`
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-`;
 
 const Img = styled.img`
     background-color: transparent;
 
     height: 321px;
     width: 588px;
+
+    @media screen and (max-width: 1023px) {
+        height: auto;
+        width: 100%;
+    }
 `;
