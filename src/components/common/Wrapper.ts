@@ -68,7 +68,7 @@ export const Space = styled.div<{
     height: ${({ height }) => `${height}px`};
 
     @media (max-width: 1023px) {
-        gap: ${({ mobileHeight }) => (mobileHeight ? `${mobileHeight}px` : '0px')};
+        height: ${({ mobileHeight }) => (mobileHeight ? `${mobileHeight}px` : '')};
     }
 `;
 
