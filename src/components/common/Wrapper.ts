@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { KeyOfPalette, KeyOfTypo, theme } from '../../styles/theme';
+import { KeyOfPalette, KeyOfTypo, media, theme } from '../../styles/theme';
 
 export interface IWrapper {
     width?: string;
@@ -49,8 +49,9 @@ export const Column = styled.div<IWrapper>`
 
 export const Text = styled.div<{
     typo: KeyOfTypo;
+    mobileTypo?: KeyOfTypo;
     color: KeyOfPalette;
-    height: number;
+    height?: number;
 }>`
     ${({ typo }) => theme.typo[typo]};
     color: ${({ color }) => theme.palette[color]};
@@ -59,6 +60,9 @@ export const Text = styled.div<{
     align-items: center;
 
     height: ${({ height }) => `${height}px`};
+    ${media.mobile} {
+        height: ${({ mobileTypo, typo }) => (mobileTypo ? theme.typo[mobileTypo] : theme.typo[typo])};
+    }
 `;
 
 export const Space = styled.div<{
@@ -67,7 +71,7 @@ export const Space = styled.div<{
 }>`
     height: ${({ height }) => `${height}px`};
 
-    @media (max-width: 1023px) {
+    ${media.mobile} {
         height: ${({ mobileHeight }) => (mobileHeight ? `${mobileHeight}px` : '')};
     }
 `;
