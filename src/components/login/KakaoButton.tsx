@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { KakaoIcon } from '../../assets/icons';
-import { theme } from '../../styles/theme';
+import { media, theme } from '../../styles/theme';
 
 export const KakaoButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
     return (
@@ -27,7 +27,7 @@ const StyledButton = styled.button`
     justify-content: space-between;
     padding: 0px 57px 0px 29px;
 
-    @media screen and (max-width: 867px) {
+    ${media.mobile} {
         width: 100%;
         padding: 0px 47px 0px 26px;
     }

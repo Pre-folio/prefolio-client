@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { media } from '../../styles/theme';
 import { Header } from '../common/Header';
 import { Section } from '../common/Wrapper';
 
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
 
-    @media screen and (max-width: 867px) {
+    ${media.mobile} {
         margin: 0px 16px 0px 16px;
     }
 `;
