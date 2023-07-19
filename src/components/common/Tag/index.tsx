@@ -2,15 +2,15 @@ import styled, { CSSProperties } from 'styled-components';
 import { shadow, theme } from '../../../styles/theme';
 
 interface TagProps {
-  type: 'activity' | 'field' | undefined;
-  sort?: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
-  content?: string;
-  style?: CSSProperties;
+    type: 'activity' | 'field' | undefined;
+    sort?: 'plan' | 'dev' | 'design' | 'society' | 'intern' | 'project' | any;
+    content?: string;
+    style?: CSSProperties;
 }
 
 interface ITag {
-  field: 'plan' | 'dev' | 'design' | any;
-  // color?: 'mint' | 'blue' | 'purple' | any;
+    field: 'plan' | 'dev' | 'design' | any;
+    // color?: 'mint' | 'blue' | 'purple' | any;
 }
 
 /**
@@ -21,71 +21,58 @@ interface ITag {
  */
 
 export function Tag({ type, sort, style }: TagProps) {
-  return type === 'activity' ? (
-    <ActivityTag id={sort} style={style}>
-      {sort === 'society'
-        ? '동아리/학회'
-        : sort === 'intern'
-        ? '인턴'
-        : sort === 'project'
-        ? '프로젝트'
-        : sort}
-    </ActivityTag>
-  ) : type === 'field' ? (
-    <FieldTag id={sort} field={sort} style={style}>
-      {sort === 'plan'
-        ? '기획'
-        : sort === 'dev'
-        ? '개발'
-        : sort === 'design'
-        ? '디자인'
-        : sort}
-    </FieldTag>
-  ) : (
-    <></>
-  );
+    return type === 'activity' ? (
+        <ActivityTag id={sort} style={style}>
+            {sort === 'society' ? '동아리/학회' : sort === 'intern' ? '인턴' : sort === 'project' ? '프로젝트' : sort}
+        </ActivityTag>
+    ) : type === 'field' ? (
+        <FieldTag id={sort} field={sort} style={style}>
+            {sort === 'plan' ? '기획' : sort === 'dev' ? '개발' : sort === 'design' ? '디자인' : sort}
+        </FieldTag>
+    ) : (
+        <></>
+    );
 }
 
 const ActivityTag = styled.button`
-  ${theme.typo.Label2}
-  padding: 6px 10px;
-  width: auto !important;
-  height: 28px;
-  border-radius: 4px;
-  background-color: ${theme.palette.Gray10};
-  color: ${theme.palette.Gray50};
-  box-shadow: ${shadow.Button.Black};
-  text-overflow: initial;
-  word-break: keep-all !important;
+    ${theme.typo.Label2}
+    padding: 4px 8px !important;
+    height: 20px;
+    border-radius: 4px;
+    background-color: ${theme.palette.Gray10};
+    color: ${theme.palette.Gray50};
+    box-shadow: ${shadow.Button.Black};
+    text-overflow: initial;
+    word-break: keep-all !important;
 
-  cursor: default;
+    cursor: default;
 `;
 
 const FieldTag = styled.button<ITag>`
-  ${theme.typo.Label2}
-  padding: 6px 10px;
-  width: auto;
-  height: 28px;
-  border-radius: 4px;
-  background-color: ${(props) =>
-    props.field === 'plan'
-      ? theme.palette.Mint10
-      : props.field === 'dev'
-      ? theme.palette.Blue10
-      : props.field === 'design' && theme.palette.Purple10};
-  color: ${(props) =>
-    props.field === 'plan'
-      ? theme.palette.Minttext
-      : props.field === 'dev'
-      ? theme.palette.Blue100
-      : props.field === 'design' && theme.palette.Purple100};
-  box-shadow: ${(props) =>
-    props.field === 'plan'
-      ? shadow.Button.Green
-      : props.field === 'dev'
-      ? shadow.Button.Blue
-      : props.field === 'design' && shadow.Button.Purple};
+    ${theme.typo.Label2}
+    padding: 4px 8px 
+    width: auto;
+    height: 20px;
+    border-radius: 4px;
+    background-color: ${(props) =>
+        props.field === 'plan'
+            ? theme.palette.Mint10
+            : props.field === 'dev'
+            ? theme.palette.Blue10
+            : props.field === 'design' && theme.palette.Purple10};
+    color: ${(props) =>
+        props.field === 'plan'
+            ? theme.palette.Minttext
+            : props.field === 'dev'
+            ? theme.palette.Blue100
+            : props.field === 'design' && theme.palette.Purple100};
+    box-shadow: ${(props) =>
+        props.field === 'plan'
+            ? shadow.Button.Green
+            : props.field === 'dev'
+            ? shadow.Button.Blue
+            : props.field === 'design' && shadow.Button.Purple};
 
-  cursor: default;
-  word-break: keep-all !important;
+    cursor: default;
+    word-break: keep-all !important;
 `;

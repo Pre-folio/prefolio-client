@@ -78,7 +78,7 @@ export const typo = {
     `,
     Label2: css`
         font-family: 'Pretendard', 'Apple SD Gothic Neo';
-        font-weight: 700;
+        font-weight: 500;
         font-size: ${calcRem(12)};
         line-height: 100%;
     `,
