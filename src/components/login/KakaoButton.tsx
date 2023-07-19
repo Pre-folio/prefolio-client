@@ -27,7 +27,7 @@ const StyledButton = styled.button`
     justify-content: space-between;
     padding: 0px 57px 0px 29px;
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (max-width: 867px) {
         width: 100%;
         padding: 0px 47px 0px 26px;
     }

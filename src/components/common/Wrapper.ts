@@ -49,6 +49,7 @@ export const Column = styled.div<IWrapper>`
 
 export const Text = styled.div<{
     typo: KeyOfTypo;
+    mobileTypo?: KeyOfTypo;
     color: KeyOfPalette;
     height: number;
 }>`
@@ -59,6 +60,9 @@ export const Text = styled.div<{
     align-items: center;
 
     height: ${({ height }) => `${height}px`};
+    @media (max-width: 867px) {
+        height: ${({ mobileTypo, typo }) => (mobileTypo ? theme.typo[mobileTypo] : theme.typo[typo])};
+    }
 `;
 
 export const Space = styled.div<{
@@ -67,7 +71,7 @@ export const Space = styled.div<{
 }>`
     height: ${({ height }) => `${height}px`};
 
-    @media (max-width: 1023px) {
+    @media (max-width: 867px) {
         height: ${({ mobileHeight }) => (mobileHeight ? `${mobileHeight}px` : '')};
     }
 `;

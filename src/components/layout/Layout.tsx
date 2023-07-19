@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (max-width: 867px) {
         margin: 0px 16px 0px 16px;
     }
 `;
