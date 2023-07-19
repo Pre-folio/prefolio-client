@@ -29,10 +29,10 @@ export const typo = {
     `,
     Heading4: css`
         font-family: 'Pretendard', 'Apple SD Gothic Neo';
-        font-weight: 700;
+        font-weight: 500;
         font-size: ${calcRem(16)};
         line-height: 100%;
-        letter-spacing: ${calcRem(8)};
+        /* letter-spacing: ${calcRem(8)}; */
     `,
     Heading5: css`
         font-family: 'Pretendard', 'Apple SD Gothic Neo';
